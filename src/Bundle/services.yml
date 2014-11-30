@@ -1,8 +1,19 @@
+parameters:
+    matthias_symfony_console_form.cache_directory: %kernel.cache_dir%/matthias_symfony_console_form
+
 services:
     matthias_symfony_console_form.form_question_helper:
         class: Matthias\SymfonyConsoleForm\Helper\FormQuestionHelper
         arguments:
             - @form.factory
+            - @matthias_symfony_console_form.input_definition_factory
+
+    matthias_symfony_console_form.input_definition_factory:
+        class: Matthias\SymfonyConsoleForm\InputDefinition\FormBasedInputDefinitionFactory
+        arguments:
+            - @form.factory
+            - %matthias_symfony_console_form.cache_directory%
+            - %kernel.debug%
 
     interactive_form_command:
         abstract: true

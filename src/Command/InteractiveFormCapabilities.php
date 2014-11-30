@@ -11,6 +11,8 @@ use Symfony\Component\Form\FormTypeInterface;
 /**
  * @method setDefinition($definition)
  * @method HelperSet getHelperSet()
+ * @method string getName()
+ * @method string|FormTypeInterface formType()
  */
 trait InteractiveFormCapabilities
 {
@@ -34,14 +36,11 @@ trait InteractiveFormCapabilities
      * @param OutputInterface $output
      * @param $formData
      */
-    abstract protected function executeInteractiveFormCommand(InputInterface $input, OutputInterface $output, $formData);
-
-    /**
-     * Return the form type which should be used for the form interaction of this command
-     *
-     * @return string|FormTypeInterface
-     */
-    abstract protected function formType();
+    abstract protected function executeInteractiveFormCommand(
+        InputInterface $input,
+        OutputInterface $output,
+        $formData
+    );
 
     public function setFormQuestionHelper(FormQuestionHelper $formQuestionHelper)
     {
@@ -50,7 +49,7 @@ trait InteractiveFormCapabilities
 
     protected function configure()
     {
-        $this->setDefinition($this->formQuestionHelper()->inputDefinition($this->formType()));
+        $this->setDefinition($this->formQuestionHelper()->inputDefinition($this));
 
         $this->configureInteractiveFormCommand();
     }

@@ -2,12 +2,12 @@
 
 namespace Matthias\SymfonyConsoleForm\Helper;
 
+use Matthias\SymfonyConsoleForm\InputDefinition\InputDefinitionFactory;
 use Matthias\SymfonyConsoleForm\Transformer\FormToQuestionTransformer;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Helper\QuestionHelper;
-use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,15 +19,20 @@ class FormQuestionHelper extends Helper
     private $formFactory;
     /** @var FormToQuestionTransformer[] */
     private $transformers = array();
+    /**
+     * @var InputDefinitionFactory
+     */
+    private $inputDefinitionFactory;
 
     public function getName()
     {
         return 'form_question';
     }
 
-    public function __construct(FormFactoryInterface $formFactory)
+    public function __construct(FormFactoryInterface $formFactory, InputDefinitionFactory $inputDefinitionFactory)
     {
         $this->formFactory = $formFactory;
+        $this->inputDefinitionFactory = $inputDefinitionFactory;
     }
 
     public function interactUsingForm($formType, InputInterface $input, OutputInterface $output)
@@ -64,27 +69,9 @@ class FormQuestionHelper extends Helper
         return $form->getData();
     }
 
-    public function inputDefinition($formType)
+    public function inputDefinition(Command $command)
     {
-        // TODO cache this
-        $form = $this->createForm($formType);
-
-        $inputDefinition = new InputDefinition();
-
-        foreach ($form as $name => $field) {
-            $required = $field->getConfig()->getOption('required', false);
-            if ($required) {
-                $type = InputOption::VALUE_REQUIRED;
-                $default = null;
-            } else {
-                $type = InputOption::VALUE_OPTIONAL;
-                $default = $field->getConfig()->getOption('data', null);
-            }
-
-            $inputDefinition->addOption(new InputOption($name, null, $type, null, $default));
-        }
-
-        return $inputDefinition;
+        return $this->inputDefinitionFactory->createForCommand($command);
     }
 
     private function createForm($type, InputInterface $input = null)

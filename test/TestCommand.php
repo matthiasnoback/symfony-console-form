@@ -8,6 +8,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class TestCommand extends InteractiveFormContainerAwareCommand
 {
+    public function formType()
+    {
+        return new TestType();
+    }
+
     protected function configureInteractiveFormCommand()
     {
         $this->setName('test');
@@ -16,10 +21,5 @@ class TestCommand extends InteractiveFormContainerAwareCommand
     protected function executeInteractiveFormCommand(InputInterface $input, OutputInterface $output, $formData)
     {
         var_dump($formData); exit;
-    }
-
-    protected function formType()
-    {
-        return new TestType();
     }
 }

@@ -146,7 +146,9 @@ Then run `app/console test` and you'll see the following interaction:
 
 # TODO
 
-- The input definition command should be cached (currently for every request the form will be generated again)
 - More field types should be supported
 - It should be possible to have form collections
+- Provide example of stand-alone usage (no need to extend the command)
+- Check and fix the workflow for `--no-interaction`
+- Maybe: provide a way to submit a form at once, possibly using a JSON-encoded array
 - When these things have been provided, release this as a package (or multiple packages for stand-alone use)
