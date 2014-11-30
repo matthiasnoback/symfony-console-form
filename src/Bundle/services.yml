@@ -3,13 +3,13 @@ parameters:
 
 services:
     matthias_symfony_console_form.form_question_helper:
-        class: Matthias\SymfonyConsoleForm\Helper\FormQuestionHelper
+        class: Matthias\SymfonyConsoleForm\Console\Helper\FormQuestionHelper
         arguments:
             - @form.factory
             - @matthias_symfony_console_form.input_definition_factory
 
     matthias_symfony_console_form.input_definition_factory:
-        class: Matthias\SymfonyConsoleForm\InputDefinition\FormBasedInputDefinitionFactory
+        class: Matthias\SymfonyConsoleForm\Console\Input\FormBasedInputDefinitionFactory
         arguments:
             - @form.factory
             - %matthias_symfony_console_form.cache_directory%
@@ -21,18 +21,18 @@ services:
             - @matthias_symfony_console_form.form_question_helper
 
     matthias_symfony_console_form.text_transformer:
-        class: Matthias\SymfonyConsoleForm\Transformer\TextTransformer
+        class: Matthias\SymfonyConsoleForm\Bridge\Transformer\TextTransformer
         tags:
             - { name: form_to_question_transformer, form_type: text }
             - { name: form_to_question_transformer, form_type: email }
 
     matthias_symfony_console_form.password_transformer:
-        class: Matthias\SymfonyConsoleForm\Transformer\PasswordTransformer
+        class: Matthias\SymfonyConsoleForm\Bridge\Transformer\PasswordTransformer
         tags:
             - { name: form_to_question_transformer, form_type: password }
 
     matthias_symfony_console_form.choice_transformer:
-        class: Matthias\SymfonyConsoleForm\Transformer\ChoiceTransformer
+        class: Matthias\SymfonyConsoleForm\Bridge\Transformer\ChoiceTransformer
         tags:
             - { name: form_to_question_transformer, form_type: choice }
             - { name: form_to_question_transformer, form_type: country }

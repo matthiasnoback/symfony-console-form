@@ -1,8 +1,8 @@
 <?php
 
-namespace Matthias\SymfonyConsoleForm\Command;
+namespace Matthias\SymfonyConsoleForm\Console\Command;
 
-use Matthias\SymfonyConsoleForm\Helper\FormQuestionHelper;
+use Matthias\SymfonyConsoleForm\Console\Helper\FormQuestionHelper;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -17,7 +17,7 @@ use Symfony\Component\Form\FormTypeInterface;
 trait InteractiveFormCapabilities
 {
     /**
-     * @var FormQuestionHelper|null
+     * @var \Matthias\SymfonyConsoleForm\Console\Helper\FormQuestionHelper|null
      */
     private $formQuestionHelper;
     private $formData;

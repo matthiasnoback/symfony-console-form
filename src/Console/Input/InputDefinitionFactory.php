@@ -1,6 +1,6 @@
 <?php
 
-namespace Matthias\SymfonyConsoleForm\InputDefinition;
+namespace Matthias\SymfonyConsoleForm\Console\Input;
 
 use Symfony\Component\Console\Command\Command;
 

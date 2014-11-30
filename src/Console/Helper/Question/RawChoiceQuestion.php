@@ -1,6 +1,6 @@
 <?php
 
-namespace Matthias\SymfonyConsoleForm\Question;
+namespace Matthias\SymfonyConsoleForm\Console\Helper\Question;
 
 use Symfony\Component\Console\Question\ChoiceQuestion;
 

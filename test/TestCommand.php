@@ -2,7 +2,7 @@
 
 namespace Matthias\SymfonyConsoleForm\Tests;
 
-use Matthias\SymfonyConsoleForm\Command\InteractiveFormContainerAwareCommand;
+use Matthias\SymfonyConsoleForm\Console\Command\InteractiveFormContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 

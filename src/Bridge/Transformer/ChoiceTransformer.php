@@ -1,8 +1,8 @@
 <?php
 
-namespace Matthias\SymfonyConsoleForm\Transformer;
+namespace Matthias\SymfonyConsoleForm\Bridge\Transformer;
 
-use Matthias\SymfonyConsoleForm\Question\RawChoiceQuestion;
+use Matthias\SymfonyConsoleForm\Console\Helper\Question\RawChoiceQuestion;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormView;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Matthias\SymfonyConsoleForm\Transformer;
+namespace Matthias\SymfonyConsoleForm\Bridge\Transformer;
 
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormView;

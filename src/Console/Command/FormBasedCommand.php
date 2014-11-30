@@ -1,6 +1,6 @@
 <?php
 
-namespace Matthias\SymfonyConsoleForm\Command;
+namespace Matthias\SymfonyConsoleForm\Console\Command;
 
 interface FormBasedCommand
 {

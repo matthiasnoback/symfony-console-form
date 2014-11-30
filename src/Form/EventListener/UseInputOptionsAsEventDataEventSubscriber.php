@@ -1,6 +1,6 @@
 <?php
 
-namespace Matthias\SymfonyConsoleForm\EventListener;
+namespace Matthias\SymfonyConsoleForm\Form\EventListener;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

@@ -1,8 +1,8 @@
 <?php
 
-namespace Matthias\SymfonyConsoleForm\Command;
+namespace Matthias\SymfonyConsoleForm\Console\Command;
 
-use Matthias\SymfonyConsoleForm\Helper\FormQuestionHelper;
+use Matthias\SymfonyConsoleForm\Console\Helper\FormQuestionHelper;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
 abstract class InteractiveFormContainerAwareCommand extends ContainerAwareCommand implements FormBasedCommand

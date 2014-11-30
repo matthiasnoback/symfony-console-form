@@ -1,10 +1,10 @@
 <?php
 
-namespace Matthias\SymfonyConsoleForm\Helper;
+namespace Matthias\SymfonyConsoleForm\Console\Helper;
 
-use Matthias\SymfonyConsoleForm\EventListener\UseInputOptionsAsEventDataEventSubscriber;
-use Matthias\SymfonyConsoleForm\InputDefinition\InputDefinitionFactory;
-use Matthias\SymfonyConsoleForm\Transformer\FormToQuestionTransformer;
+use Matthias\SymfonyConsoleForm\Form\EventListener\UseInputOptionsAsEventDataEventSubscriber;
+use Matthias\SymfonyConsoleForm\Console\Input\InputDefinitionFactory;
+use Matthias\SymfonyConsoleForm\Bridge\Transformer\FormToQuestionTransformer;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Helper\QuestionHelper;
