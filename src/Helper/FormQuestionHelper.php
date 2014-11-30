@@ -2,6 +2,7 @@
 
 namespace Matthias\SymfonyConsoleForm\Helper;
 
+use Matthias\SymfonyConsoleForm\EventListener\UseInputOptionsAsEventDataEventSubscriber;
 use Matthias\SymfonyConsoleForm\InputDefinition\InputDefinitionFactory;
 use Matthias\SymfonyConsoleForm\Transformer\FormToQuestionTransformer;
 use Symfony\Component\Console\Command\Command;
@@ -12,6 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 
 class FormQuestionHelper extends Helper
@@ -63,7 +65,7 @@ class FormQuestionHelper extends Helper
                 $input->setOption($field->getName(), $field->getData());
             }
         } else {
-            throw new \RuntimeException(sprintf('Invalid data provided: %s', $form->getErrors(true, false)));
+            $this->invalidForm($form);
         }
 
         return $form->getData();
@@ -74,9 +76,10 @@ class FormQuestionHelper extends Helper
         return $this->inputDefinitionFactory->createForCommand($command);
     }
 
-    private function createForm($type, InputInterface $input = null)
+    public function createForm($type, InputInterface $input = null)
     {
         $formBuilder = $this->formFactory->createBuilder($type);
+        $formBuilder->addEventSubscriber(new UseInputOptionsAsEventDataEventSubscriber());
 
         if ($input instanceof InputInterface) {
             foreach ($formBuilder->all() as $name => $fieldBuilder) {
@@ -112,5 +115,21 @@ class FormQuestionHelper extends Helper
     private function questionHelper()
     {
         return $this->getHelperSet()->get('question');
+    }
+
+    public function doNotInteractWithForm($formType, $input)
+    {
+        $form = $this->createForm($formType);
+        $form->submit($input);
+        if (!$form->isValid()) {
+            $this->invalidForm($form);
+        }
+
+        return $form->getData();
+    }
+
+    private function invalidForm(FormInterface $form)
+    {
+        throw new \RuntimeException(sprintf('Invalid data provided: %s', $form->getErrors(true, false)));
     }
 }

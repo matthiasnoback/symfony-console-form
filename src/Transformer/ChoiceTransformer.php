@@ -15,7 +15,7 @@ class ChoiceTransformer extends AbstractTransformer
             $choices[$choiceView->value] = $choiceView->label;
         }
 
-        $question = new RawChoiceQuestion($this->questionFrom($formView), $choices);
+        $question = new RawChoiceQuestion($this->questionFrom($formView), $choices, $this->defaultValueFrom($formView));
 
         if ($form->getConfig()->getOption('multiple')) {
             $question->setMultiselect(true);

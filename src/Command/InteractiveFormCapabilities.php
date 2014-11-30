@@ -56,6 +56,12 @@ trait InteractiveFormCapabilities
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->getHelperSet()->set($this->formQuestionHelper());
+
+        if (!$input->isInteractive()) {
+            $this->formData = $this->formQuestionHelper()->doNotInteractWithForm($this->formType(), $input);
+        }
+
         return $this->executeInteractiveFormCommand($input, $output, $this->formData());
     }
 
@@ -82,6 +88,9 @@ trait InteractiveFormCapabilities
         return $this->formData;
     }
 
+    /**
+     * @return FormQuestionHelper
+     */
     protected function formQuestionHelper()
     {
         if ($this->formQuestionHelper === null) {
