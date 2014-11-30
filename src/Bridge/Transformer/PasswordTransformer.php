@@ -7,9 +7,9 @@ use Symfony\Component\Form\FormView;
 
 class PasswordTransformer extends TextTransformer
 {
-    public function transform(Form $form, FormView $formView)
+    public function transform(Form $form)
     {
-        $question = parent::transform($form, $formView);
+        $question = parent::transform($form);
         $question->setHidden(true);
 
         return $question;

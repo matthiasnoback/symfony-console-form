@@ -7,6 +7,7 @@ services:
         arguments:
             - @form.factory
             - @matthias_symfony_console_form.input_definition_factory
+            - @matthias_symfony_console_form.delegating_interactor
 
     matthias_symfony_console_form.input_definition_factory:
         class: Matthias\SymfonyConsoleForm\Console\Input\FormBasedInputDefinitionFactory
@@ -36,3 +37,22 @@ services:
         tags:
             - { name: form_to_question_transformer, form_type: choice }
             - { name: form_to_question_transformer, form_type: country }
+
+    matthias_symfony_console_form.delegating_interactor:
+        class: Matthias\SymfonyConsoleForm\Bridge\Interaction\DelegatingInteractor
+        calls:
+            - [addInteractor, [@matthias_symfony_console_form.root_interactor]]
+            - [addInteractor, [@matthias_symfony_console_form.field_interactor]]
+
+    matthias_symfony_console_form.root_interactor:
+        class: Matthias\SymfonyConsoleForm\Bridge\Interaction\RootInteractor
+        arguments:
+            - @matthias_symfony_console_form.delegating_interactor
+
+    matthias_symfony_console_form.field_interactor:
+        class: Matthias\SymfonyConsoleForm\Bridge\Interaction\FieldInteractor
+        arguments:
+            - @matthias_symfony_console.question_helper
+
+    matthias_symfony_console.question_helper:
+        class: Symfony\Component\Console\Helper\QuestionHelper

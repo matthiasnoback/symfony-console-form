@@ -8,8 +8,8 @@ use Symfony\Component\Form\FormView;
 
 class TextTransformer extends AbstractTransformer
 {
-    public function transform(Form $form, FormView $formView)
+    public function transform(Form $form)
     {
-        return new Question($this->questionFrom($formView), $this->defaultValueFrom($formView));
+        return new Question($this->questionFrom($form), $this->defaultValueFrom($form));
     }
 }

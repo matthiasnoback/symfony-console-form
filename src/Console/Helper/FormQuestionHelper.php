@@ -2,62 +2,44 @@
 
 namespace Matthias\SymfonyConsoleForm\Console\Helper;
 
+use Matthias\SymfonyConsoleForm\Bridge\Interaction\FormInteractor;
 use Matthias\SymfonyConsoleForm\Form\EventListener\UseInputOptionsAsEventDataEventSubscriber;
 use Matthias\SymfonyConsoleForm\Console\Input\InputDefinitionFactory;
-use Matthias\SymfonyConsoleForm\Bridge\Transformer\FormToQuestionTransformer;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
 
 class FormQuestionHelper extends Helper
 {
     private $formFactory;
-    /** @var FormToQuestionTransformer[] */
-    private $transformers = array();
-    /**
-     * @var InputDefinitionFactory
-     */
     private $inputDefinitionFactory;
+    private $formInteractor;
 
     public function getName()
     {
         return 'form_question';
     }
 
-    public function __construct(FormFactoryInterface $formFactory, InputDefinitionFactory $inputDefinitionFactory)
-    {
+    public function __construct(
+        FormFactoryInterface $formFactory,
+        InputDefinitionFactory $inputDefinitionFactory,
+        FormInteractor $formInteractor
+    ) {
         $this->formFactory = $formFactory;
         $this->inputDefinitionFactory = $inputDefinitionFactory;
+        $this->formInteractor = $formInteractor;
     }
 
     public function interactUsingForm($formType, InputInterface $input, OutputInterface $output)
     {
         $form = $this->createForm($formType, $input);
 
-        $view = $form->createView();
-        $submittedData = [];
-
-        foreach ($form as $name => $field) {
-            /** @var Form $field */
-
-            $fieldView = $view[$name];
-            /** @var FormView $fieldView */
-
-            $fieldType = $field->getConfig()->getType()->getName();
-
-            $question = $this->getTransformerFor($fieldType)->transform($field, $fieldView);
-
-            $value = $this->questionHelper()->ask($input, $output, $question);
-
-            $submittedData[$name] = $value;
-        }
+        $submittedData = $this->formInteractor->interactWith($form, $this->questionHelper(), $input, $output);
 
         $form->submit($submittedData);
         if ($form->isValid()) {
@@ -93,20 +75,6 @@ class FormQuestionHelper extends Helper
         $form = $formBuilder->getForm();
 
         return $form;
-    }
-
-    public function addTransformer($formType, FormToQuestionTransformer $transformer)
-    {
-        $this->transformers[$formType] = $transformer;
-    }
-
-    private function getTransformerFor($fieldType)
-    {
-        if (!isset($this->transformers[$fieldType])) {
-            throw new \InvalidArgumentException("No transformer exists for field type '$fieldType'");
-        }
-
-        return $this->transformers[$fieldType];
     }
 
     /**
