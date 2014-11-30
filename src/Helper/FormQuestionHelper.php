@@ -2,10 +2,7 @@
 
 namespace Matthias\SymfonyConsoleForm\Helper;
 
-use Matthias\SymfonyConsoleForm\Transformer\ChoiceTransformer;
 use Matthias\SymfonyConsoleForm\Transformer\FormToQuestionTransformer;
-use Matthias\SymfonyConsoleForm\Transformer\PasswordTransformer;
-use Matthias\SymfonyConsoleForm\Transformer\TextTransformer;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputDefinition;
@@ -13,6 +10,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormView;
 
@@ -34,7 +32,8 @@ class FormQuestionHelper extends Helper
 
     public function interactUsingForm($formType, InputInterface $input, OutputInterface $output)
     {
-        $form = $this->createForm($formType, $input->getOptions());
+        $form = $this->createForm($formType, $input);
+
         $view = $form->createView();
         $submittedData = [];
 
@@ -88,10 +87,22 @@ class FormQuestionHelper extends Helper
         return $inputDefinition;
     }
 
-    private function createForm($type)
+    private function createForm($type, InputInterface $input = null)
     {
-        // TODO support data from options using a ViewTransformer
-        return $this->formFactory->create($type);
+        $formBuilder = $this->formFactory->createBuilder($type);
+
+        if ($input instanceof InputInterface) {
+            foreach ($formBuilder->all() as $name => $fieldBuilder) {
+                /** @var $fieldBuilder FormBuilderInterface */
+                if ($input->hasOption($name)) {
+                    $fieldBuilder->setData($input->getOption($name));
+                }
+            }
+        }
+
+        $form = $formBuilder->getForm();
+
+        return $form;
     }
 
     public function addTransformer($formType, FormToQuestionTransformer $transformer)
