@@ -1,0 +1,26 @@
+<?php
+
+namespace Matthias\SymfonyConsoleForm\Transformer;
+
+use Matthias\SymfonyConsoleForm\Question\RawChoiceQuestion;
+use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormView;
+
+class ChoiceTransformer extends AbstractTransformer
+{
+    public function transform(Form $form, FormView $formView)
+    {
+        $choices = [];
+        foreach ($formView->vars['choices'] as $choiceView) {
+            $choices[$choiceView->value] = $choiceView->label;
+        }
+
+        $question = new RawChoiceQuestion($this->questionFrom($formView), $choices);
+
+        if ($form->getConfig()->getOption('multiple')) {
+            $question->setMultiselect(true);
+        }
+
+        return $question;
+    }
+}

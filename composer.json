@@ -1,0 +1,34 @@
+{
+    "name": "matthiasnoback/symfony-console-form",
+    "type": "library",
+    "description": "Use Symfony forms for Console command input",
+    "keywords": ["Symfony", "console", "form"],
+    "homepage": "http://github.com/matthiasnoback/symfony-console-form",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Matthias Noback",
+            "email": "matthiasnoback@gmail.com",
+            "homepage": "http://php-and-symfony.matthiasnoback.nl"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Matthias\\SymfonyConsoleForm\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Matthias\\SymfonyConsoleForm\\Tests\\": "test/"
+        }
+    },
+    "require": {
+        "php": ">=5.4",
+        "symfony/framework-bundle": "~2.3",
+        "symfony/console": "~2.3",
+        "symfony/validator": "~2.3",
+        "symfony/form": "~2.3",
+        "symfony/yaml": "~2.3",
+        "symfony/finder": "~2.3"
+    }
+}

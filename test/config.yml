@@ -1,0 +1,12 @@
+parameters:
+    kernel.secret: secret
+
+services:
+    matthias_symfony_console_form_test.test_command:
+        class: Matthias\SymfonyConsoleForm\Tests\TestCommand
+        parent: interactive_form_command
+        tags:
+            - { name: console.command }
+
+framework:
+    form: ~

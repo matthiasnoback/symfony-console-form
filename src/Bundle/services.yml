@@ -1,0 +1,27 @@
+services:
+    matthias_symfony_console_form.form_question_helper:
+        class: Matthias\SymfonyConsoleForm\Helper\FormQuestionHelper
+        arguments:
+            - @form.factory
+
+    interactive_form_command:
+        abstract: true
+        arguments:
+            - @matthias_symfony_console_form.form_question_helper
+
+    matthias_symfony_console_form.text_transformer:
+        class: Matthias\SymfonyConsoleForm\Transformer\TextTransformer
+        tags:
+            - { name: form_to_question_transformer, form_type: text }
+            - { name: form_to_question_transformer, form_type: email }
+
+    matthias_symfony_console_form.password_transformer:
+        class: Matthias\SymfonyConsoleForm\Transformer\PasswordTransformer
+        tags:
+            - { name: form_to_question_transformer, form_type: password }
+
+    matthias_symfony_console_form.choice_transformer:
+        class: Matthias\SymfonyConsoleForm\Transformer\ChoiceTransformer
+        tags:
+            - { name: form_to_question_transformer, form_type: choice }
+            - { name: form_to_question_transformer, form_type: country }
