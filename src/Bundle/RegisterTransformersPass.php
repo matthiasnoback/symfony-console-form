@@ -10,7 +10,7 @@ class RegisterTransformersPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
-        $formQuestionHelper = $container->getDefinition('matthias_symfony_console_form.field_interactor');
+        $formQuestionHelper = $container->getDefinition('matthias_symfony_console.transformer_resolver');
         foreach ($container->findTaggedServiceIds('form_to_question_transformer') as $serviceId => $tags) {
             foreach ($tags as $tagAttributes) {
                 $formType = $tagAttributes['form_type'];

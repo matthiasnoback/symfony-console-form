@@ -146,7 +146,6 @@ Then run `app/console test` and you'll see the following interaction:
 
 # TODO
 
-- More field types should be supported
 - Provide example of stand-alone usage (no need to extend the command)
 - Maybe: provide a way to submit a form at once, possibly using a JSON-encoded array
 - Handle invalid form data (maybe in a loop)

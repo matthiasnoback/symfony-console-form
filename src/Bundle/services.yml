@@ -25,7 +25,6 @@ services:
         class: Matthias\SymfonyConsoleForm\Bridge\Transformer\TextTransformer
         tags:
             - { name: form_to_question_transformer, form_type: text }
-            - { name: form_to_question_transformer, form_type: email }
 
     matthias_symfony_console_form.password_transformer:
         class: Matthias\SymfonyConsoleForm\Bridge\Transformer\PasswordTransformer
@@ -59,7 +58,7 @@ services:
     matthias_symfony_console_form.field_interactor:
         class: Matthias\SymfonyConsoleForm\Bridge\Interaction\FieldInteractor
         arguments:
-            - @matthias_symfony_console.question_helper
+            - @matthias_symfony_console.transformer_resolver
 
-    matthias_symfony_console.question_helper:
-        class: Symfony\Component\Console\Helper\QuestionHelper
+    matthias_symfony_console.transformer_resolver:
+        class: Matthias\SymfonyConsoleForm\Bridge\Transformer\TypeAncestryBasedTransformerResolver

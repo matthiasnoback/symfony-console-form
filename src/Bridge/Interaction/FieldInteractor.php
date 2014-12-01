@@ -2,8 +2,7 @@
 
 namespace Matthias\SymfonyConsoleForm\Bridge\Interaction;
 
-use Matthias\SymfonyConsoleForm\Bridge\Interaction\Exception\CanNotInteractWithForm;
-use Matthias\SymfonyConsoleForm\Bridge\Transformer\FormToQuestionTransformer;
+use Matthias\SymfonyConsoleForm\Bridge\Transformer\TransformerResolver;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,12 +11,11 @@ use Symfony\Component\Form\FormInterface;
 
 class FieldInteractor implements FormInteractor
 {
-    /** @var FormToQuestionTransformer[] */
-    private $transformers = [];
+    private $transformerResolver;
 
-    public function addTransformer($formType, FormToQuestionTransformer $transformer)
+    public function __construct(TransformerResolver $transformerResolver)
     {
-        $this->transformers[$formType] = $transformer;
+        $this->transformerResolver = $transformerResolver;
     }
 
     public function interactWith(
@@ -26,20 +24,9 @@ class FieldInteractor implements FormInteractor
         InputInterface $input,
         OutputInterface $output
     ) {
-        $fieldType = $form->getConfig()->getType()->getName();
-
-        $question = $this->getTransformerFor($fieldType)->transform($form);
+        $question = $this->transformerResolver->resolve($form)->transform($form);
 
         return $this->questionHelper($helperSet)->ask($input, $output, $question);
-    }
-
-    private function getTransformerFor($fieldType)
-    {
-        if (!isset($this->transformers[$fieldType])) {
-            throw new CanNotInteractWithForm("No transformer exists for field type '$fieldType'");
-        }
-
-        return $this->transformers[$fieldType];
     }
 
     /**

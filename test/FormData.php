@@ -7,6 +7,5 @@ class FormData
     public $name;
     public $email;
     public $country;
-    public $happy;
     public $addresses;
 }

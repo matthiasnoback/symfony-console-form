@@ -3,23 +3,27 @@
 namespace Matthias\SymfonyConsoleForm\Form;
 
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\ResolvedFormTypeInterface;
 
 class FormUtil
 {
     public static function typeAncestry(FormInterface $form)
     {
-        $child = $form;
-        $ancestorTypeNames = [
-            self::type($child)
-        ];
+        $types = [];
+        self::typeAncestryForType($form->getConfig()->getType(), $types);
 
-        while ($parent = $child->getParent()) {
-            $ancestorTypeNames[] = self::type($parent);
+        return $types;
+    }
 
-            $child = $parent;
+    public static function typeAncestryForType(ResolvedFormTypeInterface $formType = null, array &$types)
+    {
+        if (!($formType instanceof ResolvedFormTypeInterface)) {
+            return;
         }
 
-        return $ancestorTypeNames;
+        $types[] = $formType->getName();
+
+        self::typeAncestryForType($formType->getParent(), $types);
     }
 
     public static function isTypeInAncestry(FormInterface $form, $type)
