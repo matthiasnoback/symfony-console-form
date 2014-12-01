@@ -6,7 +6,6 @@ services:
         class: Matthias\SymfonyConsoleForm\Console\Helper\FormQuestionHelper
         arguments:
             - @form.factory
-            - @matthias_symfony_console_form.input_definition_factory
             - @matthias_symfony_console_form.delegating_interactor
         tags:
             - { name: console_helper }
@@ -17,11 +16,6 @@ services:
             - @form.factory
             - %matthias_symfony_console_form.cache_directory%
             - %kernel.debug%
-
-    interactive_form_command:
-        abstract: true
-        arguments:
-            - @matthias_symfony_console_form.form_question_helper
 
     matthias_symfony_console_form.text_transformer:
         class: Matthias\SymfonyConsoleForm\Bridge\Transformer\TextTransformer
@@ -71,3 +65,10 @@ services:
             - @matthias_symfony_console_form.form_question_helper
         tags:
             - { name: kernel.event_listener, event: console.command, method: onConsoleCommand, priority: 200 }
+
+    matthias_symfony_console_form.set_input_definition_of_form_based_command_event_listener:
+        class: Matthias\SymfonyConsoleForm\Console\EventListener\SetInputDefinitionOfFormBasedCommandEventListener
+        arguments:
+            - @matthias_symfony_console_form.input_definition_factory
+        tags:
+            - { name: kernel.event_listener, event: console.command, method: onConsoleCommand, priority: 2000 }

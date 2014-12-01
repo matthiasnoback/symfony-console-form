@@ -13,13 +13,13 @@ class TestCommand extends InteractiveFormContainerAwareCommand
         return new TestType();
     }
 
-    protected function configureInteractiveFormCommand()
+    protected function configure()
     {
         $this->setName('test');
     }
 
-    protected function executeInteractiveFormCommand(InputInterface $input, OutputInterface $output, $formData)
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
-        var_dump($formData); exit;
+        var_dump($this->formData()); exit;
     }
 }

@@ -149,8 +149,5 @@ Then run `app/console test` and you'll see the following interaction:
 - Provide example of stand-alone usage (no need to extend the command)
 - Maybe: provide a way to submit a form at once, possibly using a JSON-encoded array
 - Handle invalid form data (maybe in a loop)
-- Extract auto-registering of formatter styles to a separate package
-- Extract auto-registering of helpers to a separate package
 - Use form event listener to interact or not (combine these into form interactors too)
-- Don't copy form data to input options
 - When these things have been provided, release this as a package (or multiple packages for stand-alone use)

@@ -2,11 +2,8 @@
 
 namespace Matthias\SymfonyConsoleForm\Console\Helper;
 
-use Matthias\SymfonyConsoleForm\Console\Formatter\Format;
 use Matthias\SymfonyConsoleForm\Bridge\Interaction\FormInteractor;
 use Matthias\SymfonyConsoleForm\Form\EventListener\UseInputOptionsAsEventDataEventSubscriber;
-use Matthias\SymfonyConsoleForm\Console\Input\InputDefinitionFactory;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -17,7 +14,6 @@ use Symfony\Component\Form\FormInterface;
 class FormQuestionHelper extends Helper
 {
     private $formFactory;
-    private $inputDefinitionFactory;
     private $formInteractor;
 
     public function getName()
@@ -25,39 +21,24 @@ class FormQuestionHelper extends Helper
         return 'form_question';
     }
 
-    public function __construct(
-        FormFactoryInterface $formFactory,
-        InputDefinitionFactory $inputDefinitionFactory,
-        FormInteractor $formInteractor
-    ) {
+    public function __construct(FormFactoryInterface $formFactory, FormInteractor $formInteractor)
+    {
         $this->formFactory = $formFactory;
-        $this->inputDefinitionFactory = $inputDefinitionFactory;
         $this->formInteractor = $formInteractor;
     }
 
     public function interactUsingForm($formType, InputInterface $input, OutputInterface $output)
     {
-        Format::registerStyles($output);
-
         $form = $this->createForm($formType, $input);
 
         $submittedData = $this->formInteractor->interactWith($form, $this->getHelperSet(), $input, $output);
 
         $form->submit($submittedData);
-        if ($form->isValid()) {
-            foreach ($form as $field) {
-                $input->setOption($field->getName(), $field->getData());
-            }
-        } else {
+        if (!$form->isValid()) {
             $this->invalidForm($form);
         }
 
         return $form->getData();
-    }
-
-    public function inputDefinition(Command $command)
-    {
-        return $this->inputDefinitionFactory->createForCommand($command);
     }
 
     public function createForm($type, InputInterface $input = null)
