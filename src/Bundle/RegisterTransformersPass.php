@@ -14,7 +14,7 @@ class RegisterTransformersPass implements CompilerPassInterface
         foreach ($container->findTaggedServiceIds('form_to_question_transformer') as $serviceId => $tags) {
             foreach ($tags as $tagAttributes) {
                 $formType = $tagAttributes['form_type'];
-                $formQuestionHelper->addMethodCall('addTransformer', array($formType, new Reference($serviceId)));
+                $formQuestionHelper->addMethodCall('addTransformer', [$formType, new Reference($serviceId)]);
             }
         }
     }

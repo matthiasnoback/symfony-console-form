@@ -23,6 +23,15 @@ class TestType extends AbstractType
                 ]
             )
             ->add(
+                'addresses',
+                'collection',
+                [
+                    'type' => new AddressType(),
+                    'allow_add' => true,
+                    'label' => 'Addresses'
+                ]
+            )
+            ->add(
                 'email',
                 'email',
                 [

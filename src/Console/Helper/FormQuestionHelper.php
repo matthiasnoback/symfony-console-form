@@ -2,12 +2,12 @@
 
 namespace Matthias\SymfonyConsoleForm\Console\Helper;
 
+use Matthias\SymfonyConsoleForm\Console\Formatter\Format;
 use Matthias\SymfonyConsoleForm\Bridge\Interaction\FormInteractor;
 use Matthias\SymfonyConsoleForm\Form\EventListener\UseInputOptionsAsEventDataEventSubscriber;
 use Matthias\SymfonyConsoleForm\Console\Input\InputDefinitionFactory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Helper;
-use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -37,9 +37,11 @@ class FormQuestionHelper extends Helper
 
     public function interactUsingForm($formType, InputInterface $input, OutputInterface $output)
     {
+        Format::registerStyles($output);
+
         $form = $this->createForm($formType, $input);
 
-        $submittedData = $this->formInteractor->interactWith($form, $this->questionHelper(), $input, $output);
+        $submittedData = $this->formInteractor->interactWith($form, $this->getHelperSet(), $input, $output);
 
         $form->submit($submittedData);
         if ($form->isValid()) {
@@ -75,14 +77,6 @@ class FormQuestionHelper extends Helper
         $form = $formBuilder->getForm();
 
         return $form;
-    }
-
-    /**
-     * @return QuestionHelper
-     */
-    private function questionHelper()
-    {
-        return $this->getHelperSet()->get('question');
     }
 
     public function doNotInteractWithForm($formType, $input)

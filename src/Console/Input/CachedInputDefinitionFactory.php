@@ -18,7 +18,7 @@ class CachedInputDefinitionFactory implements InputDefinitionFactory
         $this->debug = $debug;
     }
 
-    public function createForCommand(Command $command, array &$resources = array())
+    public function createForCommand(Command $command, array &$resources = [])
     {
         $cache = $this->configCacheFor($command);
 

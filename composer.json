@@ -24,11 +24,11 @@
     },
     "require": {
         "php": ">=5.4",
-        "symfony/framework-bundle": "~2.3",
-        "symfony/console": "~2.3",
-        "symfony/validator": "~2.3",
-        "symfony/form": "~2.3",
-        "symfony/yaml": "~2.3",
-        "symfony/finder": "~2.3"
+        "symfony/framework-bundle": "~2.5",
+        "symfony/console": "~2.5",
+        "symfony/validator": "~2.5",
+        "symfony/form": "~2.5",
+        "symfony/yaml": "~2.5",
+        "symfony/finder": "~2.5"
     }
 }

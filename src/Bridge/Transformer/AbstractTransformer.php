@@ -2,6 +2,8 @@
 
 namespace Matthias\SymfonyConsoleForm\Bridge\Transformer;
 
+use Matthias\SymfonyConsoleForm\Console\Formatter\Format;
+use Matthias\SymfonyConsoleForm\Form\FormUtil;
 use Symfony\Component\Form\FormInterface;
 
 /**
@@ -11,7 +13,7 @@ abstract class AbstractTransformer implements FormToQuestionTransformer
 {
     protected function questionFrom(FormInterface $form)
     {
-        $question = $form->getConfig()->getOption('label', $form->getName());
+        $question = FormUtil::label($form);
 
         return $this->formattedQuestion($question, $this->defaultValueFrom($form));
     }
@@ -23,17 +25,6 @@ abstract class AbstractTransformer implements FormToQuestionTransformer
 
     protected function formattedQuestion($question, $defaultValue)
     {
-        $default = $defaultValue ? strtr(
-            ' [<info>{defaultValue}</info>]',
-            ['{defaultValue}' => $defaultValue]
-        ) : '';
-
-        return strtr(
-            '<question>{question}</question>{default}: ',
-            [
-                '{question}' => $question,
-                '{default}' => $default
-            ]
-        );
+        return Format::forQuestion($question, $defaultValue);
     }
 }

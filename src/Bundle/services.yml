@@ -41,11 +41,18 @@ services:
     matthias_symfony_console_form.delegating_interactor:
         class: Matthias\SymfonyConsoleForm\Bridge\Interaction\DelegatingInteractor
         calls:
-            - [addInteractor, [@matthias_symfony_console_form.root_interactor]]
+            # more specific interactors (by form type acenstry) should be higher in this list
+            - [addInteractor, [@matthias_symfony_console_form.collection_interactor]]
+            - [addInteractor, [@matthias_symfony_console_form.compound_interactor]]
             - [addInteractor, [@matthias_symfony_console_form.field_interactor]]
 
-    matthias_symfony_console_form.root_interactor:
-        class: Matthias\SymfonyConsoleForm\Bridge\Interaction\RootInteractor
+    matthias_symfony_console_form.compound_interactor:
+        class: Matthias\SymfonyConsoleForm\Bridge\Interaction\CompoundInteractor
+        arguments:
+            - @matthias_symfony_console_form.delegating_interactor
+
+    matthias_symfony_console_form.collection_interactor:
+        class: Matthias\SymfonyConsoleForm\Bridge\Interaction\CollectionInteractor
         arguments:
             - @matthias_symfony_console_form.delegating_interactor
 
