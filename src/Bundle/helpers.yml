@@ -1,6 +1,7 @@
 services:
     matthias_symfony_console_form.register_helpers_event_listener:
         class: Matthias\SymfonyConsoleForm\Console\EventListener\RegisterHelpersEventListener
+        public: true
         arguments:
             - @matthias_symfony_console_form.helper_collection
         tags:
@@ -8,3 +9,4 @@ services:
 
     matthias_symfony_console_form.helper_collection:
         class: Matthias\SymfonyConsoleForm\Console\Helper\HelperCollection
+        public: false

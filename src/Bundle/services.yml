@@ -4,6 +4,7 @@ parameters:
 services:
     matthias_symfony_console_form.form_question_helper:
         class: Matthias\SymfonyConsoleForm\Console\Helper\FormQuestionHelper
+        public: false
         arguments:
             - @matthias_symfony_console_form.console_form_factory
             - @matthias_symfony_console_form.delegating_interactor
@@ -12,6 +13,7 @@ services:
 
     matthias_symfony_console_form.input_definition_factory:
         class: Matthias\SymfonyConsoleForm\Console\Input\CachedInputDefinitionFactory
+        public: false
         arguments:
             - @matthias_symfony_console_form.real_input_definition_factory
             - %matthias_symfony_console_form.cache_directory%
@@ -19,27 +21,32 @@ services:
 
     matthias_symfony_console_form.real_input_definition_factory:
         class: Matthias\SymfonyConsoleForm\Console\Input\FormBasedInputDefinitionFactory
+        public: false
         arguments:
             - @form.factory
 
     matthias_symfony_console_form.text_transformer:
         class: Matthias\SymfonyConsoleForm\Bridge\Transformer\TextTransformer
+        public: false
         tags:
             - { name: form_to_question_transformer, form_type: text }
 
     matthias_symfony_console_form.password_transformer:
         class: Matthias\SymfonyConsoleForm\Bridge\Transformer\PasswordTransformer
+        public: false
         tags:
             - { name: form_to_question_transformer, form_type: password }
 
     matthias_symfony_console_form.choice_transformer:
         class: Matthias\SymfonyConsoleForm\Bridge\Transformer\ChoiceTransformer
+        public: false
         tags:
             - { name: form_to_question_transformer, form_type: choice }
             - { name: form_to_question_transformer, form_type: country }
 
     matthias_symfony_console_form.delegating_interactor:
         class: Matthias\SymfonyConsoleForm\Bridge\Interaction\DelegatingInteractor
+        public: false
         calls:
             # more specific interactors (by form type acenstry) should be higher in this list
             - [addInteractor, [@matthias_symfony_console_form.non_interactive_root_interactor]]
@@ -49,29 +56,35 @@ services:
 
     matthias_symfony_console_form.compound_interactor:
         class: Matthias\SymfonyConsoleForm\Bridge\Interaction\CompoundInteractor
+        public: false
         arguments:
             - @matthias_symfony_console_form.delegating_interactor
 
     matthias_symfony_console_form.non_interactive_root_interactor:
         class: Matthias\SymfonyConsoleForm\Bridge\Interaction\NonInteractiveRootInteractor
+        public: false
         arguments:
             - @matthias_symfony_console_form.delegating_interactor
 
     matthias_symfony_console_form.collection_interactor:
         class: Matthias\SymfonyConsoleForm\Bridge\Interaction\CollectionInteractor
+        public: false
         arguments:
             - @matthias_symfony_console_form.delegating_interactor
 
     matthias_symfony_console_form.field_interactor:
         class: Matthias\SymfonyConsoleForm\Bridge\Interaction\FieldInteractor
+        public: false
         arguments:
             - @matthias_symfony_console.transformer_resolver
 
     matthias_symfony_console.transformer_resolver:
         class: Matthias\SymfonyConsoleForm\Bridge\Transformer\TypeAncestryBasedTransformerResolver
+        public: false
 
     matthias_symfony_console_form.handle_form_based_command_event_listener:
         class: Matthias\SymfonyConsoleForm\Console\EventListener\HandleFormBasedCommandEventListener
+        public: true
         arguments:
             - @matthias_symfony_console_form.form_question_helper
         tags:
@@ -79,6 +92,7 @@ services:
 
     matthias_symfony_console_form.set_input_definition_of_form_based_command_event_listener:
         class: Matthias\SymfonyConsoleForm\Console\EventListener\SetInputDefinitionOfFormBasedCommandEventListener
+        public: true
         arguments:
             - @matthias_symfony_console_form.input_definition_factory
         tags:
@@ -86,10 +100,12 @@ services:
 
     matthias_symfony_console_form.console_form_type_extension:
         class: Matthias\SymfonyConsoleForm\Form\ConsoleFormTypeExtension
+        public: true
         tags:
             - { name: form.type_extension, alias: form }
 
     matthias_symfony_console_form.console_form_factory:
         class: Matthias\SymfonyConsoleForm\Bridge\FormFactory\ConsoleFormWithDefaultValuesFactory
+        public: false
         arguments:
             - @form.factory
