@@ -5,7 +5,7 @@ services:
     matthias_symfony_console_form.form_question_helper:
         class: Matthias\SymfonyConsoleForm\Console\Helper\FormQuestionHelper
         arguments:
-            - @form.factory
+            - @matthias_symfony_console_form.console_form_factory
             - @matthias_symfony_console_form.delegating_interactor
         tags:
             - { name: console_helper }
@@ -37,12 +37,18 @@ services:
         class: Matthias\SymfonyConsoleForm\Bridge\Interaction\DelegatingInteractor
         calls:
             # more specific interactors (by form type acenstry) should be higher in this list
+            - [addInteractor, [@matthias_symfony_console_form.non_interactive_root_interactor]]
             - [addInteractor, [@matthias_symfony_console_form.collection_interactor]]
             - [addInteractor, [@matthias_symfony_console_form.compound_interactor]]
             - [addInteractor, [@matthias_symfony_console_form.field_interactor]]
 
     matthias_symfony_console_form.compound_interactor:
         class: Matthias\SymfonyConsoleForm\Bridge\Interaction\CompoundInteractor
+        arguments:
+            - @matthias_symfony_console_form.delegating_interactor
+
+    matthias_symfony_console_form.non_interactive_root_interactor:
+        class: Matthias\SymfonyConsoleForm\Bridge\Interaction\NonInteractiveRootInteractor
         arguments:
             - @matthias_symfony_console_form.delegating_interactor
 
@@ -72,3 +78,13 @@ services:
             - @matthias_symfony_console_form.input_definition_factory
         tags:
             - { name: kernel.event_listener, event: console.command, method: onConsoleCommand, priority: 2000 }
+
+    matthias_symfony_console_form.console_form_type_extension:
+        class: Matthias\SymfonyConsoleForm\Form\ConsoleFormTypeExtension
+        tags:
+            - { name: form.type_extension, alias: form }
+
+    matthias_symfony_console_form.console_form_factory:
+        class: Matthias\SymfonyConsoleForm\Bridge\FormFactory\ConsoleFormWithDefaultValuesFactory
+        arguments:
+            - @form.factory

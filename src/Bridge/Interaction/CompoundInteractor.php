@@ -11,11 +11,11 @@ use Symfony\Component\Form\FormInterface;
 
 class CompoundInteractor implements FormInteractor
 {
-    private $fieldInteractor;
+    private $formInteractor;
 
-    public function __construct(FormInteractor $fieldInteractor)
+    public function __construct(FormInteractor $formInteractor)
     {
-        $this->fieldInteractor = $fieldInteractor;
+        $this->formInteractor = $formInteractor;
     }
 
     public function interactWith(
@@ -24,6 +24,10 @@ class CompoundInteractor implements FormInteractor
         InputInterface $input,
         OutputInterface $output
     ) {
+        if (!$input->isInteractive()) {
+            throw new CanNotInteractWithForm('This interactor only works with interactive input');
+        }
+
         if (!FormUtil::isCompound($form)) {
             throw new CanNotInteractWithForm('Expected a compound form');
         }
@@ -31,7 +35,7 @@ class CompoundInteractor implements FormInteractor
         $submittedData = [];
 
         foreach ($form->all() as $name => $field) {
-            $submittedData[$name] = $this->fieldInteractor->interactWith($field, $helperSet, $input, $output);
+            $submittedData[$name] = $this->formInteractor->interactWith($field, $helperSet, $input, $output);
         }
 
         return $submittedData;

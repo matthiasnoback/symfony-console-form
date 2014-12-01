@@ -28,6 +28,10 @@ class CollectionInteractor implements FormInteractor
         InputInterface $input,
         OutputInterface $output
     ) {
+        if (!$input->isInteractive()) {
+            throw new CanNotInteractWithForm('This interactor only works with interactive input');
+        }
+
         if (!FormUtil::isTypeInAncestry($form, 'collection')) {
             throw new CanNotInteractWithForm('Expected a "collection" form');
         }

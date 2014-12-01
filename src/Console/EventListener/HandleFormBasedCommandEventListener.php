@@ -25,11 +25,7 @@ class HandleFormBasedCommandEventListener
         $input = $event->getInput();
         $output = $event->getOutput();
 
-        if ($input->isInteractive()) {
-            $formData = $this->formQuestionHelper->interactUsingForm($command->formType(), $input, $output);
-        } else {
-            $formData = $this->formQuestionHelper->doNotInteractWithForm($command->formType(), $input);
-        }
+        $formData = $this->formQuestionHelper->interactUsingForm($command->formType(), $input, $output);
 
         $command->setFormData($formData);
     }
