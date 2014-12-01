@@ -42,35 +42,13 @@ class TestType extends AbstractType
                     'data' => 'Matthias'
                 ]
             )
-            ->add(
-                'email',
-                'email',
-                [
-                    'label' => 'Your email address',
-                    'constraints' => [
-                        new Email()
-                    ]
-                ]
-            )
-            ->add(
-                'country',
-                'country',
-                [
-                    'label' => 'Where do you live?',
-                    'constraints' => [
-                        new Country()
-                    ]
-                ]
-            );
+            ...
+        ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(
-            [
-                'data_class' => 'Matthias\SymfonyConsoleForm\Tests\FormData'
-            ]
-        );
+        $resolver->setDefaults(['data_class' => 'Matthias\SymfonyConsoleForm\Tests\FormData']);
     }
 
     public function getName()
@@ -88,23 +66,25 @@ The corresponding `FormData` class looks like this:
 class FormData
 {
     public $name;
-    public $email;
-    public $country;
+    ...
 }
 ```
 
 ## Create the console command
 
+You only need to implement `FormBasedCommand`:
+
 ```php
 <?php
 
-use Matthias\SymfonyConsoleForm\Command\InteractiveFormContainerAwareCommand;
+use Symfony\Component\Console\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Matthias\SymfonyConsoleForm\Console\Command\FormBasedCommand;
 
-class TestCommand extends InteractiveFormContainerAwareCommand
+class TestCommand extends Command implements FormBasedCommand
 {
-    protected function configureInteractiveFormCommand()
+    protected function configure()
     {
         $this->setName('test');
 
@@ -118,35 +98,30 @@ class TestCommand extends InteractiveFormContainerAwareCommand
         return new TestType();
     }
 
-    protected function executeInteractiveFormCommand(InputInterface $input, OutputInterface $output, $formData)
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
-        // $formData is the valid and populated form data object
+        $formData = $this->formData();
 
+        // $formData is the valid and populated form data object
         ...
     }
 }
-```
-
-Register the command as a service:
-
-```yaml
-services:
-    matthias_symfony_console_form_test.test_command:
-        class: TestCommand
-        # you need to extend from this service
-        parent: interactive_form_command
-        tags:
-            # you need to register the command as a service like this
-            - { name: console.command }
 ```
 
 Then run `app/console test` and you'll see the following interaction:
 
 ![](doc/interaction.png)
 
+When you provide command-line options with the names of the form fields, those values will be used as default values.
+
+If you add the `--no-interaction` option when running the command, it will submit the form using the input options you provided.
+
+If the submitted data is invalid the command will fail.
+
 # TODO
 
 - Provide example of stand-alone usage (no need to extend the command)
 - Maybe: provide a way to submit a form at once, possibly using a JSON-encoded array
 - Handle invalid form data (maybe in a loop)
+- Make sure the input options are also shown in the list of options when running the command with `--help`
 - When these things have been provided, release this as a package (or multiple packages for stand-alone use)
