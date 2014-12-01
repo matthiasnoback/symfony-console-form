@@ -11,11 +11,16 @@ services:
             - { name: console_helper }
 
     matthias_symfony_console_form.input_definition_factory:
+        class: Matthias\SymfonyConsoleForm\Console\Input\CachedInputDefinitionFactory
+        arguments:
+            - @matthias_symfony_console_form.real_input_definition_factory
+            - %matthias_symfony_console_form.cache_directory%
+            - %kernel.debug%
+
+    matthias_symfony_console_form.real_input_definition_factory:
         class: Matthias\SymfonyConsoleForm\Console\Input\FormBasedInputDefinitionFactory
         arguments:
             - @form.factory
-            - %matthias_symfony_console_form.cache_directory%
-            - %kernel.debug%
 
     matthias_symfony_console_form.text_transformer:
         class: Matthias\SymfonyConsoleForm\Bridge\Transformer\TextTransformer
