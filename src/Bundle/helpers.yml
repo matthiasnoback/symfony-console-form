@@ -3,6 +3,8 @@ services:
         class: Matthias\SymfonyConsoleForm\Console\EventListener\RegisterHelpersEventListener
         arguments:
             - @matthias_symfony_console_form.helper_collection
+        tags:
+            - { name: kernel.event_listener, event: console.command, method: onConsoleCommand, priority: 1000 }
 
     matthias_symfony_console_form.helper_collection:
         class: Matthias\SymfonyConsoleForm\Console\Helper\HelperCollection

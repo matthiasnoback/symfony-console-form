@@ -4,7 +4,7 @@ services:
         arguments:
             - @matthias_symfony_console.styles_collection
         tags:
-            - { name: kernel.event_listener, event: console.command, method: onConsoleCommand }
+            - { name: kernel.event_listener, event: console.command, method: onConsoleCommand, priority: 1000 }
 
     matthias_symfony_console.styles_collection:
         class: Matthias\SymfonyConsoleForm\Console\Formatter\StylesCollection

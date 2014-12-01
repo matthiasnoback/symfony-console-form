@@ -11,7 +11,7 @@ class HelperCollection
 
     public function set(HelperInterface $helper)
     {
-        $this->helpers = $helper;
+        $this->helpers[] = $helper;
     }
 
     public function addTo(HelperSet $helperSet)

@@ -38,7 +38,7 @@ class RegisterOutputFormatterStylesPass implements CompilerPassInterface
                     throw new \LogicException(
                         sprintf(
                             'Tag "%s" of service "%s" should have an attribute "%s"',
-                            $tag,
+                            $this->tagName,
                             $serviceStyleId,
                             $this->styleNameAttribute
                         )

@@ -64,3 +64,10 @@ services:
 
     matthias_symfony_console.transformer_resolver:
         class: Matthias\SymfonyConsoleForm\Bridge\Transformer\TypeAncestryBasedTransformerResolver
+
+    matthias_symfony_console_form.handle_form_based_command_event_listener:
+        class: Matthias\SymfonyConsoleForm\Console\EventListener\HandleFormBasedCommandEventListener
+        arguments:
+            - @matthias_symfony_console_form.form_question_helper
+        tags:
+            - { name: kernel.event_listener, event: console.command, method: onConsoleCommand, priority: 200 }

@@ -4,8 +4,6 @@ namespace Matthias\SymfonyConsoleForm\Console\Command;
 
 use Matthias\SymfonyConsoleForm\Console\Helper\FormQuestionHelper;
 use Symfony\Component\Console\Helper\HelperSet;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Form\FormTypeInterface;
 
 /**
@@ -29,19 +27,6 @@ trait InteractiveFormCapabilities
      */
     abstract protected function configureInteractiveFormCommand();
 
-    /**
-     * Execute this command in the regular way, except you also get the form data
-     *
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @param $formData
-     */
-    abstract protected function executeInteractiveFormCommand(
-        InputInterface $input,
-        OutputInterface $output,
-        $formData
-    );
-
     public function setFormQuestionHelper(FormQuestionHelper $formQuestionHelper)
     {
         $this->formQuestionHelper = $formQuestionHelper;
@@ -54,38 +39,6 @@ trait InteractiveFormCapabilities
         $this->configureInteractiveFormCommand();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
-        if (!$input->isInteractive()) {
-            $this->formData = $this->formQuestionHelper()->doNotInteractWithForm($this->formType(), $input);
-        }
-
-        return $this->executeInteractiveFormCommand($input, $output, $this->formData());
-    }
-
-    /**
-     * By default interaction for this command consists of collecting data from the user based on the form type for this
-     * command
-     *
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     */
-    protected function interact(InputInterface $input, OutputInterface $output)
-    {
-        $this->getHelperSet()->set($this->formQuestionHelper());
-
-        $this->formData = $this->formQuestionHelper()->interactUsingForm($this->formType(), $input, $output);
-    }
-
-    private function formData()
-    {
-        if ($this->formData === null) {
-            throw new \LogicException('Form data is not available, run this command in interactive mode');
-        }
-
-        return $this->formData;
-    }
-
     /**
      * @return FormQuestionHelper
      */
@@ -96,5 +49,10 @@ trait InteractiveFormCapabilities
         }
 
         return $this->formQuestionHelper;
+    }
+
+    public function setFormData($data)
+    {
+        $this->formData = $data;
     }
 }
