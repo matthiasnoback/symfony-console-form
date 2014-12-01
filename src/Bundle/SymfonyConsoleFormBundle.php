@@ -15,5 +15,13 @@ class SymfonyConsoleFormBundle extends Bundle
     public function build(ContainerBuilder $container)
     {
         $container->addCompilerPass(new RegisterTransformersPass());
+
+        $container->addCompilerPass(
+            new RegisterOutputFormatterStylesPass(
+                'matthias_symfony_console.styles_collection',
+                'console_style',
+                'style'
+            )
+        );
     }
 }
