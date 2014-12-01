@@ -23,5 +23,12 @@ class SymfonyConsoleFormBundle extends Bundle
                 'style'
             )
         );
+
+        $container->addCompilerPass(
+            new RegisterHelpersPass(
+                'matthias_symfony_console_form.helper_collection',
+                'console_helper'
+            )
+        );
     }
 }

@@ -56,8 +56,6 @@ trait InteractiveFormCapabilities
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->getHelperSet()->set($this->formQuestionHelper());
-
         if (!$input->isInteractive()) {
             $this->formData = $this->formQuestionHelper()->doNotInteractWithForm($this->formType(), $input);
         }

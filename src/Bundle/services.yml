@@ -8,6 +8,8 @@ services:
             - @form.factory
             - @matthias_symfony_console_form.input_definition_factory
             - @matthias_symfony_console_form.delegating_interactor
+        tags:
+            - { name: console_helper }
 
     matthias_symfony_console_form.input_definition_factory:
         class: Matthias\SymfonyConsoleForm\Console\Input\FormBasedInputDefinitionFactory

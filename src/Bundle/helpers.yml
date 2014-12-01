@@ -1,0 +1,8 @@
+services:
+    matthias_symfony_console_form.register_helpers_event_listener:
+        class: Matthias\SymfonyConsoleForm\Console\EventListener\RegisterHelpersEventListener
+        arguments:
+            - @matthias_symfony_console_form.helper_collection
+
+    matthias_symfony_console_form.helper_collection:
+        class: Matthias\SymfonyConsoleForm\Console\Helper\HelperCollection
