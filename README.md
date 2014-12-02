@@ -123,5 +123,6 @@ If the submitted data is invalid the command will fail.
 - Provide example of stand-alone usage (no need to extend the command)
 - Maybe: provide a way to submit a form at once, possibly using a JSON-encoded array
 - Handle invalid form data (maybe in a loop)
-- Make sure the input options are also shown in the list of options when running the command with `--help`
+- Add functional tests
+- Rename and document the console helper
 - When these things have been provided, release this as a package (or multiple packages for stand-alone use)
