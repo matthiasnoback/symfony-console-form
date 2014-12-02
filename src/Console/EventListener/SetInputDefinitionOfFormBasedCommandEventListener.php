@@ -7,6 +7,7 @@ use Matthias\SymfonyConsoleForm\Console\Input\InputDefinitionFactory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Command\HelpCommand;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
+use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 
 class SetInputDefinitionOfFormBasedCommandEventListener
@@ -29,13 +30,12 @@ class SetInputDefinitionOfFormBasedCommandEventListener
             return;
         }
 
-        $this->createAndSetInputDefinition($command, $event->getInput());
+        $inputDefinition = $this->inputDefinitionFactory->createForFormType($command->formType());
+        $this->setInputDefinition($command, $event->getInput(), $inputDefinition);
     }
 
-    private function createAndSetInputDefinition(Command $command, InputInterface $input)
+    private function setInputDefinition(Command $command, InputInterface $input, InputDefinition $inputDefinition)
     {
-        $inputDefinition = $this->inputDefinitionFactory->createForCommand($command);
-
         $command->setDefinition($inputDefinition);
         $command->mergeApplicationDefinition();
         $input->bind($inputDefinition);

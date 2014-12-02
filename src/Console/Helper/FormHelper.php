@@ -9,18 +9,20 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Form\FormInterface;
 
-class FormQuestionHelper extends Helper
+class FormHelper extends Helper
 {
     private $formFactory;
     private $formInteractor;
 
     public function getName()
     {
-        return 'form_question';
+        return 'form';
     }
 
-    public function __construct(ConsoleFormFactory $formFactory, FormInteractor $formInteractor)
-    {
+    public function __construct(
+        ConsoleFormFactory $formFactory,
+        FormInteractor $formInteractor
+    ) {
         $this->formFactory = $formFactory;
         $this->formInteractor = $formInteractor;
     }

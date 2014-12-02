@@ -3,7 +3,7 @@
 namespace Matthias\SymfonyConsoleForm\Console\Input;
 
 use Symfony\Component\Config\ConfigCache;
-use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Form\FormTypeInterface;
 
 class CachedInputDefinitionFactory implements InputDefinitionFactory
 {
@@ -18,20 +18,21 @@ class CachedInputDefinitionFactory implements InputDefinitionFactory
         $this->debug = $debug;
     }
 
-    public function createForCommand(Command $command, array &$resources = [])
+    public function createForFormType($formType, array &$resources = [])
     {
-        $cache = $this->configCacheFor($command);
+        $cache = $this->configCacheFor($formType);
 
         if ($cache->isFresh()) {
             return $this->inputDefinitionFromCache($cache);
         } else {
-            return $this->freshInputDefinition($command, $cache, $resources);
+            return $this->freshInputDefinition($formType, $cache, $resources);
         }
     }
 
-    protected function configCacheFor(Command $command)
+    protected function configCacheFor($formType)
     {
-        $filename = str_replace('\\', '_', get_class($command));
+        $filename = $formType instanceof FormTypeInterface ? $formType->getName() : $formType;
+
         $cache = new ConfigCache($this->cacheDirectory . '/' . $filename, $this->debug);
 
         return $cache;
@@ -42,9 +43,9 @@ class CachedInputDefinitionFactory implements InputDefinitionFactory
         return unserialize(file_get_contents($cache));
     }
 
-    private function freshInputDefinition(Command $command, ConfigCache $cache, array &$resources)
+    private function freshInputDefinition($formType, ConfigCache $cache, array &$resources)
     {
-        $inputDefinition = $this->inputDefinitionFactory->createForCommand($command, $resources);
+        $inputDefinition = $this->inputDefinitionFactory->createForFormType($formType, $resources);
         $cache->write(serialize($inputDefinition), $resources);
 
         return $inputDefinition;

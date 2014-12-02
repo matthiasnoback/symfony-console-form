@@ -2,8 +2,11 @@ parameters:
     matthias_symfony_console_form.cache_directory: %kernel.cache_dir%/matthias_symfony_console_form
 
 services:
-    matthias_symfony_console_form.form_question_helper:
-        class: Matthias\SymfonyConsoleForm\Console\Helper\FormQuestionHelper
+    console_form_helper:
+        alias: matthias_symfony_console_form.form_helper
+
+    matthias_symfony_console_form.form_helper:
+        class: Matthias\SymfonyConsoleForm\Console\Helper\FormHelper
         public: false
         arguments:
             - @matthias_symfony_console_form.console_form_factory
@@ -86,7 +89,7 @@ services:
         class: Matthias\SymfonyConsoleForm\Console\EventListener\HandleFormBasedCommandEventListener
         public: true
         arguments:
-            - @matthias_symfony_console_form.form_question_helper
+            - @matthias_symfony_console_form.form_helper
         tags:
             - { name: kernel.event_listener, event: console.command, method: onConsoleCommand, priority: 200 }
 

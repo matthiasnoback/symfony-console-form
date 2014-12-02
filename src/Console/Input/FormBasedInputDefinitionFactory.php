@@ -20,14 +20,8 @@ class FormBasedInputDefinitionFactory implements InputDefinitionFactory
         $this->formFactory = $formFactory;
     }
 
-    public function createForCommand(Command $command, array &$resources = [])
+    public function createForFormType($formType, array &$resources = [])
     {
-        if (!($command instanceof FormBasedCommand)) {
-            throw new \LogicException('Command should be an instance of FormBasedCommand');
-        }
-
-        $formType = $command->formType();
-
         $resources[] = new FileResource(__FILE__);
 
         $form = $this->formFactory->create($formType);

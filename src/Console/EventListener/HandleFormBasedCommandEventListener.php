@@ -3,14 +3,14 @@
 namespace Matthias\SymfonyConsoleForm\Console\EventListener;
 
 use Matthias\SymfonyConsoleForm\Console\Command\FormBasedCommand;
-use Matthias\SymfonyConsoleForm\Console\Helper\FormQuestionHelper;
+use Matthias\SymfonyConsoleForm\Console\Helper\FormHelper;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 
 class HandleFormBasedCommandEventListener
 {
     private $formQuestionHelper;
 
-    public function __construct(FormQuestionHelper $formQuestionHelper)
+    public function __construct(FormHelper $formQuestionHelper)
     {
         $this->formQuestionHelper = $formQuestionHelper;
     }
