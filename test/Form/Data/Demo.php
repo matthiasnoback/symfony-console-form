@@ -1,8 +1,8 @@
 <?php
 
-namespace Matthias\SymfonyConsoleForm\Tests;
+namespace Matthias\SymfonyConsoleForm\Tests\Form\Data;
 
-class FormData
+class Demo
 {
     public $name;
     public $email;

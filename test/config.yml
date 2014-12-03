@@ -2,10 +2,29 @@ parameters:
     kernel.secret: secret
 
 services:
-    matthias_symfony_console_form_test.test_command:
-        class: Matthias\SymfonyConsoleForm\Tests\TestCommand
+    demo_command:
+        class: Matthias\SymfonyConsoleForm\Tests\Command\PrintFormDataCommand
+        arguments:
+            - demo
         tags:
             - { name: console.command }
+
+    demo_form_type:
+        class: Matthias\SymfonyConsoleForm\Tests\Form\DemoType
+        tags:
+            - { name: form.type, alias: demo }
+
+    name_command:
+        class: Matthias\SymfonyConsoleForm\Tests\Command\PrintFormDataCommand
+        arguments:
+            - name
+        tags:
+            - { name: console.command }
+
+    name_form_type:
+        class: Matthias\SymfonyConsoleForm\Tests\Form\NameType
+        tags:
+            - { name: form.type, alias: name }
 
 framework:
     form: ~

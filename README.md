@@ -15,7 +15,7 @@ Enable `Matthias\SymfonyConsoleForm\Bundle\SymfonyConsoleFormBundle` in the kern
 
 Follow the steps below or just clone this project, then run:
 
-    php test/console.php test
+    php test/console.php form:demo
 
 ## Set up the form
 
@@ -28,7 +28,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints\Country;
 use Symfony\Component\Validator\Constraints\Email;
 
-class TestType extends AbstractType
+class DemoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -48,7 +48,7 @@ class TestType extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(['data_class' => 'Matthias\SymfonyConsoleForm\Tests\FormData']);
+        $resolver->setDefaults(['data_class' => 'Matthias\SymfonyConsoleForm\Tests\Data\Demo']);
     }
 
     public function getName()
@@ -58,12 +58,12 @@ class TestType extends AbstractType
 }
 ```
 
-The corresponding `FormData` class looks like this:
+The corresponding `Demo` class looks like this:
 
 ```php
 <?php
 
-class FormData
+class Demo
 {
     public $name;
     ...
@@ -86,7 +86,7 @@ class TestCommand extends Command implements FormBasedCommand
 {
     protected function configure()
     {
-        $this->setName('test');
+        $this->setName('form:demo');
 
         // you don't need to configure any options here, this is all taken care of
     }
@@ -95,7 +95,7 @@ class TestCommand extends Command implements FormBasedCommand
     {
         // return the form type (can be a string) which should be used for interaction with the user
 
-        return new TestType();
+        return new DemoType();
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -108,7 +108,7 @@ class TestCommand extends Command implements FormBasedCommand
 }
 ```
 
-Then run `app/console test` and you'll see the following interaction:
+Then run `app/console form:demo` and you'll see the following interaction:
 
 ![](doc/interaction.png)
 
@@ -123,5 +123,8 @@ If the submitted data is invalid the command will fail.
 - Provide example of stand-alone usage (no need to extend the command)
 - Maybe: provide a way to submit a form at once, possibly using a JSON-encoded array
 - Handle invalid form data (maybe in a loop)
-- Add functional tests
+- Add more functional tests
+- Show form label of root form
+- Show nesting in form hierarchy using breadcrumbs
+- Show counter when looping through a collection form
 - When these things have been provided, release this as a package (or multiple packages for stand-alone use)

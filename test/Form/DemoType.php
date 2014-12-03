@@ -1,6 +1,6 @@
 <?php
 
-namespace Matthias\SymfonyConsoleForm\Tests;
+namespace Matthias\SymfonyConsoleForm\Tests\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints\Country;
 use Symfony\Component\Validator\Constraints\Email;
 
-class TestType extends AbstractType
+class DemoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -50,20 +50,21 @@ class TestType extends AbstractType
                         new Country()
                     ]
                 ]
-            );
+            )
+        ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(
             [
-                'data_class' => 'Matthias\SymfonyConsoleForm\Tests\FormData'
+                'data_class' => 'Matthias\SymfonyConsoleForm\Tests\Form\Data\Demo'
             ]
         );
     }
 
     public function getName()
     {
-        return 'test';
+        return 'demo';
     }
 }

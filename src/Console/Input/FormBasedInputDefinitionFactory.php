@@ -2,10 +2,8 @@
 
 namespace Matthias\SymfonyConsoleForm\Console\Input;
 
-use Matthias\SymfonyConsoleForm\Console\Command\FormBasedCommand;
 use Matthias\SymfonyConsoleForm\Form\FormUtil;
 use Symfony\Component\Config\Resource\FileResource;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Form\FormFactoryInterface;

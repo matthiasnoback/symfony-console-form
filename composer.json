@@ -30,5 +30,10 @@
         "symfony/form": "~2.5",
         "symfony/yaml": "~2.5",
         "symfony/finder": "~2.5"
+    },
+    "require-dev": {
+        "behat/behat": "~3.0",
+        "symfony/process": "~2.5",
+        "beberlei/assert": "~2.1"
     }
 }

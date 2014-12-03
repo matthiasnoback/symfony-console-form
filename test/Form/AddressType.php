@@ -1,6 +1,6 @@
 <?php
 
-namespace Matthias\SymfonyConsoleForm\Tests;
+namespace Matthias\SymfonyConsoleForm\Tests\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,7 +24,7 @@ class AddressType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => 'Matthias\SymfonyConsoleForm\Tests\Address'
+                'data_class' => 'Matthias\SymfonyConsoleForm\Tests\Form\Data\Address'
             ]
         );
     }
