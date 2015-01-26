@@ -52,6 +52,7 @@ services:
         public: false
         calls:
             # more specific interactors (by form type acenstry) should be higher in this list
+            - [addInteractor, [@matthias_symfony_console_form.field_with_no_interaction_interactor]]
             - [addInteractor, [@matthias_symfony_console_form.non_interactive_root_interactor]]
             - [addInteractor, [@matthias_symfony_console_form.collection_interactor]]
             - [addInteractor, [@matthias_symfony_console_form.compound_interactor]]
@@ -62,6 +63,10 @@ services:
         public: false
         arguments:
             - @matthias_symfony_console_form.delegating_interactor
+
+    matthias_symfony_console_form.field_with_no_interaction_interactor:
+        class: Matthias\SymfonyConsoleForm\Bridge\Interaction\FieldWithNoInteractionInteractor
+        public: false
 
     matthias_symfony_console_form.non_interactive_root_interactor:
         class: Matthias\SymfonyConsoleForm\Bridge\Interaction\NonInteractiveRootInteractor

@@ -20,6 +20,12 @@ class NameType extends AbstractType
                     new Length(array('min' => 4))
                 )
             ]
+        )->add(
+            'submit',
+            'submit',
+            [
+                'label' => 'Submit'
+            ]
         );
     }
 

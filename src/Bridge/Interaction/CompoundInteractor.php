@@ -3,6 +3,7 @@
 namespace Matthias\SymfonyConsoleForm\Bridge\Interaction;
 
 use Matthias\SymfonyConsoleForm\Bridge\Interaction\Exception\CanNotInteractWithForm;
+use Matthias\SymfonyConsoleForm\Bridge\Interaction\Exception\NoNeedToInteractWithForm;
 use Matthias\SymfonyConsoleForm\Form\FormUtil;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Input\InputInterface;
@@ -35,7 +36,11 @@ class CompoundInteractor implements FormInteractor
         $submittedData = [];
 
         foreach ($form->all() as $name => $field) {
-            $submittedData[$name] = $this->formInteractor->interactWith($field, $helperSet, $input, $output);
+            try {
+                $submittedData[$name] = $this->formInteractor->interactWith($field, $helperSet, $input, $output);
+            } catch (NoNeedToInteractWithForm $exception) {
+                continue;
+            }
         }
 
         return $submittedData;
