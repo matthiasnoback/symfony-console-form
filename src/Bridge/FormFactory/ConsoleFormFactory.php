@@ -10,5 +10,5 @@ interface ConsoleFormFactory
     /**
      * @return FormInterface
      */
-    public function create($formType, InputInterface $input);
+    public function create($formType, InputInterface $input, array $options = []);
 }

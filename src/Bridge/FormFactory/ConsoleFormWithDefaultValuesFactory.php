@@ -15,9 +15,9 @@ class ConsoleFormWithDefaultValuesFactory implements ConsoleFormFactory
         $this->formFactory = $formFactory;
     }
 
-    public function create($formType, InputInterface $input)
+    public function create($formType, InputInterface $input, array $options = [])
     {
-        $formBuilder = $this->formFactory->createBuilder($formType);
+        $formBuilder = $this->formFactory->createBuilder($formType, null, $options);
 
         foreach ($formBuilder as $name => $childBuilder) {
             /** @var FormBuilderInterface $childBuilder */

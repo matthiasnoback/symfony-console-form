@@ -27,9 +27,9 @@ class FormHelper extends Helper
         $this->formInteractor = $formInteractor;
     }
 
-    public function interactUsingForm($formType, InputInterface $input, OutputInterface $output)
+    public function interactUsingForm($formType, InputInterface $input, OutputInterface $output, array $options = [])
     {
-        $form = $this->formFactory->create($formType, $input);
+        $form = $this->formFactory->create($formType, $input, $options);
 
         $submittedData = $this->formInteractor->interactWith($form, $this->getHelperSet(), $input, $output);
 
