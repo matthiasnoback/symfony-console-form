@@ -10,6 +10,18 @@ interactively process user input from the CLI.
     composer require matthiasnoback/symfony-console-form
 
 Enable `Matthias\SymfonyConsoleForm\Bundle\SymfonyConsoleFormBundle` in the kernel of your Symfony application.
+```php
+    <?php
+    // app/AppKernel.php
+
+    public function registerBundles()
+    {
+        $bundles = array(
+            // ...
+            new Matthias\SymfonyConsoleForm\Bundle\SymfonyConsoleFormBundle(),
+        );
+    }
+```
 
 # Usage
 
@@ -77,7 +89,7 @@ You only need to implement `FormBasedCommand`:
 ```php
 <?php
 
-use Symfony\Component\Console\Command;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Matthias\SymfonyConsoleForm\Console\Command\FormBasedCommand;
