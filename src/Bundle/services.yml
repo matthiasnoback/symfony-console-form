@@ -113,7 +113,8 @@ services:
             - { name: form.type_extension, alias: form }
 
     matthias_symfony_console_form.console_form_factory:
-        class: Matthias\SymfonyConsoleForm\Bridge\FormFactory\ConsoleFormWithDefaultValuesFactory
+        class: Matthias\SymfonyConsoleForm\Bridge\FormFactory\ConsoleFormWithDefaultValuesAndOptionsFactory
         public: false
         arguments:
             - @form.factory
+            - @form.registry

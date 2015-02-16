@@ -1,5 +1,5 @@
 parameters:
-    kernel.secret: secret
+    secret: secret
 
 services:
     demo_command:
@@ -27,4 +27,9 @@ services:
             - { name: form.type, alias: name }
 
 framework:
-    form: ~
+    form:
+        csrf_protection: true
+    secret: "%secret%"
+    csrf_protection: ~
+    session:
+        handler_id: ~
