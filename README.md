@@ -84,7 +84,41 @@ class Demo
 
 ## Create the console command
 
-You only need to implement `FormBasedCommand`:
+### Strategy 1 (recommended): Use the `form` helper
+
+```php
+<?php
+
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Matthias\SymfonyConsoleForm\Console\Helper\FormHelper;
+
+class TestCommand extends Command implements FormBasedCommand
+{
+    use FormBasedCommandCapabilities;
+
+    protected function configure()
+    {
+        $this->setName('form:demo');
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $formHelper = $this->getHelper('form');
+        /** @var FormHelper $formHelper */
+
+        $formData = $formHelper->interactUsingForm(new DemoType(), $input, $output);
+
+        // $formData is the valid and populated form data object/array
+        ...
+    }
+}
+```
+
+### Strategy 2: implement `FormBasedCommand`
+
+You could also implement `FormBasedCommand`:
 
 ```php
 <?php
@@ -93,9 +127,13 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Matthias\SymfonyConsoleForm\Console\Command\FormBasedCommand;
+use Matthias\SymfonyConsoleForm\Console\Command\FormBasedCommandCapabilities;
 
 class TestCommand extends Command implements FormBasedCommand
 {
+    // use this trait to prevent code duplication
+    use FormBasedCommandCapabilities;
+
     protected function configure()
     {
         $this->setName('form:demo');
@@ -114,7 +152,7 @@ class TestCommand extends Command implements FormBasedCommand
     {
         $formData = $this->formData();
 
-        // $formData is the valid and populated form data object
+        // $formData is the valid and populated form data object/array
         ...
     }
 }
@@ -123,6 +161,9 @@ class TestCommand extends Command implements FormBasedCommand
 Then run `app/console form:demo` and you'll see the following interaction:
 
 ![](doc/interaction.png)
+
+The first strategy is preferred since it allows you to interact with different forms instead of just one form (as is
+the case when you pick the second strategy).
 
 When you provide command-line options with the names of the form fields, those values will be used as default values.
 
