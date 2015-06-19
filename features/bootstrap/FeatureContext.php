@@ -5,6 +5,7 @@ use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Matthias\SymfonyConsoleForm\Tests\AppKernel;
+use Matthias\SymfonyConsoleForm\Tests\Helper\StringUtil;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Matthias\SymfonyConsoleForm\Tests\Helper\ApplicationTester;
 
@@ -55,14 +56,14 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function theOutputShouldBe(PyStringNode $expectedOutput)
     {
-        Assertion::same(trim($this->getOutput()), (string) $expectedOutput);
+        Assertion::same(StringUtil::trimLines($this->getOutput()), StringUtil::trimLines((string) $expectedOutput));
     }
 
     private function runCommandWithInteractiveInput($name, $input)
     {
         $input = str_replace('[enter]', "\n", $input);
         $this->tester->putToInputStream($input);
-        $this->tester->run($name, array('interactive' => true));
+        $this->tester->run($name, array('interactive' => true, 'decorated' => false));
     }
 
     /**

@@ -14,10 +14,22 @@ services:
         tags:
             - { name: form.type, alias: demo }
 
+    color_form_type:
+        class: Matthias\SymfonyConsoleForm\Tests\Form\ColorType
+        tags:
+            - { name: form.type, alias: color }
+
     name_command:
         class: Matthias\SymfonyConsoleForm\Tests\Command\PrintFormDataCommand
         arguments:
             - name
+        tags:
+            - { name: console.command }
+
+    color_command:
+        class: Matthias\SymfonyConsoleForm\Tests\Command\PrintFormDataCommand
+        arguments:
+            - color
         tags:
             - { name: console.command }
 

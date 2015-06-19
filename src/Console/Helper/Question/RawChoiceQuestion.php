@@ -14,12 +14,17 @@ class RawChoiceQuestion extends ChoiceQuestion
         $originalValidator = parent::getValidator();
         return function ($selected) use ($originalValidator) {
             $value = $originalValidator($selected);
-            $choices = array_flip($this->getChoices());
-            if (is_array($value)) {
-                return array_intersect_key($choices, $value);
-            } else {
+            if (!method_exists($this, 'isAssoc')) {
+                // for Symfony < 2.7 $value represents the selected label(s) so we need to find out the selected key(s)
+                $choices = array_flip($this->getChoices());
+                if (is_array($value)) {
+                    return array_intersect_key($choices, $value);
+                }
+
                 return $choices[$value];
             }
+
+            return $value;
         };
     }
 }

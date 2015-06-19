@@ -3,8 +3,10 @@
 namespace Matthias\SymfonyConsoleForm\Tests\Helper;
 
 use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\StreamOutput;
 
 /**
@@ -35,19 +37,16 @@ class ApplicationTester
             $this->input->setInteractive(false);
         }
 
-        $this->output = new StreamOutput(fopen('php://memory', 'w', false));
-        if (isset($options['decorated'])) {
-            $this->output->setDecorated($options['decorated']);
-        }
-        if (isset($options['verbosity'])) {
-            $this->output->setVerbosity($options['verbosity']);
-        }
+        $this->output = new StreamOutput(fopen('php://memory', 'w', false), OutputInterface::VERBOSITY_DEBUG, false);
+        $this->output->setDecorated(false);
 
         $inputStream = $this->getInputStream();
         rewind($inputStream);
         $this->setInputStream($inputStream);
 
         $this->application->setAutoExit(false);
+
+        $this->disableStty();
 
         $this->statusCode = $this->application->run($this->input, $this->output);
 
@@ -118,11 +117,14 @@ class ApplicationTester
 
     private function setInputStream($inputStream)
     {
-        foreach (array('dialog', 'question') as $helperName) {
-            $helper = $this->application->getHelperSet()->get($helperName);
-            if (method_exists($helper, 'setInputStream')) {
-                $helper->setInputStream($inputStream);
-            }
-        }
+        $helper = $this->application->getHelperSet()->get('question');
+        $helper->setInputStream($inputStream);
+    }
+
+    private function disableStty()
+    {
+        $sttyProperty = new \ReflectionProperty('Symfony\Component\Console\Helper\QuestionHelper', 'stty');
+        $sttyProperty->setAccessible(true);
+        $sttyProperty->setValue(null, false);
     }
 }

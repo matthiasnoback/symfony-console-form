@@ -37,3 +37,22 @@ Feature: It is possible to interactively fill in a form from the CLI
       Invalid data provided: name:
           ERROR: This value is too short. It should have 4 character or more.
       """
+
+
+  Scenario: Select a value
+    When I run the command "form:color" and I provide as input
+      """
+      blue[enter]
+      """
+    Then the command has finished successfully
+    And the output should be
+      """
+      Select color [red]:
+        [red   ] Red
+        [blue  ] Blue
+        [yellow] Yellow
+      > Array
+      (
+          [color] => blue
+      )
+      """

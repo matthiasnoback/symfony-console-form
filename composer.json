@@ -23,17 +23,17 @@
         }
     },
     "require": {
-        "php": ">=5.4",
-        "symfony/framework-bundle": "~2.5",
-        "symfony/console": "~2.5",
-        "symfony/validator": "~2.5",
-        "symfony/form": "~2.5",
-        "symfony/yaml": "~2.5",
-        "symfony/finder": "~2.5"
+        "php": ">=5.4"
     },
     "require-dev": {
         "behat/behat": "~3.0",
-        "symfony/process": "~2.5",
-        "beberlei/assert": "~2.1"
+        "beberlei/assert": "~2.1",
+        "phpunit/phpunit": "^4.7",
+        "symfony/framework-bundle": "2.5.*",
+        "symfony/validator": "2.5.*",
+        "symfony/form": "2.5.*",
+        "symfony/yaml": "2.5.*",
+        "symfony/finder": "2.5.*",
+        "symfony/console": "2.5.*"
     }
 }

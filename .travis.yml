@@ -1,0 +1,32 @@
+language: php
+
+matrix:
+  include:
+    - php: 5.4
+      env: SYMFONY_VERSION=2.5.*
+    - php: 5.4
+      env: SYMFONY_VERSION=2.7.*
+
+env:
+  global:
+    - SYMFONY_VERSION=""
+
+before_install:
+  - >
+    if [ "SYMFONY_VERSION" != "" ]; then
+      composer require --dev --no-update symfony/framework-bundle "$SYMFONY_VERSION" &&
+      composer require --dev --no-update symfony/console "$SYMFONY_VERSION" &&
+      composer require --dev --no-update symfony/validator "$SYMFONY_VERSION" &&
+      composer require --dev --no-update symfony/form "$SYMFONY_VERSION" &&
+      composer require --dev --no-update symfony/yaml "$SYMFONY_VERSION" &&
+      composer require --dev --no-update symfony/finder "$SYMFONY_VERSION"
+    fi
+
+install:
+  - composer update --prefer-source
+
+script:
+  - vendor/bin/behat
+
+notifications:
+  email: matthiasnoback@gmail.com
