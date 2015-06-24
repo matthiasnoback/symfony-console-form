@@ -33,11 +33,8 @@ Feature: It is possible to interactively fill in a form from the CLI
     Then the command was not successful
     And the output should contain
       """
-      [RuntimeException]
-      Invalid data provided: name:
-          ERROR: This value is too short. It should have 4 character or more.
+      This value is too short. It should have 4 character or more.
       """
-
 
   Scenario: Select a value
     When I run the command "form:color" and I provide as input
