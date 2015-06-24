@@ -2,7 +2,7 @@
 
 namespace Matthias\SymfonyConsoleForm\Bridge\Transformer;
 
-use Matthias\SymfonyConsoleForm\Console\Helper\Question\RawChoiceQuestion;
+use Matthias\SymfonyConsoleForm\Console\Helper\Question\AlwaysReturnKeyOfChoiceQuestion;
 use Symfony\Component\Form\Form;
 
 class ChoiceTransformer extends AbstractTransformer
@@ -16,7 +16,7 @@ class ChoiceTransformer extends AbstractTransformer
             $choices[$choiceView->value] = $choiceView->label;
         }
 
-        $question = new RawChoiceQuestion($this->questionFrom($form), $choices, $this->defaultValueFrom($form));
+        $question = new AlwaysReturnKeyOfChoiceQuestion($this->questionFrom($form), $choices, $this->defaultValueFrom($form));
 
         if ($form->getConfig()->getOption('multiple')) {
             $question->setMultiselect(true);

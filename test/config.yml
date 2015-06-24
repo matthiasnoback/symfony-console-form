@@ -30,6 +30,13 @@ services:
         tags:
             - { name: console.command }
 
+    color_with_choices_as_values_command:
+        class: Matthias\SymfonyConsoleForm\Tests\Command\PrintFormDataCommand
+        arguments:
+            - color_with_choices_as_values
+        tags:
+            - { name: console.command }
+
     demo_form_type:
         class: Matthias\SymfonyConsoleForm\Tests\Form\DemoType
         tags:
@@ -39,6 +46,11 @@ services:
         class: Matthias\SymfonyConsoleForm\Tests\Form\ColorType
         tags:
             - { name: form.type, alias: color }
+
+    color_with_choices_as_values_form_type:
+        class: Matthias\SymfonyConsoleForm\Tests\Form\ColorWithChoicesAsValuesType
+        tags:
+            - { name: form.type, alias: color_with_choices_as_values }
 
     name_form_type:
         class: Matthias\SymfonyConsoleForm\Tests\Form\NameType

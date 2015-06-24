@@ -5,7 +5,7 @@ namespace Matthias\SymfonyConsoleForm\Tests\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ColorType extends AbstractType
+class ColorWithChoicesAsValuesType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -13,16 +13,17 @@ class ColorType extends AbstractType
             ->add('color', 'choice', array(
                 'label' => 'Select color',
                 'choices' => array(
-                    'red' => 'Red',
-                    'blue' => 'Blue',
-                    'yellow' => 'Yellow'
+                    'Red' => 'red',
+                    'Blue' => 'blue',
+                    'Yellow' => 'yellow'
                 ),
-                'data' => 'red'
+                'data' => 'red',
+                'choices_as_values' => true
             ));
     }
 
     public function getName()
     {
-        return 'color';
+        return 'color_with_choices_as_values';
     }
 }
