@@ -6,6 +6,7 @@ use Matthias\SymfonyConsoleForm\Form\FormUtil;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 
@@ -48,6 +49,10 @@ class FormBasedInputDefinitionFactory implements InputDefinitionFactory
     private function isFormFieldSupported(FormInterface $field)
     {
         if ($field->getConfig()->getCompound()) {
+            if ($field->getConfig()->getType()->getInnerType() instanceof RepeatedType) {
+                return true;
+            }
+
             return false;
         }
 

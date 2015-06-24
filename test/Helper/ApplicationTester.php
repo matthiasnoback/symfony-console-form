@@ -118,6 +118,7 @@ class ApplicationTester
     private function setInputStream($inputStream)
     {
         $helper = $this->application->getHelperSet()->get('question');
+        /** @var $helper QuestionHelper */
         $helper->setInputStream($inputStream);
     }
 

@@ -3,21 +3,11 @@ parameters:
 
 services:
     demo_command:
-        class: Matthias\SymfonyConsoleForm\Tests\Command\PrintFormDataCommand
         arguments:
             - demo
+        class: Matthias\SymfonyConsoleForm\Tests\Command\PrintFormDataCommand
         tags:
             - { name: console.command }
-
-    demo_form_type:
-        class: Matthias\SymfonyConsoleForm\Tests\Form\DemoType
-        tags:
-            - { name: form.type, alias: demo }
-
-    color_form_type:
-        class: Matthias\SymfonyConsoleForm\Tests\Form\ColorType
-        tags:
-            - { name: form.type, alias: color }
 
     name_command:
         class: Matthias\SymfonyConsoleForm\Tests\Command\PrintFormDataCommand
@@ -33,10 +23,32 @@ services:
         tags:
             - { name: console.command }
 
+    password_command:
+        class: Matthias\SymfonyConsoleForm\Tests\Command\PrintFormDataCommand
+        arguments:
+            - repeated_password
+        tags:
+            - { name: console.command }
+
+    demo_form_type:
+        class: Matthias\SymfonyConsoleForm\Tests\Form\DemoType
+        tags:
+            - { name: form.type, alias: demo }
+
+    color_form_type:
+        class: Matthias\SymfonyConsoleForm\Tests\Form\ColorType
+        tags:
+            - { name: form.type, alias: color }
+
     name_form_type:
         class: Matthias\SymfonyConsoleForm\Tests\Form\NameType
         tags:
             - { name: form.type, alias: name }
+
+    repeated_password_form_type:
+        class: Matthias\SymfonyConsoleForm\Tests\Form\RepeatedPasswordType
+        tags:
+            - { name: form.type, alias: repeated_password }
 
 framework:
     form:

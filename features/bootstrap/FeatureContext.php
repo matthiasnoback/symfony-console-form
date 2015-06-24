@@ -5,9 +5,9 @@ use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Matthias\SymfonyConsoleForm\Tests\AppKernel;
+use Matthias\SymfonyConsoleForm\Tests\Helper\ApplicationTester;
 use Matthias\SymfonyConsoleForm\Tests\Helper\StringUtil;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Matthias\SymfonyConsoleForm\Tests\Helper\ApplicationTester;
 
 /**
  * Defines application features from the specific context.
@@ -69,9 +69,9 @@ class FeatureContext implements Context, SnippetAcceptingContext
     /**
      * @Then /^the output should contain$/
      */
-    public function theOutputShouldContain(PyStringNode $string)
+    public function theOutputShouldContain(PyStringNode $expectedOutput)
     {
-
+        Assertion::contains(StringUtil::trimLines($this->getOutput()), StringUtil::trimLines((string) $expectedOutput));
     }
 
     private function getOutput()
@@ -93,5 +93,18 @@ class FeatureContext implements Context, SnippetAcceptingContext
     public function theCommandWasNotSuccessful()
     {
         Assertion::notSame($this->tester->getStatusCode(), 0);
+    }
+
+    /**
+     * @When /^I run the command "([^"]*)" non\-interactively$/
+     */
+    public function iRunTheCommandNonInteractively($command)
+    {
+        $this->runCommandWithNonInteractiveInput($command);
+    }
+
+    private function runCommandWithNonInteractiveInput($name)
+    {
+        $this->tester->run($name, array('interactive' => false, 'decorated' => false));
     }
 }

@@ -28,7 +28,6 @@
     "require-dev": {
         "behat/behat": "~3.0",
         "beberlei/assert": "~2.1",
-        "phpunit/phpunit": "^4.7",
         "symfony/framework-bundle": "2.5.*",
         "symfony/validator": "2.5.*",
         "symfony/form": "2.5.*",
