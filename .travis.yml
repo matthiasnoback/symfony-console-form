@@ -26,7 +26,11 @@ install:
   - composer update --prefer-source
 
 script:
-  - vendor/bin/behat
+  - vendor/bin/behat --tags=~symfony27
+  - >
+    if [ "SYMFONY_VERSION" == "2.7.*" ]; then
+      vendor/bin/behat --tags=symfony27
+    fi
 
 notifications:
   email: matthiasnoback@gmail.com

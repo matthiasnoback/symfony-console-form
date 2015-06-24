@@ -29,9 +29,8 @@ class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
         $choices = $this->getChoices();
         $errorMessage = $this->_errorMessage;
         $multiselect = $this->_multiselect;
-        $isAssoc = $this->isAssoc($choices);
 
-        return function ($selected) use ($choices, $errorMessage, $multiselect, $isAssoc) {
+        return function ($selected) use ($choices, $errorMessage, $multiselect) {
             // Collapse all spaces.
             $selectedChoices = str_replace(' ', '', $selected);
 

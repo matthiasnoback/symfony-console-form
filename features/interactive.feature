@@ -54,6 +54,7 @@ Feature: It is possible to interactively fill in a form from the CLI
       )
       """
 
+  @symfony27
   Scenario: Select a value
     When I run the command "form:color_with_choices_as_values" and I provide as input
       """
