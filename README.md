@@ -2,6 +2,8 @@
 
 By Matthias Noback
 
+[![Build Status](https://travis-ci.org/matthiasnoback/symfony-console-form.svg?branch=master)](https://travis-ci.org/matthiasnoback/symfony-console-form)
+
 This package contains a Symfony bundle and some tools which enable you to use Symfony Form types to define and
 interactively process user input from the CLI.
 
