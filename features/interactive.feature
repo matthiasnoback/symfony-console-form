@@ -72,3 +72,22 @@ Feature: It is possible to interactively fill in a form from the CLI
           [color] => blue
       )
       """
+
+  @symfony27
+  Scenario: Select a value by its underlying data
+    When I run the command "form:color_with_choices_as_values" and I provide as input
+      """
+      red[enter]
+      """
+    Then the command has finished successfully
+    And the output should be
+    """
+      Select color [red]:
+        [0] Red
+        [1] Blue
+        [2] Yellow
+      > Array
+      (
+          [color] => red
+      )
+      """

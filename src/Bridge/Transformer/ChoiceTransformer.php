@@ -11,12 +11,7 @@ class ChoiceTransformer extends AbstractTransformer
     {
         $formView = $form->createView();
 
-        $choices = [];
-        foreach ($formView->vars['choices'] as $choiceView) {
-            $choices[$choiceView->value] = $choiceView->label;
-        }
-
-        $question = new AlwaysReturnKeyOfChoiceQuestion($this->questionFrom($form), $choices, $this->defaultValueFrom($form));
+        $question = new AlwaysReturnKeyOfChoiceQuestion($this->questionFrom($form), $formView->vars['choices'], $this->defaultValueFrom($form));
 
         if ($form->getConfig()->getOption('multiple')) {
             $question->setMultiselect(true);
