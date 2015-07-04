@@ -17,12 +17,7 @@ class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
 
     public function __construct($question, array $choiceViews, $default = null)
     {
-        \Assert\that($choiceViews)
-            ->all()
-            ->isInstanceOf(
-                'Symfony\Component\Form\Extension\Core\View\ChoiceView',
-                'Only a flat choice hierarchy is supported'
-            );
+        $this->assertFlatChoiceViewsArray($choiceViews);
 
         $this->choiceViews = $choiceViews;
 
@@ -116,5 +111,14 @@ class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
         }
 
         return $autocompleteValues;
+    }
+
+    private function assertFlatChoiceViewsArray(array $choiceViews)
+    {
+        foreach ($choiceViews as $choiceView) {
+            if (!$choiceView instanceof ChoiceView) {
+                throw new \InvalidArgumentException('Only a flat choice hierarchy is supported');
+            }
+        }
     }
 }
