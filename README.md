@@ -98,8 +98,6 @@ use Matthias\SymfonyConsoleForm\Console\Helper\FormHelper;
 
 class TestCommand extends Command implements FormBasedCommand
 {
-    use FormBasedCommandCapabilities;
-
     protected function configure()
     {
         $this->setName('form:demo');
