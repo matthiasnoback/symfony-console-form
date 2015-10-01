@@ -96,10 +96,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Matthias\SymfonyConsoleForm\Console\Helper\FormHelper;
 
-class TestCommand extends Command implements FormBasedCommand
+class TestCommand extends Command
 {
-    use FormBasedCommandCapabilities;
-
     protected function configure()
     {
         $this->setName('form:demo');
