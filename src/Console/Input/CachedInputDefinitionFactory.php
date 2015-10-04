@@ -46,9 +46,9 @@ class CachedInputDefinitionFactory implements InputDefinitionFactory
 
         if ($cache->isFresh()) {
             return $this->inputDefinitionFromCache($cache);
-        } else {
-            return $this->freshInputDefinition($formType, $cache, $resources);
         }
+
+        return $this->freshInputDefinition($formType, $cache, $resources);
     }
 
     /**
@@ -60,9 +60,7 @@ class CachedInputDefinitionFactory implements InputDefinitionFactory
     {
         $filename = $formType instanceof FormTypeInterface ? $formType->getName() : $formType;
 
-        $cache = new ConfigCache($this->cacheDirectory . '/' . $filename, $this->debug);
-
-        return $cache;
+        return new ConfigCache($this->cacheDirectory.'/'.$filename, $this->debug);
     }
 
     /**
