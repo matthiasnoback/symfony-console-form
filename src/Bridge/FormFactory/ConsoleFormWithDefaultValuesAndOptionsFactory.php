@@ -67,7 +67,7 @@ class ConsoleFormWithDefaultValuesAndOptionsFactory implements ConsoleFormFactor
      */
     private function addDefaultOptions(array $options)
     {
-        $defaultOptions = array();
+        $defaultOptions = [];
 
         // hack to prevent validation error "The CSRF token is invalid."
         foreach ($this->formRegistry->getExtensions() as $extension) {

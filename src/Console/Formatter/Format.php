@@ -36,7 +36,7 @@ class Format
     {
         $formatter = $output->getFormatter();
 
-        $formatter->setStyle('fieldset', new OutputFormatterStyle('yellow', null, array('bold')));
+        $formatter->setStyle('fieldset', new OutputFormatterStyle('yellow', null, ['bold']));
         $formatter->setStyle('default', new OutputFormatterStyle('green'));
         $formatter->setStyle('question', new OutputFormatterStyle('black', 'cyan'));
     }

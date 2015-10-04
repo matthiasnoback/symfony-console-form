@@ -10,7 +10,7 @@ class StylesCollection
     /**
      * @var OutputFormatterStyleInterface[]
      */
-    private $styles = array();
+    private $styles = [];
 
     /**
      * @param string                        $name

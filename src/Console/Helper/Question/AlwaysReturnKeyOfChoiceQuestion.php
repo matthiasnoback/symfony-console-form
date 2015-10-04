@@ -74,10 +74,10 @@ class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
                 }
                 $selectedChoices = explode(',', $selectedChoices);
             } else {
-                $selectedChoices = array($selected);
+                $selectedChoices = [$selected];
             }
 
-            $selectedKeys = array();
+            $selectedKeys = [];
 
             foreach ($selectedChoices as $selectedValue) {
                 $selectedKeys[] = $this->resolveChoiceViewValue($selectedValue);
@@ -132,7 +132,7 @@ class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
      */
     private function prepareAutocompleteValues()
     {
-        $autocompleteValues = array();
+        $autocompleteValues = [];
 
         foreach ($this->choiceViews as $choiceView) {
             $autocompleteValues[] = $choiceView->value;

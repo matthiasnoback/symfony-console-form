@@ -7,10 +7,10 @@ use Symfony\Component\Console\Helper\HelperSet;
 
 class HelperCollection
 {
-    private $helpers;
     /**
      * @var array
      */
+    private $helpers = [];
 
     /**
      * @param HelperInterface $helper
