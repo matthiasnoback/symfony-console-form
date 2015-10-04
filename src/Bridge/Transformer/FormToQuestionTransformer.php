@@ -6,11 +6,13 @@ use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Form\Form;
 
 /**
- * Transform the given form (field) to a Question used by the Console Component to interact with the user
+ * Transform the given form (field) to a Question used by the Console Component to interact with the user.
  */
 interface FormToQuestionTransformer
 {
     /**
+     * @param Form $form
+     *
      * @return Question
      */
     public function transform(Form $form);

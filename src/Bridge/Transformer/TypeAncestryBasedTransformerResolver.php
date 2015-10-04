@@ -8,14 +8,27 @@ use Symfony\Component\Form\FormInterface;
 
 class TypeAncestryBasedTransformerResolver implements TransformerResolver
 {
-    /** @var FormToQuestionTransformer[] */
+    /**
+     * @var FormToQuestionTransformer[]
+     */
     private $transformers = [];
 
+    /**
+     * @param string                    $formType
+     * @param FormToQuestionTransformer $transformer
+     */
     public function addTransformer($formType, FormToQuestionTransformer $transformer)
     {
         $this->transformers[$formType] = $transformer;
     }
 
+    /**
+     * @param FormInterface $form
+     *
+     * @throws CouldNotResolveTransformer
+     *
+     * @return FormToQuestionTransformer
+     */
     public function resolve(FormInterface $form)
     {
         $types = FormUtil::typeAncestry($form);

@@ -12,11 +12,18 @@ class StylesCollection
      */
     private $styles = array();
 
+    /**
+     * @param string                        $name
+     * @param OutputFormatterStyleInterface $style
+     */
     public function set($name, OutputFormatterStyleInterface $style)
     {
         $this->styles[$name] = $style;
     }
 
+    /**
+     * @param OutputFormatterInterface $outputFormatter
+     */
     public function applyTo(OutputFormatterInterface $outputFormatter)
     {
         foreach ($this->styles as $name => $style) {

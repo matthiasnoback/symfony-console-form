@@ -11,10 +11,22 @@ class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
      * @var ChoiceView[]
      */
     private $choiceViews;
+
+    /**
+     * @var bool
+     */
     private $_multiselect = false;
 
+    /**
+     * @var string
+     */
     private $_errorMessage = 'Value "%s" is invalid';
 
+    /**
+     * @param string $question The question to ask to the user.
+     * @param array  $choices  The list of available choices.
+     * @param mixed  $default  The default answer to return.
+     */
     public function __construct($question, array $choiceViews, $default = null)
     {
         $this->assertFlatChoiceViewsArray($choiceViews);
@@ -26,6 +38,9 @@ class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
         $this->setAutocompleterValues($this->prepareAutocompleteValues());
     }
 
+    /**
+     * @param bool $multiselect
+     */
     public function setMultiselect($multiselect)
     {
         $this->_multiselect = $multiselect;
@@ -33,6 +48,9 @@ class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
         return parent::setMultiselect($multiselect);
     }
 
+    /**
+     * @param string $errorMessage
+     */
     public function setErrorMessage($errorMessage)
     {
         $this->_errorMessage = $errorMessage;
@@ -40,6 +58,9 @@ class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
         return parent::setErrorMessage($errorMessage);
     }
 
+    /**
+     * @return callable
+     */
     public function getValidator()
     {
         return function ($selected) {
@@ -72,6 +93,9 @@ class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
 
     /**
      * @param string $selectedValue The selected value
+     *
+     * @throws \InvalidArgumentException
+     *
      * @return string The corresponding value of the ChoiceView
      */
     private function resolveChoiceViewValue($selectedValue)
@@ -85,6 +109,9 @@ class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
         throw new \InvalidArgumentException(sprintf($this->_errorMessage, $selectedValue));
     }
 
+    /**
+     * @return array
+     */
     private function prepareChoices()
     {
         $choices = [];
@@ -100,6 +127,9 @@ class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
         return $choices;
     }
 
+    /**
+     * @return array
+     */
     private function prepareAutocompleteValues()
     {
         $autocompleteValues = array();
@@ -113,6 +143,11 @@ class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
         return $autocompleteValues;
     }
 
+    /**
+     * @param array $choiceViews
+     *
+     * @throws \InvalidArgumentException
+     */
     private function assertFlatChoiceViewsArray(array $choiceViews)
     {
         foreach ($choiceViews as $choiceView) {

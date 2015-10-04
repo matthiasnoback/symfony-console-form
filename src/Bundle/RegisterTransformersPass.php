@@ -8,6 +8,9 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class RegisterTransformersPass implements CompilerPassInterface
 {
+    /**
+     * @param ContainerBuilder $container
+     */
     public function process(ContainerBuilder $container)
     {
         $formQuestionHelper = $container->getDefinition('matthias_symfony_console.transformer_resolver');

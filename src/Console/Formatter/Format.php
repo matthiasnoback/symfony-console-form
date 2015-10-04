@@ -7,6 +7,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Format
 {
+    /**
+     * @param string $question
+     * @param string $defaultValue
+     *
+     * @return string
+     */
     public static function forQuestion($question, $defaultValue)
     {
         $default = $defaultValue ? strtr(
@@ -23,6 +29,9 @@ class Format
         );
     }
 
+    /**
+     * @param OutputInterface $output
+     */
     public static function registerStyles(OutputInterface $output)
     {
         $formatter = $output->getFormatter();

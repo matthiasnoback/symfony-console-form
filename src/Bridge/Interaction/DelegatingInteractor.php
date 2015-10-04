@@ -10,14 +10,27 @@ use Symfony\Component\Form\FormInterface;
 
 class DelegatingInteractor implements FormInteractor
 {
-    /** @var FormInteractor[] */
+    /**
+     * @var FormInteractor[]
+     */
     private $delegates = [];
 
+    /**
+     * @param FormInteractor $interactor
+     */
     public function addInteractor(FormInteractor $interactor)
     {
         $this->delegates[] = $interactor;
     }
 
+    /**
+     * @param FormInterface   $form
+     * @param HelperSet       $helperSet
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     *
+     * @throws CanNotInteractWithForm If no delegate was able to interact with this form.
+     */
     public function interactWith(
         FormInterface $form,
         HelperSet $helperSet,

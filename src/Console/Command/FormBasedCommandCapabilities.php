@@ -4,8 +4,14 @@ namespace Matthias\SymfonyConsoleForm\Console\Command;
 
 trait FormBasedCommandCapabilities
 {
+    /**
+     * @var mixed
+     */
     private $formData;
 
+    /**
+     * @return mixed
+     */
     protected function formData()
     {
         if ($this->formData === null) {
@@ -21,6 +27,9 @@ trait FormBasedCommandCapabilities
         return $this->formData;
     }
 
+    /**
+     * @param mixed $data
+     */
     public function setFormData($data)
     {
         $this->formData = $data;

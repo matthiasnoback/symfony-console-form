@@ -12,13 +12,29 @@ use Symfony\Component\Form\FormInterface;
 
 class CompoundInteractor implements FormInteractor
 {
+    /**
+     * @var FormInteractor
+     */
     private $formInteractor;
 
+    /**
+     * @param FormInteractor $formInteractor
+     */
     public function __construct(FormInteractor $formInteractor)
     {
         $this->formInteractor = $formInteractor;
     }
 
+    /**
+     * @param FormInterface   $form
+     * @param HelperSet       $helperSet
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     *
+     * @throws CanNotInteractWithForm If the input isn't interactive or a compound form.
+     *
+     * @return array
+     */
     public function interactWith(
         FormInterface $form,
         HelperSet $helperSet,

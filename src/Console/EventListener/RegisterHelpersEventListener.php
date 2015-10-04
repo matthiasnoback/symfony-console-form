@@ -7,13 +7,22 @@ use Symfony\Component\Console\Event\ConsoleCommandEvent;
 
 class RegisterHelpersEventListener
 {
+    /**
+     * @var HelperCollection
+     */
     private $helperCollection;
 
+    /**
+     * @param HelperCollection $helperCollection
+     */
     public function __construct(HelperCollection $helperCollection)
     {
         $this->helperCollection = $helperCollection;
     }
 
+    /**
+     * @param ConsoleCommandEvent $event
+     */
     public function onConsoleCommand(ConsoleCommandEvent $event)
     {
         $helperSet = $event->getCommand()->getHelperSet();
