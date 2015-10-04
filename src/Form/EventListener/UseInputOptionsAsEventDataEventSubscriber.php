@@ -16,7 +16,7 @@ class UseInputOptionsAsEventDataEventSubscriber implements EventSubscriberInterf
     public static function getSubscribedEvents()
     {
         return [
-            FormEvents::PRE_SUBMIT => 'onPreSubmit'
+            FormEvents::PRE_SUBMIT => 'onPreSubmit',
         ];
     }
 

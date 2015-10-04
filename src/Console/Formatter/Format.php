@@ -24,7 +24,7 @@ class Format
             '<question>{question}</question>{default}: ',
             [
                 '{question}' => $question,
-                '{default}' => $default
+                '{default}' => $default,
             ]
         );
     }

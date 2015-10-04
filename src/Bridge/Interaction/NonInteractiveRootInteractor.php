@@ -50,7 +50,7 @@ class NonInteractiveRootInteractor implements FormInteractor
             if ($config->getType()->getInnerType() instanceof RepeatedType && $input->hasOption($name)) {
                 $input->setOption($name, [
                     $config->getOption('first_name') => $input->getOption($name),
-                    $config->getOption('second_name') => $input->getOption($name)
+                    $config->getOption('second_name') => $input->getOption($name),
                 ]);
             }
         }

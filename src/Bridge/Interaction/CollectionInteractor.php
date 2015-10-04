@@ -111,7 +111,7 @@ class CollectionInteractor implements FormInteractor
             strtr(
                 '<fieldset>{label}</fieldset>',
                 [
-                    '{label}' => FormUtil::label($form)
+                    '{label}' => FormUtil::label($form),
                 ]
             )
         );

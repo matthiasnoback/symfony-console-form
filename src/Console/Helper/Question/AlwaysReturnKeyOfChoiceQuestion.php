@@ -118,7 +118,7 @@ class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
         foreach ($this->choiceViews as $choiceView) {
             $label = $choiceView->label;
             if ($choiceView->data != $choiceView->value) {
-                $label .= ' (<comment>' . $choiceView->data . '</comment>)';
+                $label .= ' (<comment>'.$choiceView->data.'</comment>)';
             }
 
             $choices[$choiceView->value] = $label;
