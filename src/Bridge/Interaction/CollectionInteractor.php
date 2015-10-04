@@ -2,10 +2,10 @@
 
 namespace Matthias\SymfonyConsoleForm\Bridge\Interaction;
 
-use Matthias\SymfonyConsoleForm\Console\Formatter\Format;
-use Matthias\SymfonyConsoleForm\Bridge\Interaction\Exception\FormNotReadyForInteraction;
-use Matthias\SymfonyConsoleForm\Form\FormUtil;
 use Matthias\SymfonyConsoleForm\Bridge\Interaction\Exception\CanNotInteractWithForm;
+use Matthias\SymfonyConsoleForm\Bridge\Interaction\Exception\FormNotReadyForInteraction;
+use Matthias\SymfonyConsoleForm\Console\Formatter\Format;
+use Matthias\SymfonyConsoleForm\Form\FormUtil;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
