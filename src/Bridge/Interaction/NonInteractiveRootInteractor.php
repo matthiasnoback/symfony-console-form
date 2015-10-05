@@ -11,6 +11,16 @@ use Symfony\Component\Form\FormInterface;
 
 class NonInteractiveRootInteractor implements FormInteractor
 {
+    /**
+     * @param FormInterface   $form
+     * @param HelperSet       $helperSet
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     *
+     * @throws CanNotInteractWithForm If isn't a root form or is the input is interactive.
+     *
+     * @return InputInterface
+     */
     public function interactWith(
         FormInterface $form,
         HelperSet $helperSet,
@@ -40,7 +50,7 @@ class NonInteractiveRootInteractor implements FormInteractor
             if ($config->getType()->getInnerType() instanceof RepeatedType && $input->hasOption($name)) {
                 $input->setOption($name, [
                     $config->getOption('first_name') => $input->getOption($name),
-                    $config->getOption('second_name') => $input->getOption($name)
+                    $config->getOption('second_name') => $input->getOption($name),
                 ]);
             }
         }

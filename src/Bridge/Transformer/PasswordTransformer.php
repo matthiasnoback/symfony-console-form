@@ -6,6 +6,11 @@ use Symfony\Component\Form\Form;
 
 class PasswordTransformer extends TextTransformer
 {
+    /**
+     * @param Form $form
+     *
+     * @return Question
+     */
     public function transform(Form $form)
     {
         $question = parent::transform($form);

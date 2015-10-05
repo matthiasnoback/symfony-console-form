@@ -7,6 +7,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Format
 {
+    /**
+     * @param string $question
+     * @param string $defaultValue
+     *
+     * @return string
+     */
     public static function forQuestion($question, $defaultValue)
     {
         $default = $defaultValue ? strtr(
@@ -18,16 +24,19 @@ class Format
             '<question>{question}</question>{default}: ',
             [
                 '{question}' => $question,
-                '{default}' => $default
+                '{default}' => $default,
             ]
         );
     }
 
+    /**
+     * @param OutputInterface $output
+     */
     public static function registerStyles(OutputInterface $output)
     {
         $formatter = $output->getFormatter();
 
-        $formatter->setStyle('fieldset', new OutputFormatterStyle('yellow', null, array('bold')));
+        $formatter->setStyle('fieldset', new OutputFormatterStyle('yellow', null, ['bold']));
         $formatter->setStyle('default', new OutputFormatterStyle('green'));
         $formatter->setStyle('question', new OutputFormatterStyle('black', 'cyan'));
     }

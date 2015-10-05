@@ -12,13 +12,22 @@ use Symfony\Component\Console\Input\InputInterface;
 
 class SetInputDefinitionOfFormBasedCommandEventListener
 {
+    /**
+     * @var InputDefinitionFactory
+     */
     private $inputDefinitionFactory;
 
+    /**
+     * @param InputDefinitionFactory $inputDefinitionFactory
+     */
     public function __construct(InputDefinitionFactory $inputDefinitionFactory)
     {
         $this->inputDefinitionFactory = $inputDefinitionFactory;
     }
 
+    /**
+     * @param ConsoleCommandEvent $event
+     */
     public function onConsoleCommand(ConsoleCommandEvent $event)
     {
         $command = $event->getCommand();
@@ -34,6 +43,11 @@ class SetInputDefinitionOfFormBasedCommandEventListener
         $this->setInputDefinition($command, $event->getInput(), $inputDefinition);
     }
 
+    /**
+     * @param Command         $command
+     * @param InputInterface  $input
+     * @param InputDefinition $inputDefinition
+     */
     private function setInputDefinition(Command $command, InputInterface $input, InputDefinition $inputDefinition)
     {
         $command->setDefinition($inputDefinition);
@@ -42,6 +56,8 @@ class SetInputDefinitionOfFormBasedCommandEventListener
     }
 
     /**
+     * @param HelpCommand $helpCommand
+     *
      * @return Command|null
      */
     private function getCommandFromHelpCommand(HelpCommand $helpCommand)

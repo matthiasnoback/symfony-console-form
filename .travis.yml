@@ -26,6 +26,7 @@ install:
   - composer update --prefer-source
 
 script:
+  - vendor/bin/php-cs-fixer fix -v --diff --dry-run
   - vendor/bin/behat --tags=~symfony27
   - >
     if [ "SYMFONY_VERSION" == "2.7.*" ]; then

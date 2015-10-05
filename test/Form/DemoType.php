@@ -19,7 +19,7 @@ class DemoType extends AbstractType
                 [
                     'label' => 'Your name',
                     'required' => true,
-                    'data' => 'Matthias'
+                    'data' => 'Matthias',
                 ]
             )
             ->add(
@@ -28,7 +28,7 @@ class DemoType extends AbstractType
                 [
                     'type' => new AddressType(),
                     'allow_add' => true,
-                    'label' => 'Addresses'
+                    'label' => 'Addresses',
                 ]
             )
             ->add(
@@ -37,8 +37,8 @@ class DemoType extends AbstractType
                 [
                     'label' => 'Your email address',
                     'constraints' => [
-                        new Email()
-                    ]
+                        new Email(),
+                    ],
                 ]
             )
             ->add(
@@ -47,8 +47,8 @@ class DemoType extends AbstractType
                 [
                     'label' => 'Where do you live?',
                     'constraints' => [
-                        new Country()
-                    ]
+                        new Country(),
+                    ],
                 ]
             )
         ;
@@ -58,7 +58,7 @@ class DemoType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => 'Matthias\SymfonyConsoleForm\Tests\Form\Data\Demo'
+                'data_class' => 'Matthias\SymfonyConsoleForm\Tests\Form\Data\Demo',
             ]
         );
     }

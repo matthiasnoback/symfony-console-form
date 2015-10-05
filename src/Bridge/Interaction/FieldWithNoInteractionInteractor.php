@@ -12,6 +12,15 @@ use Symfony\Component\Form\FormInterface;
 
 class FieldWithNoInteractionInteractor implements FormInteractor
 {
+    /**
+     * @param FormInterface   $form
+     * @param HelperSet       $helperSet
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     *
+     * @throws NoNeedToInteractWithForm
+     * @throws CanNotInteractWithForm
+     */
     public function interactWith(
         FormInterface $form,
         HelperSet $helperSet,

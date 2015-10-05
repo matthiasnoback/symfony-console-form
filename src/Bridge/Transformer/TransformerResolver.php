@@ -9,8 +9,10 @@ interface TransformerResolver
 {
     /**
      * @param FormInterface $form
-     * @return FormToQuestionTransformer
+     *
      * @throws CouldNotResolveTransformer
+     *
+     * @return FormToQuestionTransformer
      */
     public function resolve(FormInterface $form);
 }

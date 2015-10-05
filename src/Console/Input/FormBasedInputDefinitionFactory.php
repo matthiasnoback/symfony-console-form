@@ -12,13 +12,25 @@ use Symfony\Component\Form\FormInterface;
 
 class FormBasedInputDefinitionFactory implements InputDefinitionFactory
 {
+    /**
+     * @var FormFactoryInterface
+     */
     private $formFactory;
 
+    /**
+     * @param FormFactoryInterface $formFactory
+     */
     public function __construct(FormFactoryInterface $formFactory)
     {
         $this->formFactory = $formFactory;
     }
 
+    /**
+     * @param string|\Symfony\Component\Form\FormTypeInterface $formType
+     * @param array                                            &$resources
+     *
+     * @return InputDefinition
+     */
     public function createForFormType($formType, array &$resources = [])
     {
         $resources[] = new FileResource(__FILE__);
@@ -46,6 +58,11 @@ class FormBasedInputDefinitionFactory implements InputDefinitionFactory
         return $inputDefinition;
     }
 
+    /**
+     * @param FormInterface $field
+     *
+     * @return bool
+     */
     private function isFormFieldSupported(FormInterface $field)
     {
         if ($field->getConfig()->getCompound()) {

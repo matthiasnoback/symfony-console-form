@@ -8,13 +8,22 @@ use Symfony\Component\Console\Event\ConsoleCommandEvent;
 
 class HandleFormBasedCommandEventListener
 {
+    /**
+     * @var FormHelper
+     */
     private $formQuestionHelper;
 
+    /**
+     * @param FormHelper $formQuestionHelper
+     */
     public function __construct(FormHelper $formQuestionHelper)
     {
         $this->formQuestionHelper = $formQuestionHelper;
     }
 
+    /**
+     * @param ConsoleCommandEvent $event
+     */
     public function onConsoleCommand(ConsoleCommandEvent $event)
     {
         $command = $event->getCommand();

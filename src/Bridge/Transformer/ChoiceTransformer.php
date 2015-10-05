@@ -7,6 +7,11 @@ use Symfony\Component\Form\Form;
 
 class ChoiceTransformer extends AbstractTransformer
 {
+    /**
+     * @param Form $form
+     *
+     * @return Question
+     */
     public function transform(Form $form)
     {
         $formView = $form->createView();

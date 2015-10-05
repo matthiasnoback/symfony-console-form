@@ -10,15 +10,33 @@ use Symfony\Component\Form\Test\FormBuilderInterface;
 
 class ConsoleFormWithDefaultValuesAndOptionsFactory implements ConsoleFormFactory
 {
+    /**
+     * @var FormFactoryInterface
+     */
     private $formFactory;
+
+    /**
+     * @var FormRegistryInterface
+     */
     private $formRegistry;
 
+    /**
+     * @param FormFactoryInterface  $formFactory
+     * @param FormRegistryInterface $formRegistry
+     */
     public function __construct(FormFactoryInterface $formFactory, FormRegistryInterface $formRegistry)
     {
         $this->formFactory = $formFactory;
         $this->formRegistry = $formRegistry;
     }
 
+    /**
+     * @param string|FormTypeInterface $formType
+     * @param InputInterface           $input
+     * @param array                    $options
+     *
+     * @return \Symfony\Component\Form\Form
+     */
     public function create($formType, InputInterface $input, array $options = [])
     {
         $options = $this->addDefaultOptions($options);
@@ -26,7 +44,7 @@ class ConsoleFormWithDefaultValuesAndOptionsFactory implements ConsoleFormFactor
         $formBuilder = $this->formFactory->createBuilder($formType, null, $options);
 
         foreach ($formBuilder as $name => $childBuilder) {
-            /** @var FormBuilderInterface $childBuilder */
+            /* @var FormBuilderInterface $childBuilder */
             if (!$input->hasOption($name)) {
                 continue;
             }
@@ -42,9 +60,14 @@ class ConsoleFormWithDefaultValuesAndOptionsFactory implements ConsoleFormFactor
         return $formBuilder->getForm();
     }
 
+    /**
+     * @param array $options
+     *
+     * @return array
+     */
     private function addDefaultOptions(array $options)
     {
-        $defaultOptions = array();
+        $defaultOptions = [];
 
         // hack to prevent validation error "The CSRF token is invalid."
         foreach ($this->formRegistry->getExtensions() as $extension) {

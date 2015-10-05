@@ -8,10 +8,26 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class RegisterOutputFormatterStylesPass implements CompilerPassInterface
 {
+    /**
+     * @var string
+     */
     private $stylesCollectionId;
+
+    /**
+     * @var string
+     */
     private $tagName;
+
+    /**
+     * @var string
+     */
     private $styleNameAttribute;
 
+    /**
+     * @param string $stylesCollectionId
+     * @param string $tagName
+     * @param string $styleNameAttribute
+     */
     public function __construct($stylesCollectionId, $tagName, $styleNameAttribute)
     {
         $this->stylesCollectionId = $stylesCollectionId;
@@ -19,6 +35,11 @@ class RegisterOutputFormatterStylesPass implements CompilerPassInterface
         $this->styleNameAttribute = $styleNameAttribute;
     }
 
+    /**
+     * @param ContainerBuilder $container
+     *
+     * @throws \LogicException
+     */
     public function process(ContainerBuilder $container)
     {
         if (!$container->has($this->stylesCollectionId)) {

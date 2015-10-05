@@ -15,10 +15,10 @@ class ColorWithChoicesAsValuesType extends AbstractType
                 'choices' => array(
                     'Red' => 'red',
                     'Blue' => 'blue',
-                    'Yellow' => 'yellow'
+                    'Yellow' => 'yellow',
                 ),
                 'data' => 'red',
-                'choices_as_values' => true
+                'choices_as_values' => true,
             ));
     }
 

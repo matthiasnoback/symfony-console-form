@@ -10,13 +10,19 @@ use Symfony\Component\Form\FormInterface;
 
 class UseInputOptionsAsEventDataEventSubscriber implements EventSubscriberInterface
 {
+    /**
+     * @return array
+     */
     public static function getSubscribedEvents()
     {
         return [
-            FormEvents::PRE_SUBMIT => 'onPreSubmit'
+            FormEvents::PRE_SUBMIT => 'onPreSubmit',
         ];
     }
 
+    /**
+     * @param FormEvent $event
+     */
     public function onPreSubmit(FormEvent $event)
     {
         $input = $event->getData();
@@ -27,6 +33,12 @@ class UseInputOptionsAsEventDataEventSubscriber implements EventSubscriberInterf
         $event->setData($this->convertInputToSubmittedData($input, $event->getForm()));
     }
 
+    /**
+     * @param InputInterface $input
+     * @param FormInterface  $form
+     *
+     * @return array
+     */
     private function convertInputToSubmittedData(InputInterface $input, FormInterface $form)
     {
         $submittedData = [];

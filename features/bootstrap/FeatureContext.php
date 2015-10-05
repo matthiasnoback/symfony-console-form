@@ -14,6 +14,9 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
  */
 class FeatureContext implements Context, SnippetAcceptingContext
 {
+    /**
+     * @var Application
+     */
     private $application;
 
     /**

@@ -14,11 +14,18 @@ class FormHelper extends Helper
     private $formFactory;
     private $formInteractor;
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'form';
     }
 
+    /**
+     * @param ConsoleFormFactory $formFactory
+     * @param FormInteractor     $formInteractor
+     */
     public function __construct(
         ConsoleFormFactory $formFactory,
         FormInteractor $formInteractor
@@ -27,6 +34,14 @@ class FormHelper extends Helper
         $this->formInteractor = $formInteractor;
     }
 
+    /**
+     * @param string|\Symfony\Component\Form\FormTypeInterface $formType
+     * @param InputInterface                                   $input
+     * @param OutputInterface                                  $output
+     * @param array                                            $options
+     *
+     * @return mixed
+     */
     public function interactUsingForm($formType, InputInterface $input, OutputInterface $output, array $options = [])
     {
         $form = $this->formFactory->create($formType, $input, $options);
@@ -41,6 +56,11 @@ class FormHelper extends Helper
         return $form->getData();
     }
 
+    /**
+     * @param FormInterface $form
+     *
+     * @throws \RuntimeException
+     */
     private function invalidForm(FormInterface $form)
     {
         throw new \RuntimeException(sprintf('Invalid data provided: %s', $form->getErrors(true, false)));

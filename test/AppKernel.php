@@ -13,22 +13,22 @@ class AppKernel extends Kernel
     {
         return array(
             new FrameworkBundle(),
-            new SymfonyConsoleFormBundle()
+            new SymfonyConsoleFormBundle(),
         );
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load(__DIR__ . '/config.yml');
+        $loader->load(__DIR__.'/config.yml');
     }
 
     public function getCacheDir()
     {
-        return __DIR__ . '/temp/cache';
+        return __DIR__.'/temp/cache';
     }
 
     public function getLogDir()
     {
-        return __DIR__ . '/temp/logs';
+        return __DIR__.'/temp/logs';
     }
 }

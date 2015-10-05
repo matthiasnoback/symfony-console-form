@@ -8,15 +8,31 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class RegisterHelpersPass implements CompilerPassInterface
 {
+    /**
+     * @var string
+     */
     private $helperCollectionId;
+
+    /**
+     * @var string
+     */
     private $tagName;
 
+    /**
+     * @param string $helperCollectionId
+     * @param string $tagName
+     */
     public function __construct($helperCollectionId, $tagName)
     {
         $this->helperCollectionId = $helperCollectionId;
         $this->tagName = $tagName;
     }
 
+    /**
+     * @param ContainerBuilder $container
+     *
+     * @throws \LogicException
+     */
     public function process(ContainerBuilder $container)
     {
         if (!$container->has($this->helperCollectionId)) {

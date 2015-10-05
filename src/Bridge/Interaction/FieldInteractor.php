@@ -12,13 +12,29 @@ use Symfony\Component\Form\FormInterface;
 
 class FieldInteractor implements FormInteractor
 {
+    /**
+     * @var TransformerResolver
+     */
     private $transformerResolver;
 
+    /**
+     * @param TransformerResolver $transformerResolver
+     */
     public function __construct(TransformerResolver $transformerResolver)
     {
         $this->transformerResolver = $transformerResolver;
     }
 
+    /**
+     * @param FormInterface   $form
+     * @param HelperSet       $helperSet
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     *
+     * @throws CanNotInteractWithForm The input isn't interactive.
+     *
+     * @return string
+     */
     public function interactWith(
         FormInterface $form,
         HelperSet $helperSet,
@@ -35,6 +51,8 @@ class FieldInteractor implements FormInteractor
     }
 
     /**
+     * @param HelperSet $helperSet
+     *
      * @return QuestionHelper
      */
     private function questionHelper(HelperSet $helperSet)

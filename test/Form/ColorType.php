@@ -15,9 +15,9 @@ class ColorType extends AbstractType
                 'choices' => array(
                     'red' => 'Red',
                     'blue' => 'Blue',
-                    'yellow' => 'Yellow'
+                    'yellow' => 'Yellow',
                 ),
-                'data' => 'red'
+                'data' => 'red',
             ));
     }
 
