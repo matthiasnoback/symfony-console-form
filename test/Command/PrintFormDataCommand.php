@@ -10,6 +10,6 @@ class PrintFormDataCommand extends DynamicFormBasedCommand
 {
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->write(print_r($this->formData(),true));
+        $output->write(print_r($this->formData(), true));
     }
 }

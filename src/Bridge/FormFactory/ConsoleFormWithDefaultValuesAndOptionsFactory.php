@@ -44,7 +44,7 @@ class ConsoleFormWithDefaultValuesAndOptionsFactory implements ConsoleFormFactor
         $formBuilder = $this->formFactory->createBuilder($formType, null, $options);
 
         foreach ($formBuilder as $name => $childBuilder) {
-            /** @var FormBuilderInterface $childBuilder */
+            /* @var FormBuilderInterface $childBuilder */
             if (!$input->hasOption($name)) {
                 continue;
             }

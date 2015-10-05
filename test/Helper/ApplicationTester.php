@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\StreamOutput;
 
 /**
- * Copied and modified from https://github.com/phpspec/phpspec/blob/master/features/bootstrap/Console/ApplicationTester.php
+ * Copied and modified from https://github.com/phpspec/phpspec/blob/master/features/bootstrap/Console/ApplicationTester.php.
  */
 class ApplicationTester
 {
@@ -54,7 +54,7 @@ class ApplicationTester
     }
 
     /**
-     * @param boolean
+     * @param bool
      *
      * @return string
      */
@@ -118,7 +118,7 @@ class ApplicationTester
     private function setInputStream($inputStream)
     {
         $helper = $this->application->getHelperSet()->get('question');
-        /** @var $helper QuestionHelper */
+        /* @var $helper QuestionHelper */
         $helper->setInputStream($inputStream);
     }
 

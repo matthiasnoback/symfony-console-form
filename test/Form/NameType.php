@@ -17,14 +17,14 @@ class NameType extends AbstractType
                 'label' => 'Your name',
                 'data' => 'Matthias',
                 'constraints' => array(
-                    new Length(array('min' => 4))
-                )
+                    new Length(array('min' => 4)),
+                ),
             ]
         )->add(
             'submit',
             'submit',
             [
-                'label' => 'Submit'
+                'label' => 'Submit',
             ]
         );
     }

@@ -15,7 +15,7 @@ class AddressType extends AbstractType
                 'street',
                 'text',
                 [
-                    'label' => 'Street'
+                    'label' => 'Street',
                 ]
             );
     }
@@ -24,7 +24,7 @@ class AddressType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => 'Matthias\SymfonyConsoleForm\Tests\Form\Data\Address'
+                'data_class' => 'Matthias\SymfonyConsoleForm\Tests\Form\Data\Address',
             ]
         );
     }
