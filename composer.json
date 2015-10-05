@@ -28,13 +28,14 @@
         "symfony/console": "~2.5"
     },
     "require-dev": {
-        "behat/behat": "~3.0",
         "beberlei/assert": "~2.1",
+        "behat/behat": "~3.0",
+        "fabpot/php-cs-fixer": "^1.10",
+        "symfony/console": "~2.5",
+        "symfony/finder": "~2.5",
+        "symfony/form": "~2.5",
         "symfony/framework-bundle": "~2.5",
         "symfony/validator": "~2.5",
-        "symfony/form": "~2.5",
-        "symfony/yaml": "~2.5",
-        "symfony/finder": "~2.5",
-        "symfony/console": "~2.5"
+        "symfony/yaml": "~2.5"
     }
 }
