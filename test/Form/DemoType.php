@@ -51,6 +51,15 @@ class DemoType extends AbstractType
                     ],
                 ]
             )
+            ->add(
+                'dateOfBirth',
+                'date',
+                [
+                    'label' => 'Your date of birth',
+                    'data' => new \DateTime('1879-03-14'),
+                    'widget' => 'single_text',
+                ]
+            )
         ;
     }
 

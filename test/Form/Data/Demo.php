@@ -8,4 +8,5 @@ class Demo
     public $email;
     public $country;
     public $addresses;
+    public $dateOfBirth;
 }
