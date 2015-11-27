@@ -49,8 +49,8 @@ Feature: It is possible to interactively fill in a form from the CLI
           [dateOfBirth] => DateTime Object
           (
               [date] => 2015-03-04 00:00:00.000000
-              [timezone_type] => 2
-              [timezone] => GMT
+              [timezone_type] => 1
+              [timezone] => +00:00
           )
       )
       """
