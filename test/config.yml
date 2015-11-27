@@ -37,6 +37,13 @@ services:
         tags:
             - { name: console.command }
 
+    date_of_birth_command:
+        class: Matthias\SymfonyConsoleForm\Tests\Command\PrintFormDataCommand
+        arguments:
+            - date_of_birth
+        tags:
+            - { name: console.command }
+
     demo_form_type:
         class: Matthias\SymfonyConsoleForm\Tests\Form\DemoType
         tags:
@@ -61,6 +68,11 @@ services:
         class: Matthias\SymfonyConsoleForm\Tests\Form\RepeatedPasswordType
         tags:
             - { name: form.type, alias: repeated_password }
+
+    date_of_birth_form_type:
+        class: Matthias\SymfonyConsoleForm\Tests\Form\DateOfBirthType
+        tags:
+            - { name: form.type, alias: date_of_birth }
 
 framework:
     form:

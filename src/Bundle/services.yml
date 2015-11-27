@@ -34,6 +34,14 @@ services:
         tags:
             - { name: form_to_question_transformer, form_type: text }
 
+    matthias_symfony_console_form.date_time_transformer:
+        class: Matthias\SymfonyConsoleForm\Bridge\Transformer\DateTimeTransformer
+        public: false
+        tags:
+            - { name: form_to_question_transformer, form_type: time }
+            - { name: form_to_question_transformer, form_type: date }
+            - { name: form_to_question_transformer, form_type: datetime }
+
     matthias_symfony_console_form.password_transformer:
         class: Matthias\SymfonyConsoleForm\Bridge\Transformer\PasswordTransformer
         public: false

@@ -33,6 +33,8 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function __construct()
     {
+        ini_set('date.timezone', 'GMT');
+
         $kernel = new AppKernel('test', true);
         $this->application = new Application($kernel);
         $this->tester = new ApplicationTester($this->application);

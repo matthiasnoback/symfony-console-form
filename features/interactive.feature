@@ -36,6 +36,25 @@ Feature: It is possible to interactively fill in a form from the CLI
       This value is too short.
       """
 
+  Scenario: Provide a date as text
+    When I run the command "form:date_of_birth" and I provide as input
+      """
+      2015-03-04[enter]
+      """
+    Then the command has finished successfully
+    And the output should be
+      """
+      Your date of birth [1879-03-14]: Array
+      (
+          [dateOfBirth] => DateTime Object
+          (
+              [date] => 2015-03-04 00:00:00.000000
+              [timezone_type] => 2
+              [timezone] => GMT
+          )
+      )
+      """
+
   Scenario: Select a value
     When I run the command "form:color" and I provide as input
       """
