@@ -19,6 +19,9 @@ class ColorWithChoicesAsValuesType extends AbstractType
                 ),
                 'data' => 'red',
                 'choices_as_values' => true,
+                'choice_value' => function ($choice) {
+                    return $choice;
+                },
             ));
     }
 

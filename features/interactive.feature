@@ -83,9 +83,9 @@ Feature: It is possible to interactively fill in a form from the CLI
     And the output should be
     """
       Select color [red]:
-        [0] Red (red)
-        [1] Blue (blue)
-        [2] Yellow (yellow)
+        [red   ] Red
+        [blue  ] Blue
+        [yellow] Yellow
       > Array
       (
           [color] => blue
@@ -102,9 +102,9 @@ Feature: It is possible to interactively fill in a form from the CLI
     And the output should be
     """
       Select color [red]:
-        [0] Red (red)
-        [1] Blue (blue)
-        [2] Yellow (yellow)
+        [red   ] Red
+        [blue  ] Blue
+        [yellow] Yellow
       > Array
       (
           [color] => red

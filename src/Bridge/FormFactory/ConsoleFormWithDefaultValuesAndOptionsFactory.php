@@ -2,7 +2,9 @@
 
 namespace Matthias\SymfonyConsoleForm\Bridge\FormFactory;
 
+use Matthias\SymfonyConsoleForm\LegacyFormHelper;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Csrf\Type\FormTypeCsrfExtension;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormRegistryInterface;
@@ -68,10 +70,9 @@ class ConsoleFormWithDefaultValuesAndOptionsFactory implements ConsoleFormFactor
     private function addDefaultOptions(array $options)
     {
         $defaultOptions = [];
-
         // hack to prevent validation error "The CSRF token is invalid."
         foreach ($this->formRegistry->getExtensions() as $extension) {
-            foreach ($extension->getTypeExtensions('form') as $typeExtension) {
+            foreach ($extension->getTypeExtensions(LegacyFormHelper::getType(FormType::class)) as $typeExtension) {
                 if ($typeExtension instanceof FormTypeCsrfExtension) {
                     $defaultOptions['csrf_protection'] = false;
                 }
