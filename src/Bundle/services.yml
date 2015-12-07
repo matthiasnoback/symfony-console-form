@@ -9,8 +9,8 @@ services:
         class: Matthias\SymfonyConsoleForm\Console\Helper\FormHelper
         public: false
         arguments:
-            - @matthias_symfony_console_form.console_form_factory
-            - @matthias_symfony_console_form.delegating_interactor
+            - "@matthias_symfony_console_form.console_form_factory"
+            - "@matthias_symfony_console_form.delegating_interactor"
         tags:
             - { name: console_helper }
 
@@ -18,7 +18,7 @@ services:
         class: Matthias\SymfonyConsoleForm\Console\Input\CachedInputDefinitionFactory
         public: false
         arguments:
-            - @matthias_symfony_console_form.real_input_definition_factory
+            - "@matthias_symfony_console_form.real_input_definition_factory"
             - %matthias_symfony_console_form.cache_directory%
             - %kernel.debug%
 
@@ -26,7 +26,7 @@ services:
         class: Matthias\SymfonyConsoleForm\Console\Input\FormBasedInputDefinitionFactory
         public: false
         arguments:
-            - @form.factory
+            - "@form.factory"
 
     matthias_symfony_console_form.text_transformer:
         class: Matthias\SymfonyConsoleForm\Bridge\Transformer\TextTransformer
@@ -60,17 +60,17 @@ services:
         public: false
         calls:
             # more specific interactors (by form type acenstry) should be higher in this list
-            - [addInteractor, [@matthias_symfony_console_form.field_with_no_interaction_interactor]]
-            - [addInteractor, [@matthias_symfony_console_form.non_interactive_root_interactor]]
-            - [addInteractor, [@matthias_symfony_console_form.collection_interactor]]
-            - [addInteractor, [@matthias_symfony_console_form.compound_interactor]]
-            - [addInteractor, [@matthias_symfony_console_form.field_interactor]]
+            - [addInteractor, ["@matthias_symfony_console_form.field_with_no_interaction_interactor"]]
+            - [addInteractor, ["@matthias_symfony_console_form.non_interactive_root_interactor"]]
+            - [addInteractor, ["@matthias_symfony_console_form.collection_interactor"]]
+            - [addInteractor, ["@matthias_symfony_console_form.compound_interactor"]]
+            - [addInteractor, ["@matthias_symfony_console_form.field_interactor"]]
 
     matthias_symfony_console_form.compound_interactor:
         class: Matthias\SymfonyConsoleForm\Bridge\Interaction\CompoundInteractor
         public: false
         arguments:
-            - @matthias_symfony_console_form.delegating_interactor
+            - "@matthias_symfony_console_form.delegating_interactor"
 
     matthias_symfony_console_form.field_with_no_interaction_interactor:
         class: Matthias\SymfonyConsoleForm\Bridge\Interaction\FieldWithNoInteractionInteractor
@@ -80,19 +80,19 @@ services:
         class: Matthias\SymfonyConsoleForm\Bridge\Interaction\NonInteractiveRootInteractor
         public: false
         arguments:
-            - @matthias_symfony_console_form.delegating_interactor
+            - "@matthias_symfony_console_form.delegating_interactor"
 
     matthias_symfony_console_form.collection_interactor:
         class: Matthias\SymfonyConsoleForm\Bridge\Interaction\CollectionInteractor
         public: false
         arguments:
-            - @matthias_symfony_console_form.delegating_interactor
+            - "@matthias_symfony_console_form.delegating_interactor"
 
     matthias_symfony_console_form.field_interactor:
         class: Matthias\SymfonyConsoleForm\Bridge\Interaction\FieldInteractor
         public: false
         arguments:
-            - @matthias_symfony_console.transformer_resolver
+            - "@matthias_symfony_console.transformer_resolver"
 
     matthias_symfony_console.transformer_resolver:
         class: Matthias\SymfonyConsoleForm\Bridge\Transformer\TypeAncestryBasedTransformerResolver
@@ -102,7 +102,7 @@ services:
         class: Matthias\SymfonyConsoleForm\Console\EventListener\HandleFormBasedCommandEventListener
         public: true
         arguments:
-            - @matthias_symfony_console_form.form_helper
+            - "@matthias_symfony_console_form.form_helper"
         tags:
             - { name: kernel.event_listener, event: console.command, method: onConsoleCommand, priority: 200 }
 
@@ -110,7 +110,7 @@ services:
         class: Matthias\SymfonyConsoleForm\Console\EventListener\SetInputDefinitionOfFormBasedCommandEventListener
         public: true
         arguments:
-            - @matthias_symfony_console_form.input_definition_factory
+            - "@matthias_symfony_console_form.input_definition_factory"
         tags:
             - { name: kernel.event_listener, event: console.command, method: onConsoleCommand, priority: 2000 }
 
@@ -118,11 +118,11 @@ services:
         class: Matthias\SymfonyConsoleForm\Form\ConsoleFormTypeExtension
         public: true
         tags:
-            - { name: form.type_extension, alias: form }
+            - { name: form.type_extension, alias: form, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType }
 
     matthias_symfony_console_form.console_form_factory:
         class: Matthias\SymfonyConsoleForm\Bridge\FormFactory\ConsoleFormWithDefaultValuesAndOptionsFactory
         public: false
         arguments:
-            - @form.factory
-            - @form.registry
+            - "@form.factory"
+            - "@form.registry"
