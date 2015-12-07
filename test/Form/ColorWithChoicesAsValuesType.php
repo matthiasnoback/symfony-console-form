@@ -2,7 +2,9 @@
 
 namespace Matthias\SymfonyConsoleForm\Tests\Form;
 
+use Matthias\SymfonyConsoleForm\LegacyFormHelper;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class ColorWithChoicesAsValuesType extends AbstractType
@@ -10,7 +12,7 @@ class ColorWithChoicesAsValuesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('color', 'choice', array(
+            ->add('color', LegacyFormHelper::getType(ChoiceType::class), array(
                 'label' => 'Select color',
                 'choices' => array(
                     'Red' => 'red',

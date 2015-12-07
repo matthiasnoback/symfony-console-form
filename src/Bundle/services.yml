@@ -32,28 +32,28 @@ services:
         class: Matthias\SymfonyConsoleForm\Bridge\Transformer\TextTransformer
         public: false
         tags:
-            - { name: form_to_question_transformer, form_type: text }
+            - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\TextType }
 
     matthias_symfony_console_form.date_time_transformer:
         class: Matthias\SymfonyConsoleForm\Bridge\Transformer\DateTimeTransformer
         public: false
         tags:
-            - { name: form_to_question_transformer, form_type: time }
-            - { name: form_to_question_transformer, form_type: date }
-            - { name: form_to_question_transformer, form_type: datetime }
+            - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\TimeType }
+            - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\DateType }
+            - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\DateTimeType }
 
     matthias_symfony_console_form.password_transformer:
         class: Matthias\SymfonyConsoleForm\Bridge\Transformer\PasswordTransformer
         public: false
         tags:
-            - { name: form_to_question_transformer, form_type: password }
+            - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\PasswordType }
 
     matthias_symfony_console_form.choice_transformer:
         class: Matthias\SymfonyConsoleForm\Bridge\Transformer\ChoiceTransformer
         public: false
         tags:
-            - { name: form_to_question_transformer, form_type: choice }
-            - { name: form_to_question_transformer, form_type: country }
+            - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\ChoiceType }
+            - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\CountryType }
 
     matthias_symfony_console_form.delegating_interactor:
         class: Matthias\SymfonyConsoleForm\Bridge\Interaction\DelegatingInteractor

@@ -2,7 +2,10 @@
 
 namespace Matthias\SymfonyConsoleForm\Tests\Form;
 
+use Matthias\SymfonyConsoleForm\LegacyFormHelper;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Length;
 
@@ -12,7 +15,7 @@ class NameType extends AbstractType
     {
         $builder->add(
             'name',
-            'text',
+            LegacyFormHelper::getType(TextType::class),
             [
                 'label' => 'Your name',
                 'data' => 'Matthias',
@@ -22,7 +25,7 @@ class NameType extends AbstractType
             ]
         )->add(
             'submit',
-            'submit',
+            LegacyFormHelper::getType(SubmitType::class),
             [
                 'label' => 'Submit',
             ]

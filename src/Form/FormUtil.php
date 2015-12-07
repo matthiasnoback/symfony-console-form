@@ -2,6 +2,7 @@
 
 namespace Matthias\SymfonyConsoleForm\Form;
 
+use Matthias\SymfonyConsoleForm\LegacyFormHelper;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\ResolvedFormTypeInterface;
 
@@ -30,7 +31,7 @@ class FormUtil
             return;
         }
 
-        $types[] = $formType->getName();
+        $types[] = LegacyFormHelper::getName($formType);
 
         self::typeAncestryForType($formType->getParent(), $types);
     }
@@ -73,6 +74,6 @@ class FormUtil
      */
     public static function isCompound(FormInterface $form)
     {
-        return $form->getConfig()->getOption('compound');
+        return LegacyFormHelper::getCompound($form);
     }
 }
