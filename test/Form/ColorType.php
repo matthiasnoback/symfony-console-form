@@ -12,9 +12,9 @@ class ColorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $flipChoices = function ($choices) {
-            return LegacyFormHelper::isLegacy() ?
-                $choices :
-                array_flip($choices);
+            return LegacyFormHelper::isSymfony3() ?
+                array_flip($choices) :
+                $choices;
         };
 
         $builder

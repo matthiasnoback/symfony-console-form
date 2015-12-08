@@ -64,6 +64,11 @@ final class LegacyFormHelper
         return !method_exists(AbstractType::class, 'getBlockPrefix');
     }
 
+    public static function isSymfony3()
+    {
+        return !method_exists(AbstractType::class, 'getName');
+    }
+
     private function __construct()
     {
     }
