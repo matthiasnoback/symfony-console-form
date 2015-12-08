@@ -4,6 +4,7 @@ namespace Matthias\SymfonyConsoleForm\Bridge\Transformer;
 
 use Matthias\SymfonyConsoleForm\Bridge\Transformer\Exception\CouldNotResolveTransformer;
 use Matthias\SymfonyConsoleForm\Form\FormUtil;
+use Matthias\SymfonyConsoleForm\LegacyFormHelper;
 use Symfony\Component\Form\FormInterface;
 
 class TypeAncestryBasedTransformerResolver implements TransformerResolver
@@ -19,7 +20,7 @@ class TypeAncestryBasedTransformerResolver implements TransformerResolver
      */
     public function addTransformer($formType, FormToQuestionTransformer $transformer)
     {
-        $this->transformers[$formType] = $transformer;
+        $this->transformers[LegacyFormHelper::getType($formType)] = $transformer;
     }
 
     /**

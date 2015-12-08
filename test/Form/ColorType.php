@@ -11,14 +11,20 @@ class ColorType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $flipChoices = function ($choices) {
+            return LegacyFormHelper::isLegacy() ?
+                $choices :
+                array_flip($choices);
+        };
+
         $builder
             ->add('color', LegacyFormHelper::getType(ChoiceType::class), array(
                 'label' => 'Select color',
-                'choices' => array(
+                'choices' => $flipChoices(array(
                     'red' => 'Red',
                     'blue' => 'Blue',
                     'yellow' => 'Yellow',
-                ),
+                )),
                 'data' => 'red',
             ));
     }

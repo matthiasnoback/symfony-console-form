@@ -2,8 +2,10 @@
 
 namespace Matthias\SymfonyConsoleForm\Console\Helper\Question;
 
+use Matthias\SymfonyConsoleForm\LegacyFormHelper;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Form\ChoiceList\View\ChoiceView;
+use Symfony\Component\Form\Extension\Core\View\ChoiceView as LegacyChoiceView;
 
 class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
 {
@@ -151,7 +153,10 @@ class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
     private function assertFlatChoiceViewsArray(array $choiceViews)
     {
         foreach ($choiceViews as $choiceView) {
-            if (!$choiceView instanceof ChoiceView) {
+            if (LegacyFormHelper::isLegacy() && !$choiceView instanceof LegacyChoiceView) {
+                throw new \InvalidArgumentException('Only a flat choice hierarchy is supported');
+            }
+            if (!LegacyFormHelper::isLegacy() && !$choiceView instanceof ChoiceView) {
                 throw new \InvalidArgumentException('Only a flat choice hierarchy is supported');
             }
         }
