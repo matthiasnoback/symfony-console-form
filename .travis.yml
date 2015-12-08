@@ -46,6 +46,6 @@ script:
     fi
 
 notifications:
-  email: matthiasnoback@gmail.com
+  email: p.a.waclawczyk@gmail.com
 
 sudo: false
