@@ -29,7 +29,7 @@
     },
     "require-dev": {
         "beberlei/assert": "~2.1",
-        "behat/behat": "~3.0",
+        "behat/behat": "~3.0@dev",
         "fabpot/php-cs-fixer": "^1.10",
         "symfony/console": "~2.5",
         "symfony/finder": "~2.5",
