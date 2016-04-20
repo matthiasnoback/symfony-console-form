@@ -35,11 +35,10 @@ before_install:
     fi
 
 install:
-  - composer update --prefer-source
+  - composer update --prefer-dist
 
 script:
   - vendor/bin/php-cs-fixer fix -v --diff --dry-run
-  - vendor/bin/behat --tags=~symfony27
   - >
     if [ "$SYMFONY_VERSION" ==  "2.5.*" ]; then
           vendor/bin/behat --tags=~symfony27
@@ -48,6 +47,6 @@ script:
     fi
 
 notifications:
-  email: p.a.waclawczyk@gmail.com
+  email: matthiasnoback@gmail.com
 
 sudo: false
