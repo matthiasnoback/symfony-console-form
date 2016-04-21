@@ -2,7 +2,6 @@
 
 namespace Matthias\SymfonyConsoleForm\Console\Input;
 
-use Matthias\SymfonyConsoleForm\LegacyFormHelper;
 use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\Form\FormTypeInterface;
 
@@ -59,7 +58,13 @@ class CachedInputDefinitionFactory implements InputDefinitionFactory
      */
     protected function configCacheFor($formType)
     {
-        $filename = $formType instanceof FormTypeInterface ? LegacyFormHelper::getName($formType) : $formType;
+        if ($formType instanceof FormTypeInterface) {
+            $filename = get_class($formType);
+        } elseif (is_string($formType)) {
+            $filename = $formType;
+        } else {
+            throw new \LogicException('Unexpected type');
+        }
 
         return new ConfigCache($this->cacheDirectory.'/'.$filename, $this->debug);
     }

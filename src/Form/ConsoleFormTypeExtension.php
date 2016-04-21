@@ -3,7 +3,6 @@
 namespace Matthias\SymfonyConsoleForm\Form;
 
 use Matthias\SymfonyConsoleForm\Form\EventListener\UseInputOptionsAsEventDataEventSubscriber;
-use Matthias\SymfonyConsoleForm\LegacyFormHelper;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,6 +23,6 @@ class ConsoleFormTypeExtension extends AbstractTypeExtension
      */
     public function getExtendedType()
     {
-        return LegacyFormHelper::getType(FormType::class);
+        return FormType::class;
     }
 }

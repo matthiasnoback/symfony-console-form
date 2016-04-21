@@ -3,8 +3,9 @@
 namespace Matthias\SymfonyConsoleForm\Tests\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AddressType extends AbstractType
 {
@@ -13,24 +14,19 @@ class AddressType extends AbstractType
         $builder
             ->add(
                 'street',
-                'text',
+                TextType::class,
                 [
                     'label' => 'Street',
                 ]
             );
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             [
                 'data_class' => 'Matthias\SymfonyConsoleForm\Tests\Form\Data\Address',
             ]
         );
-    }
-
-    public function getName()
-    {
-        return 'address';
     }
 }

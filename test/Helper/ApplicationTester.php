@@ -28,7 +28,7 @@ class ApplicationTester
         $this->application = $application;
     }
 
-    public function run($input, array $options = array())
+    public function run($input, array $options = [])
     {
         if (isset($options['interactive']) && $options['interactive']) {
             $this->input = new InteractiveStringInput($input);

@@ -4,7 +4,7 @@ namespace Matthias\SymfonyConsoleForm\Console\Command;
 
 use Symfony\Component\Console\Command\Command;
 
-class InteractiveFormCommand extends Command
+abstract class InteractiveFormCommand extends Command implements FormBasedCommand
 {
     use FormBasedCommandCapabilities;
 }

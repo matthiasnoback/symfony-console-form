@@ -5,7 +5,6 @@ namespace Matthias\SymfonyConsoleForm\Bridge\Interaction;
 use Matthias\SymfonyConsoleForm\Bridge\Interaction\Exception\CanNotInteractWithForm;
 use Matthias\SymfonyConsoleForm\Bridge\Interaction\Exception\NoNeedToInteractWithForm;
 use Matthias\SymfonyConsoleForm\Form\FormUtil;
-use Matthias\SymfonyConsoleForm\LegacyFormHelper;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -29,7 +28,7 @@ class FieldWithNoInteractionInteractor implements FormInteractor
         InputInterface $input,
         OutputInterface $output
     ) {
-        if (FormUtil::isTypeInAncestry($form, LegacyFormHelper::getType(ButtonType::class))) {
+        if (FormUtil::isTypeInAncestry($form, ButtonType::class)) {
             throw new NoNeedToInteractWithForm();
         }
 

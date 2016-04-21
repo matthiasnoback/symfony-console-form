@@ -2,8 +2,6 @@
 
 namespace Matthias\SymfonyConsoleForm\Console\Command;
 
-use Matthias\SymfonyConsoleForm\LegacyFormHelper;
-
 abstract class DynamicFormBasedCommand extends InteractiveFormCommand implements FormBasedCommand
 {
     /**
@@ -14,16 +12,16 @@ abstract class DynamicFormBasedCommand extends InteractiveFormCommand implements
     /**
      * @var string
      */
-    private $formTypeName;
+    private $commandName;
 
     /**
      * @param string $formType
-     * @param string $formTypeName
+     * @param string $commandName
      */
-    public function __construct($formType, $formTypeName)
+    public function __construct($formType, $commandName)
     {
         $this->formType = $formType;
-        $this->formTypeName = $formTypeName;
+        $this->commandName = $commandName;
 
         parent::__construct();
     }
@@ -33,7 +31,7 @@ abstract class DynamicFormBasedCommand extends InteractiveFormCommand implements
      */
     public function formType()
     {
-        return LegacyFormHelper::getType($this->formType, $this->formTypeName);
+        return $this->formType;
     }
 
     /**
@@ -41,6 +39,6 @@ abstract class DynamicFormBasedCommand extends InteractiveFormCommand implements
      */
     protected function configure()
     {
-        $this->setName('form:'.$this->formTypeName);
+        $this->setName('form:'.$this->commandName);
     }
 }

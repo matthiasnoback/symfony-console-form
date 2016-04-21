@@ -4,6 +4,7 @@ namespace Matthias\SymfonyConsoleForm\Bridge\FormFactory;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormTypeInterface;
 
 interface ConsoleFormFactory
 {

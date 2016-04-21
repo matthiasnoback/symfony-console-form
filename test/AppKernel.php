@@ -11,10 +11,10 @@ class AppKernel extends Kernel
 {
     public function registerBundles()
     {
-        return array(
+        return [
             new FrameworkBundle(),
             new SymfonyConsoleFormBundle(),
-        );
+        ];
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)

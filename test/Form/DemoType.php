@@ -3,8 +3,13 @@
 namespace Matthias\SymfonyConsoleForm\Tests\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Country;
 use Symfony\Component\Validator\Constraints\Email;
 
@@ -15,7 +20,7 @@ class DemoType extends AbstractType
         $builder
             ->add(
                 'name',
-                'text',
+                TextType::class,
                 [
                     'label' => 'Your name',
                     'required' => true,
@@ -24,16 +29,16 @@ class DemoType extends AbstractType
             )
             ->add(
                 'addresses',
-                'collection',
+                CollectionType::class,
                 [
-                    'type' => new AddressType(),
+                    'entry_type' => AddressType::class,
                     'allow_add' => true,
                     'label' => 'Addresses',
                 ]
             )
             ->add(
                 'email',
-                'email',
+                EmailType::class,
                 [
                     'label' => 'Your email address',
                     'constraints' => [
@@ -43,7 +48,7 @@ class DemoType extends AbstractType
             )
             ->add(
                 'country',
-                'country',
+                CountryType::class,
                 [
                     'label' => 'Where do you live?',
                     'constraints' => [
@@ -53,7 +58,7 @@ class DemoType extends AbstractType
             )
             ->add(
                 'dateOfBirth',
-                'date',
+                DateType::class,
                 [
                     'label' => 'Your date of birth',
                     'data' => new \DateTime('1879-03-14'),
@@ -63,17 +68,12 @@ class DemoType extends AbstractType
         ;
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             [
                 'data_class' => 'Matthias\SymfonyConsoleForm\Tests\Form\Data\Demo',
             ]
         );
-    }
-
-    public function getName()
-    {
-        return 'demo';
     }
 }

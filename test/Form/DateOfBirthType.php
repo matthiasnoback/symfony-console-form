@@ -2,7 +2,6 @@
 
 namespace Matthias\SymfonyConsoleForm\Tests\Form;
 
-use Matthias\SymfonyConsoleForm\LegacyFormHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -15,7 +14,7 @@ class DateOfBirthType extends AbstractType
         $builder
             ->add(
                 'dateOfBirth',
-                LegacyFormHelper::getType(DateType::class),
+                DateType::class,
                 [
                     'label' => 'Your date of birth',
                     'data' => new \DateTime('1879-03-14', new \DateTimeZone('UTC')),
@@ -23,15 +22,10 @@ class DateOfBirthType extends AbstractType
                 ]
             )->add(
                 'submit',
-                LegacyFormHelper::getType(SubmitType::class),
+                SubmitType::class,
                 [
                     'label' => 'Submit',
                 ]
             );
-    }
-
-    public function getName()
-    {
-        return 'date_of_birth';
     }
 }

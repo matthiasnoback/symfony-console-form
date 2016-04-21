@@ -3,6 +3,7 @@
 namespace Matthias\SymfonyConsoleForm\Bridge\Transformer;
 
 use Matthias\SymfonyConsoleForm\Console\Helper\Question\AlwaysReturnKeyOfChoiceQuestion;
+use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Form\Form;
 
 class ChoiceTransformer extends AbstractTransformer
