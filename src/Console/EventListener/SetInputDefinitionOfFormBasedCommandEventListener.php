@@ -32,7 +32,7 @@ class SetInputDefinitionOfFormBasedCommandEventListener
     {
         $command = $event->getCommand();
         if ($command instanceof HelpCommand) {
-            $command = $this->getCommandFromHelpCommand($command, $event->getInput());
+            $command = $this->getCommandFromHelpCommand($command);
         }
 
         if (!($command instanceof FormBasedCommand)) {

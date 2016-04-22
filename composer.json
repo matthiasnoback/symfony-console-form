@@ -23,19 +23,19 @@
         }
     },
     "require": {
-        "php": ">=5.4",
-        "symfony/form": "~2.5",
-        "symfony/console": "~2.5"
+        "php": ">=5.5",
+        "symfony/form": "~2.8|~3.0",
+        "symfony/console": "~2.8|~3.0"
     },
     "require-dev": {
         "beberlei/assert": "~2.1",
         "behat/behat": "~3.0",
         "fabpot/php-cs-fixer": "^1.10",
-        "symfony/console": "~2.5",
-        "symfony/finder": "~2.5",
-        "symfony/form": "~2.5",
-        "symfony/framework-bundle": "~2.5",
-        "symfony/validator": "~2.5",
-        "symfony/yaml": "~2.5"
+        "symfony/console": "~2.8|~3.0",
+        "symfony/finder": "~2.8|~3.0",
+        "symfony/form": "~2.8|~3.0",
+        "symfony/framework-bundle": "~2.8|~3.0",
+        "symfony/validator": "~2.8|~3.0",
+        "symfony/yaml": "~2.8|~3.0"
     }
 }

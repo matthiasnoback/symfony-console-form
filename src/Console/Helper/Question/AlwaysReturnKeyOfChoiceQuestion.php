@@ -3,7 +3,7 @@
 namespace Matthias\SymfonyConsoleForm\Console\Helper\Question;
 
 use Symfony\Component\Console\Question\ChoiceQuestion;
-use Symfony\Component\Form\Extension\Core\View\ChoiceView;
+use Symfony\Component\Form\ChoiceList\View\ChoiceView;
 
 class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
 {

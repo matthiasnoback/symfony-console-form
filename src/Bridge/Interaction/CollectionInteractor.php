@@ -11,6 +11,7 @@ use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormInterface;
 
 class CollectionInteractor implements FormInteractor
@@ -49,7 +50,7 @@ class CollectionInteractor implements FormInteractor
             throw new CanNotInteractWithForm('This interactor only works with interactive input');
         }
 
-        if (!FormUtil::isTypeInAncestry($form, 'collection')) {
+        if (!FormUtil::isTypeInAncestry($form, CollectionType::class)) {
             throw new CanNotInteractWithForm('Expected a "collection" form');
         }
 

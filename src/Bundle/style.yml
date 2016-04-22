@@ -3,7 +3,7 @@ services:
         class: Matthias\SymfonyConsoleForm\Console\EventListener\RegisterOutputFormatterStylesEventListener
         public: true
         arguments:
-            - @matthias_symfony_console.styles_collection
+            - "@matthias_symfony_console.styles_collection"
         tags:
             - { name: kernel.event_listener, event: console.command, method: onConsoleCommand, priority: 1000 }
 

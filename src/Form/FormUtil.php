@@ -30,7 +30,7 @@ class FormUtil
             return;
         }
 
-        $types[] = $formType->getName();
+        $types[] = get_class($formType->getInnerType());
 
         self::typeAncestryForType($formType->getParent(), $types);
     }
@@ -53,7 +53,7 @@ class FormUtil
      */
     public static function type(FormInterface $form)
     {
-        return $form->getConfig()->getType()->getName();
+        return get_class($form->getConfig()->getType()->getInnerType());
     }
 
     /**
@@ -73,6 +73,6 @@ class FormUtil
      */
     public static function isCompound(FormInterface $form)
     {
-        return $form->getConfig()->getOption('compound');
+        return $form->getConfig()->getCompound();
     }
 }
