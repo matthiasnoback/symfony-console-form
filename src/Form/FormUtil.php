@@ -63,7 +63,13 @@ class FormUtil
      */
     public static function label(FormInterface $form)
     {
-        return $form->getConfig()->getOption('label', $form->getName());
+        $label = $form->getConfig()->getOption('label');
+
+        if (!$label) {
+            $label = self::humanize($form->getName());
+        }
+
+        return $label;
     }
 
     /**
@@ -74,5 +80,17 @@ class FormUtil
     public static function isCompound(FormInterface $form)
     {
         return $form->getConfig()->getCompound();
+    }
+
+    /**
+     * Copied from Symfony\Component\Form method humanize.
+     *
+     * @param $text
+     *
+     * @return string
+     */
+    private static function humanize($text)
+    {
+        return ucfirst(trim(strtolower(preg_replace(array('/([A-Z])/', '/[_\s]+/'), array('_$1', ' '), $text))));
     }
 }
