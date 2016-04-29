@@ -28,20 +28,6 @@ services:
         arguments:
             - "@form.factory"
 
-    matthias_symfony_console_form.text_transformer:
-        class: Matthias\SymfonyConsoleForm\Bridge\Transformer\TextTransformer
-        public: false
-        tags:
-            - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\TextType }
-
-    matthias_symfony_console_form.date_time_transformer:
-        class: Matthias\SymfonyConsoleForm\Bridge\Transformer\DateTimeTransformer
-        public: false
-        tags:
-            - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\TimeType }
-            - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\DateType }
-            - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\DateTimeType }
-
     matthias_symfony_console_form.password_transformer:
         class: Matthias\SymfonyConsoleForm\Bridge\Transformer\PasswordTransformer
         public: false
@@ -54,6 +40,12 @@ services:
         tags:
             - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\ChoiceType }
             - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\CountryType }
+
+    matthias_symfony_console_form.generic_transformer:
+        class: Matthias\SymfonyConsoleForm\Bridge\Transformer\GenericTransformer
+        public: false
+        tags:
+            - { name: form_to_question_transformer, form_type: 'GENERIC' }
 
     matthias_symfony_console_form.delegating_interactor:
         class: Matthias\SymfonyConsoleForm\Bridge\Interaction\DelegatingInteractor

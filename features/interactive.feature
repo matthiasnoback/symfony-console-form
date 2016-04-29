@@ -48,7 +48,7 @@ Feature: It is possible to interactively fill in a form from the CLI
       (
           [dateOfBirth] => DateTime Object
           (
-              [date] => 2015-03-04 00:00:00.000000
+              [date] => 2015-03-04 00:00:00
               [timezone_type] => 1
               [timezone] => +00:00
           )
@@ -70,5 +70,19 @@ Feature: It is possible to interactively fill in a form from the CLI
       > Array
       (
           [color] => blue
+      )
+      """
+
+  Scenario: Provide a integer as text
+      When I run the command "form:age" and I provide as input
+      """
+      26[enter]
+      """
+    Then the command has finished successfully
+    And the output should be
+      """
+      Age [25]: Array
+      (
+          [age] => 26
       )
       """

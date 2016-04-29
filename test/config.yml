@@ -42,6 +42,14 @@ services:
         tags:
             - { name: console.command }
 
+    age_command:
+        class: Matthias\SymfonyConsoleForm\Tests\Command\PrintFormDataCommand
+        arguments:
+            - Matthias\SymfonyConsoleForm\Tests\Form\AgeType
+            - age
+        tags:
+            - { name: console.command }
+
 framework:
     form:
         csrf_protection: true

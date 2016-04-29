@@ -4,7 +4,7 @@ namespace Matthias\SymfonyConsoleForm\Bridge\Transformer;
 
 use Symfony\Component\Form\Form;
 
-class PasswordTransformer extends TextTransformer
+class PasswordTransformer extends GenericTransformer
 {
     /**
      * @param Form $form
