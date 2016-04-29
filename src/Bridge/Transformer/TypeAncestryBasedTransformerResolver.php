@@ -39,6 +39,10 @@ class TypeAncestryBasedTransformerResolver implements TransformerResolver
             }
         }
 
+        if (isset($this->transformers['GENERIC'])) {
+            return $this->transformers['GENERIC'];
+        }
+
         throw new CouldNotResolveTransformer(
             sprintf(
                 'Could not find a transformer for any of these types (%s)',

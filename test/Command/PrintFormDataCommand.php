@@ -10,6 +10,9 @@ class PrintFormDataCommand extends DynamicFormBasedCommand
 {
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->write(print_r($this->formData(), true));
+        /** @var \Matthias\SymfonyConsoleForm\Tests\Form\Data\Demo $data */
+        $data = $this->formData();
+
+        $output->write(print_r($data, true));
     }
 }
