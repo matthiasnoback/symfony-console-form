@@ -42,6 +42,14 @@ services:
         tags:
             - { name: console.command }
 
+    empty_label_command:
+        class: Matthias\SymfonyConsoleForm\Tests\Command\PrintFormDataCommand
+        arguments:
+            - Matthias\SymfonyConsoleForm\Tests\Form\EmptyLabelType
+            - empty_label
+        tags:
+            - { name: console.command }
+
 framework:
     form:
         csrf_protection: true

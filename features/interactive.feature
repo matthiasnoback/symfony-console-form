@@ -72,3 +72,17 @@ Feature: It is possible to interactively fill in a form from the CLI
           [color] => blue
       )
       """
+
+  Scenario: Empty label
+    When I run the command "form:empty_label" and I provide as input
+      """
+        empty[enter]
+      """
+    Then the command has finished successfully
+    And the output should be
+      """
+        Field name: Array
+        (
+            [fieldName] => empty
+        )
+      """
