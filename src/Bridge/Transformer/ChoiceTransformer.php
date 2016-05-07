@@ -5,6 +5,7 @@ namespace Matthias\SymfonyConsoleForm\Bridge\Transformer;
 use Matthias\SymfonyConsoleForm\Console\Helper\Question\AlwaysReturnKeyOfChoiceQuestion;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormInterface;
 
 class ChoiceTransformer extends AbstractTransformer
 {
@@ -24,5 +25,22 @@ class ChoiceTransformer extends AbstractTransformer
         }
 
         return $question;
+    }
+
+    public function getFakeData(FormInterface $form)
+    {
+        if ($form->getViewData()) {
+            return $form->getViewData();
+        }
+
+        if ($choices = $form->getConfig()->getOption('choices')) {
+            if (is_array($choices)) {
+                reset($choices);
+
+                return $choices[key($choices)];
+            }
+        }
+
+        return 'Unknown choice';
     }
 }

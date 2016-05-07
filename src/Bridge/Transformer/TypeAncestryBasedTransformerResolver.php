@@ -31,10 +31,27 @@ class TypeAncestryBasedTransformerResolver implements TransformerResolver
      */
     public function resolve(FormInterface $form)
     {
+        return $this->resolveByInstance($form, FormToQuestionTransformer::class);
+    }
+
+    /**
+     * @param FormInterface $form
+     *
+     * @throws CouldNotResolveTransformer
+     *
+     * @return FakeDataTransformerInterface
+     */
+    public function resolveForFakeData(FormInterface $form)
+    {
+        return $this->resolveByInstance($form, FakeDataTransformerInterface::class);
+    }
+
+    private function resolveByInstance(FormInterface $form, $instanceClass)
+    {
         $types = FormUtil::typeAncestry($form);
 
         foreach ($types as $type) {
-            if (isset($this->transformers[$type])) {
+            if (isset($this->transformers[$type]) && $this->transformers[$type] instanceof $instanceClass) {
                 return $this->transformers[$type];
             }
         }

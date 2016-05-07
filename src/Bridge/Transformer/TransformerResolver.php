@@ -15,4 +15,13 @@ interface TransformerResolver
      * @return FormToQuestionTransformer
      */
     public function resolve(FormInterface $form);
+
+    /**
+     * @param FormInterface $form
+     *
+     * @throws CouldNotResolveTransformer
+     *
+     * @return FakeDataTransformerInterface
+     */
+    public function resolveForFakeData(FormInterface $form);
 }

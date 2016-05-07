@@ -7,6 +7,7 @@ use Matthias\SymfonyConsoleForm\Bridge\Interaction\FormInteractor;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 
 class FormHelper extends Helper
@@ -63,6 +64,14 @@ class FormHelper extends Helper
      */
     private function invalidForm(FormInterface $form)
     {
-        throw new \RuntimeException(sprintf('Invalid data provided: %s', $form->getErrors(true, false)));
+        $msg = "Invalid data provided:\n";
+        $template = '- Form: %1$s, Field: %2$s, Reason: %3$s'."\n";
+
+        /** @var $val FormError */
+        foreach ($form->getErrors(true) as $val) {
+            $msg .= sprintf($template, $form->getName(), $val->getOrigin()->getName(), $val->getMessage());
+        }
+
+        throw new \RuntimeException($msg);
     }
 }

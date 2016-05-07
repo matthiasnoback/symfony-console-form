@@ -14,7 +14,7 @@ use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormInterface;
 
-class CollectionInteractor implements FormInteractor
+class CollectionInteractor implements FormInteractor, FormJsonTemplateInterface
 {
     /**
      * @var FormInteractor
@@ -22,7 +22,7 @@ class CollectionInteractor implements FormInteractor
     private $formInteractor;
 
     /**
-     * @param FormInteractor $formInteractor
+     * @param FormInteractor|FormJsonTemplateInterface $formInteractor
      */
     public function __construct(FormInteractor $formInteractor)
     {
@@ -50,13 +50,7 @@ class CollectionInteractor implements FormInteractor
             throw new CanNotInteractWithForm('This interactor only works with interactive input');
         }
 
-        if (!FormUtil::isTypeInAncestry($form, CollectionType::class)) {
-            throw new CanNotInteractWithForm('Expected a "collection" form');
-        }
-
-        if (!$form->getConfig()->getOption('allow_add')) {
-            throw new FormNotReadyForInteraction('The "collection" form should have the option "allow_add"');
-        }
+        $this->formRequirements($form);
 
         $this->printHeader($form, $output);
 
@@ -68,6 +62,17 @@ class CollectionInteractor implements FormInteractor
         }
 
         return $submittedData;
+    }
+
+    private function formRequirements(FormInterface $form)
+    {
+        if (!FormUtil::isTypeInAncestry($form, CollectionType::class)) {
+            throw new CanNotInteractWithForm('Expected a "collection" form');
+        }
+
+        if (!$form->getConfig()->getOption('allow_add')) {
+            throw new FormNotReadyForInteraction('The "collection" form should have the option "allow_add"');
+        }
     }
 
     /**
@@ -116,5 +121,18 @@ class CollectionInteractor implements FormInteractor
                 ]
             )
         );
+    }
+
+    /**
+     * @param FormInterface $form
+     *
+     * @return mixed
+     */
+    public function getAttributesWithFakeData(FormInterface $form)
+    {
+        $this->formRequirements($form);
+        $prototype = $form->getConfig()->getAttribute('prototype');
+
+        return [$this->formInteractor->getAttributesWithFakeData($prototype)];
     }
 }

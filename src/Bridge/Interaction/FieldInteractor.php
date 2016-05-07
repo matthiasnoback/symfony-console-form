@@ -3,6 +3,7 @@
 namespace Matthias\SymfonyConsoleForm\Bridge\Interaction;
 
 use Matthias\SymfonyConsoleForm\Bridge\Interaction\Exception\CanNotInteractWithForm;
+use Matthias\SymfonyConsoleForm\Bridge\Transformer\Exception\CouldNotResolveTransformer;
 use Matthias\SymfonyConsoleForm\Bridge\Transformer\TransformerResolver;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -10,7 +11,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Form\FormInterface;
 
-class FieldInteractor implements FormInteractor
+class FieldInteractor implements FormInteractor, FormJsonTemplateInterface
 {
     /**
      * @var TransformerResolver
@@ -58,5 +59,19 @@ class FieldInteractor implements FormInteractor
     private function questionHelper(HelperSet $helperSet)
     {
         return $helperSet->get('question');
+    }
+
+    /**
+     * @param FormInterface $form
+     *
+     * @return array
+     */
+    public function getAttributesWithFakeData(FormInterface $form)
+    {
+        try {
+            return $this->transformerResolver->resolveForFakeData($form)->getFakeData($form);
+        } catch (CouldNotResolveTransformer $e) {
+            return 'Unknown type';
+        }
     }
 }

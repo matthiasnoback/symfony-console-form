@@ -3,6 +3,7 @@
 namespace Matthias\SymfonyConsoleForm\Bridge\Transformer;
 
 use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormInterface;
 
 class PasswordTransformer extends TextTransformer
 {
@@ -17,5 +18,15 @@ class PasswordTransformer extends TextTransformer
         $question->setHidden(true);
 
         return $question;
+    }
+
+    /**
+     * @param FormInterface $form
+     *
+     * @return string
+     */
+    public function getFakeData(FormInterface $form)
+    {
+        return 'password data';
     }
 }

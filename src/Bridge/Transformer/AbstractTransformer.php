@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormInterface;
 /**
  * Reusable code for FormToQuestionTransformers.
  */
-abstract class AbstractTransformer implements FormToQuestionTransformer
+abstract class AbstractTransformer implements FormToQuestionTransformer, FakeDataTransformerInterface
 {
     /**
      * @param FormInterface $form

@@ -3,6 +3,7 @@
 namespace Matthias\SymfonyConsoleForm\Console\EventListener;
 
 use Matthias\SymfonyConsoleForm\Console\Command\FormBasedCommand;
+use Matthias\SymfonyConsoleForm\Console\Command\FormConsoleOptions;
 use Matthias\SymfonyConsoleForm\Console\Input\InputDefinitionFactory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Command\HelpCommand;
@@ -40,6 +41,11 @@ class SetInputDefinitionOfFormBasedCommandEventListener
         }
 
         $inputDefinition = $this->inputDefinitionFactory->createForFormType($command->formType());
+
+        foreach (FormConsoleOptions::getBasicOptions() as $inputOption) {
+            $inputDefinition->addOption($inputOption);
+        }
+
         $this->setInputDefinition($command, $event->getInput(), $inputDefinition);
     }
 

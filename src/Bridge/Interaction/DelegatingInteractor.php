@@ -8,7 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Form\FormInterface;
 
-class DelegatingInteractor implements FormInteractor
+class DelegatingInteractor implements FormInteractor, FormJsonTemplateInterface
 {
     /**
      * @var FormInteractor[]
@@ -39,7 +39,29 @@ class DelegatingInteractor implements FormInteractor
     ) {
         foreach ($this->delegates as $interactor) {
             try {
-                return $interactor->interactWith($form, $helperSet, $input, $output);
+                if ($interactor instanceof FormInteractor) {
+                    return $interactor->interactWith($form, $helperSet, $input, $output);
+                }
+            } catch (CanNotInteractWithForm $exception) {
+                continue;
+            }
+        }
+
+        throw new CanNotInteractWithForm('No delegate was able to interact with this form');
+    }
+
+    /**
+     * @param FormInterface $form
+     *
+     * @return mixed
+     */
+    public function getAttributesWithFakeData(FormInterface $form)
+    {
+        foreach ($this->delegates as $interactor) {
+            try {
+                if ($interactor instanceof FormJsonTemplateInterface) {
+                    return $interactor->getAttributesWithFakeData($form);
+                }
             } catch (CanNotInteractWithForm $exception) {
                 continue;
             }

@@ -13,12 +13,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Country;
 use Symfony\Component\Validator\Constraints\Email;
 
-class DemoType extends AbstractType
+class RegularFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('password', RepeatedPasswordType::class)
+            ->add(
+                'password',
+                RepeatedPasswordType::class
+            )
             ->add(
                 'name',
                 TextType::class,

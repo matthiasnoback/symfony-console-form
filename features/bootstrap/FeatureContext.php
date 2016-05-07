@@ -102,6 +102,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
 
     /**
      * @When /^I run the command "([^"]*)" non\-interactively$/
+     * @When /^I run the command '(.*)' non\-interactively$/
      */
     public function iRunTheCommandNonInteractively($command)
     {
