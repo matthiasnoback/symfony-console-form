@@ -30,7 +30,12 @@ abstract class AbstractTransformer implements FormToQuestionTransformer
      */
     protected function defaultValueFrom(FormInterface $form)
     {
-        return $form->getData();
+        $defaultValue = $form->getData();
+        if (is_array($defaultValue)) {
+            $defaultValue = implode(',', $defaultValue);
+        }
+
+        return $defaultValue;
     }
 
     /**

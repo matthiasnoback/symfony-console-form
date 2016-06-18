@@ -73,6 +73,71 @@ Feature: It is possible to interactively fill in a form from the CLI
       )
       """
 
+  Scenario: Select multiple values
+    When I run the command "form:multi_select" and I provide as input
+      """
+      1,3[enter]
+      """
+    Then the command has finished successfully
+    And the output should be
+      """
+      Select values [1,2]:
+        [1] AA
+        [2] BB
+        [3] CC
+      > Array
+      (
+        [choices] => Array
+          (
+            [0] => 1
+            [1] => 3
+          )
+      )
+      """
+
+  Scenario: Select one value when multiple values are allowed
+    When I run the command "form:multi_select" and I provide as input
+      """
+      2[enter]
+      """
+    Then the command has finished successfully
+    And the output should be
+      """
+      Select values [1,2]:
+        [1] AA
+        [2] BB
+        [3] CC
+      > Array
+      (
+        [choices] => Array
+          (
+            [1] => 2
+          )
+      )
+      """
+
+  Scenario: Select multiple values with multiple default values
+    When I run the command "form:multi_select" and I provide as input
+      """
+      [enter]
+      """
+    Then the command has finished successfully
+    And the output should be
+      """
+      Select values [1,2]:
+        [1] AA
+        [2] BB
+        [3] CC
+      > Array
+      (
+        [choices] => Array
+          (
+            [0] => 1
+            [1] => 2
+          )
+      )
+      """
+
   Scenario: Empty label
     When I run the command "form:empty_label" and I provide as input
       """
