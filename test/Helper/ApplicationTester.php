@@ -16,7 +16,7 @@ class ApplicationTester
 {
     private $application;
     private $input;
-    /** @var StreamOutput $output*/
+    /** @var StreamOutput $output */
     private $output;
     /** @var resource $inputStream */
     private $inputStream;

@@ -17,7 +17,7 @@ class NonInteractiveRootInteractor implements FormInteractor
      * @param InputInterface  $input
      * @param OutputInterface $output
      *
-     * @throws CanNotInteractWithForm If isn't a root form or is the input is interactive.
+     * @throws CanNotInteractWithForm If isn't a root form or is the input is interactive
      *
      * @return InputInterface
      */

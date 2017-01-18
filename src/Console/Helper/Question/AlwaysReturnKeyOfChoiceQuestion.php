@@ -23,9 +23,9 @@ class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
     private $_errorMessage = 'Value "%s" is invalid';
 
     /**
-     * @param string $question The question to ask to the user.
-     * @param array  $choices  The list of available choices.
-     * @param mixed  $default  The default answer to return.
+     * @param string $question The question to ask to the user
+     * @param array  $choices  The list of available choices
+     * @param mixed  $default  The default answer to return
      */
     public function __construct($question, array $choiceViews, $default = null)
     {

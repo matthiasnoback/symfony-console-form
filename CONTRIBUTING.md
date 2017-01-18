@@ -1,21 +1,6 @@
-## Running Coding Standards Checks
+If you want to contribute to this library, clone this project, then:
 
-This component uses [php-cs-fixer](http://cs.sensiolabs.org/) for coding
-standards checks, and provides configuration for our selected checks.
-`php-cs-fixer` is installed by default via Composer.
+- Run `composer install` to install dependencies.
+- Run `./install-git-hooks.sh` to install the pre-commit hook which fixes coding style problems automatically for you.
 
-To run checks only:
-
-```console
-$ ./vendor/bin/php-cs-fixer fix . -v --diff --dry-run --config-file=.php_cs
-```
-
-To have `php-cs-fixer` attempt to fix problems for you, omit the `--dry-run`
-flag:
-
-```console
-$ ./vendor/bin/php-cs-fixer fix . -v --diff --config-file=.php_cs
-```
-
-If you allow php-cs-fixer to fix CS issues, please re-run the tests to ensure
-they pass, and make sure you add and commit the changes after verification.
+Take a look at `.travis.yml` to find out which versions of Symfony are currently supported by this library. The easiest way to find out if your code changes are compatible with different versions of Symfony is to register your cloned repository at Travis. Then push your code to GitHub and wait for the Travis build to finish. If the build fails for a particular Symfony version you can reproduce the build locally by exporting the same environment variables as Travis does and running the install and test scripts on your machine.

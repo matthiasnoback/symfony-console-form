@@ -10,6 +10,16 @@ class PrintFormDataCommand extends DynamicFormBasedCommand
 {
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->write(print_r($this->formData(), true));
+        $formData = $this->formData();
+
+        $printData = array_map(function ($data) {
+            if ($data instanceof \DateTime) {
+                return $data->format(\DateTime::ISO8601);
+            }
+
+            return $data;
+        }, $formData);
+
+        $output->write(print_r($printData, true));
     }
 }

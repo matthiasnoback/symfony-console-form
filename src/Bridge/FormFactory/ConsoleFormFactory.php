@@ -12,7 +12,7 @@ interface ConsoleFormFactory
      * @param string|FormTypeInterface $formType
      * @param InputInterface           $input
      * @param array                    $options
-     * 
+     *
      * @return FormInterface
      */
     public function create($formType, InputInterface $input, array $options = []);

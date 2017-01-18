@@ -44,14 +44,9 @@ Feature: It is possible to interactively fill in a form from the CLI
     Then the command has finished successfully
     And the output should be
       """
-      Your date of birth [1879-03-14]: Array
+      Your date of birth [1987-03-14]: Array
       (
-          [dateOfBirth] => DateTime Object
-          (
-              [date] => 2015-03-04 00:00:00.000000
-              [timezone_type] => 1
-              [timezone] => +00:00
-          )
+          [dateOfBirth] => 2015-03-04T00:00:00+0000
       )
       """
 

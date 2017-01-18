@@ -35,8 +35,8 @@ class CollectionInteractor implements FormInteractor
      * @param InputInterface  $input
      * @param OutputInterface $output
      *
-     * @throws CanNotInteractWithForm     If the input isn't interactive.
-     * @throws FormNotReadyForInteraction If the "collection" form hasn't the option "allow_add".
+     * @throws CanNotInteractWithForm     If the input isn't interactive
+     * @throws FormNotReadyForInteraction If the "collection" form hasn't the option "allow_add"
      *
      * @return array
      */
@@ -74,7 +74,7 @@ class CollectionInteractor implements FormInteractor
      * @param HelperSet       $helperSet
      * @param InputInterface  $input
      * @param OutputInterface $output
-     * 
+     *
      * @return string
      */
     private function askIfContinueToAdd(
@@ -94,7 +94,7 @@ class CollectionInteractor implements FormInteractor
 
     /**
      * @param HelperSet $helperSet
-     * 
+     *
      * @return QuestionHelper
      */
     private function questionHelper(HelperSet $helperSet)

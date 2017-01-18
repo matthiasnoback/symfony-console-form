@@ -31,7 +31,7 @@ class FieldInteractor implements FormInteractor
      * @param InputInterface  $input
      * @param OutputInterface $output
      *
-     * @throws CanNotInteractWithForm The input isn't interactive.
+     * @throws CanNotInteractWithForm The input isn't interactive
      *
      * @return string
      */

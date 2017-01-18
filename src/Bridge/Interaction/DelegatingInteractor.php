@@ -29,7 +29,7 @@ class DelegatingInteractor implements FormInteractor
      * @param InputInterface  $input
      * @param OutputInterface $output
      *
-     * @throws CanNotInteractWithForm If no delegate was able to interact with this form.
+     * @throws CanNotInteractWithForm If no delegate was able to interact with this form
      */
     public function interactWith(
         FormInterface $form,

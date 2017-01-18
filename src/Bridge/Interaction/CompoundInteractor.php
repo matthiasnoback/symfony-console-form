@@ -31,7 +31,7 @@ class CompoundInteractor implements FormInteractor
      * @param InputInterface  $input
      * @param OutputInterface $output
      *
-     * @throws CanNotInteractWithForm If the input isn't interactive or a compound form.
+     * @throws CanNotInteractWithForm If the input isn't interactive or a compound form
      *
      * @return array
      */

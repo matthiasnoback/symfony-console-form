@@ -1,31 +1,27 @@
 language: php
 
-php:
-    - 5.6
-    - 7.0
-
 matrix:
-  allow_failures:
-    - php: hhvm
   include:
     - php: 5.6
       env: SYMFONY_VERSION=2.8.*
     - php: 7.0
       env: SYMFONY_VERSION=3.0.*
-
-env:
-  global:
-    - SYMFONY_VERSION=""
+    - php: 7.0
+      env: SYMFONY_VERSION=3.1.*
+    - php: 7.0
+      env: SYMFONY_VERSION=3.2.*
 
 before_install:
   - >
-    if [ "$SYMFONY_VERSION" != "" ]; then
-      composer require --dev --no-update symfony/framework-bundle "$SYMFONY_VERSION" &&
-      composer require --dev --no-update symfony/console "$SYMFONY_VERSION" &&
-      composer require --dev --no-update symfony/validator "$SYMFONY_VERSION" &&
-      composer require --dev --no-update symfony/form "$SYMFONY_VERSION" &&
-      composer require --dev --no-update symfony/yaml "$SYMFONY_VERSION" &&
-      composer require --dev --no-update symfony/finder "$SYMFONY_VERSION"
+    composer require --dev --no-update symfony/framework-bundle "$SYMFONY_VERSION" &&
+    composer require --dev --no-update symfony/console "$SYMFONY_VERSION" &&
+    composer require --dev --no-update symfony/validator "$SYMFONY_VERSION" &&
+    composer require --dev --no-update symfony/form "$SYMFONY_VERSION" &&
+    composer require --dev --no-update symfony/yaml "$SYMFONY_VERSION" &&
+    composer require --dev --no-update symfony/finder "$SYMFONY_VERSION"
+
+    if [ "$SYMFONY_VERSION" = "3.2.*" ]; then
+      composer require --dev --no-update symfony/security-csrf "$SYMFONY_VERSION"
     fi
 
 install:
@@ -34,8 +30,5 @@ install:
 script:
   - vendor/bin/php-cs-fixer fix -v --diff --dry-run
   - vendor/bin/behat
-
-notifications:
-  email: matthiasnoback@gmail.com
 
 sudo: false
