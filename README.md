@@ -84,9 +84,7 @@ class Demo
 }
 ```
 
-## Create the console command
-
-### Strategy 1 (recommended): Use the `form` helper
+## Create the console command; use the `form` helper
 
 ```php
 <?php
@@ -116,54 +114,7 @@ class TestCommand extends Command
 }
 ```
 
-### Strategy 2: implement `FormBasedCommand`
-
-You could also implement `FormBasedCommand`:
-
-```php
-<?php
-
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Matthias\SymfonyConsoleForm\Console\Command\FormBasedCommand;
-use Matthias\SymfonyConsoleForm\Console\Command\FormBasedCommandCapabilities;
-
-class TestCommand extends Command implements FormBasedCommand
-{
-    // use this trait to prevent code duplication
-    use FormBasedCommandCapabilities;
-
-    protected function configure()
-    {
-        $this->setName('form:demo');
-
-        // you don't need to configure any options here, this is all taken care of
-    }
-
-    protected function formType()
-    {
-        // return the form type (can be a string) which should be used for interaction with the user
-
-        return new DemoType();
-    }
-
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
-        $formData = $this->formData();
-
-        // $formData is the valid and populated form data object/array
-        ...
-    }
-}
-```
-
-Then run `app/console form:demo` and you'll see the following interaction:
-
 ![](doc/interaction.png)
-
-The first strategy is preferred since it allows you to interact with different forms instead of just one form (as is
-the case when you pick the second strategy).
 
 When you provide command-line options with the names of the form fields, those values will be used as default values.
 
