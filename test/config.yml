@@ -58,6 +58,19 @@ services:
         tags:
             - { name: console.command }
 
+    regular_form_command:
+        class: Matthias\SymfonyConsoleForm\Tests\Command\PrintFormDataCommand
+        arguments:
+            - Matthias\SymfonyConsoleForm\Tests\Form\RegularFormType
+            - regular_form
+        tags:
+            - { name: console.command }
+
+    regular_form_standard_load_command:
+        class: Matthias\SymfonyConsoleForm\Tests\Command\RegularFormStandardLoadCommand
+        tags:
+            -  { name: console.command }
+
 framework:
     form:
         csrf_protection: true

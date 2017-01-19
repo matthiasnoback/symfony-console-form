@@ -42,6 +42,18 @@ services:
             - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\DateType }
             - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\DateTimeType }
 
+    matthias_symfony_console_form.time_transformer:
+        class: Matthias\SymfonyConsoleForm\Bridge\Transformer\TimeTransformer
+        public: false
+        tags:
+            - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\TimeType }
+
+    matthias_symfony_console_form.date_transformer:
+        class: Matthias\SymfonyConsoleForm\Bridge\Transformer\DateTransformer
+        public: false
+        tags:
+            - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\DateType }
+
     matthias_symfony_console_form.password_transformer:
         class: Matthias\SymfonyConsoleForm\Bridge\Transformer\PasswordTransformer
         public: false
@@ -55,11 +67,19 @@ services:
             - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\ChoiceType }
             - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\CountryType }
 
+    matthias_symfony_console_form.email_transformer:
+        class: Matthias\SymfonyConsoleForm\Bridge\Transformer\EmailTransformer
+        public: false
+        tags:
+            - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\EmailType }
+
+
     matthias_symfony_console_form.delegating_interactor:
         class: Matthias\SymfonyConsoleForm\Bridge\Interaction\DelegatingInteractor
         public: false
         calls:
             # more specific interactors (by form type acenstry) should be higher in this list
+            - [addInteractor, ["@matthias_symfony_console_form.json_data_interactor"]]
             - [addInteractor, ["@matthias_symfony_console_form.field_with_no_interaction_interactor"]]
             - [addInteractor, ["@matthias_symfony_console_form.non_interactive_root_interactor"]]
             - [addInteractor, ["@matthias_symfony_console_form.collection_interactor"]]
@@ -75,6 +95,12 @@ services:
     matthias_symfony_console_form.field_with_no_interaction_interactor:
         class: Matthias\SymfonyConsoleForm\Bridge\Interaction\FieldWithNoInteractionInteractor
         public: false
+
+    matthias_symfony_console_form.json_data_interactor:
+        class: Matthias\SymfonyConsoleForm\Bridge\Interaction\JsonDataInteractor
+        public: false
+        arguments:
+            - "@matthias_symfony_console_form.delegating_interactor"
 
     matthias_symfony_console_form.non_interactive_root_interactor:
         class: Matthias\SymfonyConsoleForm\Bridge\Interaction\NonInteractiveRootInteractor
@@ -126,3 +152,11 @@ services:
         arguments:
             - "@form.factory"
             - "@form.registry"
+
+    matthias_symfony_console_form.console_form_json_template:
+        class: Matthias\SymfonyConsoleForm\Console\Command\JsonFormTemplateCommand
+        arguments:
+            - "@form.factory"
+            - "@matthias_symfony_console_form.delegating_interactor"
+        tags:
+            -  { name: console.command }

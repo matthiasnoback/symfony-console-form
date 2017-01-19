@@ -89,14 +89,14 @@ class Demo
 ```php
 <?php
 
-use Symfony\Component\Console\Command\Command;
+use Matthias\SymfonyConsoleForm\Console\Command\AbstractInteractiveFormHelperCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Matthias\SymfonyConsoleForm\Console\Helper\FormHelper;
 
-class TestCommand extends Command
+class TestCommand extends AbstractInteractiveFormHelperCommand
 {
-    protected function configure()
+    protected function configureCommand()
     {
         $this->setName('form:demo');
     }
@@ -122,10 +122,16 @@ If you add the `--no-interaction` option when running the command, it will submi
 
 If the submitted data is invalid the command will fail.
 
+## Options
+
+- json-data a way to submit a form at once
+- json-data-file a way to submit a form at once (absolute path required)
+
+You can create a json template to fill a form (or multiple forms in same request) with command `matthias:form:json_template 'NAMESPACE/DemoType' 'NAMESPACE/OTHERType' [...]`
+
 # TODO
 
 - Provide example of stand-alone usage (no need to extend the command)
-- Maybe: provide a way to submit a form at once, possibly using a JSON-encoded array
 - Handle invalid form data (maybe in a loop)
 - Add more functional tests
 - Show form label of root form
