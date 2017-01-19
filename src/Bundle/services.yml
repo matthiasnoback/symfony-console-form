@@ -1,5 +1,5 @@
 parameters:
-    matthias_symfony_console_form.cache_directory: %kernel.cache_dir%/matthias_symfony_console_form
+    matthias_symfony_console_form.cache_directory: "%kernel.cache_dir%/matthias_symfony_console_form"
 
 services:
     console_form_helper:
@@ -19,8 +19,8 @@ services:
         public: false
         arguments:
             - "@matthias_symfony_console_form.real_input_definition_factory"
-            - %matthias_symfony_console_form.cache_directory%
-            - %kernel.debug%
+            - "%matthias_symfony_console_form.cache_directory%"
+            - "%kernel.debug%"
 
     matthias_symfony_console_form.real_input_definition_factory:
         class: Matthias\SymfonyConsoleForm\Console\Input\FormBasedInputDefinitionFactory
