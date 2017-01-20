@@ -44,25 +44,38 @@ class FormHelper extends Helper
      */
     public function interactUsingForm($formType, InputInterface $input, OutputInterface $output, array $options = [])
     {
-        $form = $this->formFactory->create($formType, $input, $options);
+        $data = null;
+        $validFormFields = [];
 
-        $submittedData = $this->formInteractor->interactWith($form, $this->getHelperSet(), $input, $output);
+        do {
+            $form = $this->formFactory->create($formType, $input, $options);
+            $form->setData($data);
 
-        $form->submit($submittedData);
-        if (!$form->isValid()) {
-            $this->invalidForm($form);
-        }
+            // if we are rerunning the form for invalid data we don't need the fields that are already valid.
+            foreach ($validFormFields as $validFormField) {
+                $form->remove($validFormField);
+            }
 
-        return $form->getData();
-    }
+            $submittedData = $this->formInteractor->interactWith($form, $this->getHelperSet(), $input, $output);
 
-    /**
-     * @param FormInterface $form
-     *
-     * @throws \RuntimeException
-     */
-    private function invalidForm(FormInterface $form)
-    {
-        throw new \RuntimeException(sprintf('Invalid data provided: %s', $form->getErrors(true, false)));
+            $form->submit($submittedData);
+
+            // save the current data
+            $data = $form->getData();
+
+            if (!$form->isValid()) {
+                $output->write(sprintf('Invalid data provided: %s', $form->getErrors(true, false)));
+                array_map(
+                    function (FormInterface $formField) use ($form, &$validFormFields) {
+                        if ($formField->isValid()) {
+                            $validFormFields[] = $formField->getName();
+                        }
+                    },
+                    $form->all()
+                );
+            }
+        } while (!$form->isValid());
+
+        return $data;
     }
 }
