@@ -161,3 +161,21 @@ Feature: It is possible to interactively fill in a form from the CLI
       """
       [name] => Jelmer
       """
+
+  Scenario: Remove an address from pre filled collection of blocked addresses
+    When I run the command "form:blocked_addresses" and I provide as input
+      """
+        [enter][enter][enter][enter][enter]n[enter][enter]
+      """
+    And the output should contain
+      """
+        [street] => first street
+      """
+    And the output should contain
+      """
+        [street] => second street
+      """
+    And the output should not contain
+      """
+        [street] => third street
+      """
