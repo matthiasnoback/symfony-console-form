@@ -82,6 +82,14 @@ class FeatureContext implements Context, SnippetAcceptingContext
         Assertion::contains(StringUtil::trimLines($this->getOutput()), StringUtil::trimLines((string) $expectedOutput));
     }
 
+    /**
+     * @Then /^the output should not contain$/
+     */
+    public function theOutputShouldNotContain(PyStringNode $expectedOutput)
+    {
+        Assertion::false(strpos(StringUtil::trimLines($this->getOutput()), StringUtil::trimLines((string) $expectedOutput)));
+    }
+
     private function getOutput()
     {
         return $this->tester->getDisplay(true);
