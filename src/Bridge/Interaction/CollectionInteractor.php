@@ -54,8 +54,10 @@ class CollectionInteractor implements FormInteractor
             throw new CanNotInteractWithForm('Expected a "collection" form');
         }
 
-        if (!$form->getConfig()->getOption('allow_add')) {
-            throw new FormNotReadyForInteraction('The "collection" form should have the option "allow_add"');
+        if (!$form->getConfig()->getOption('allow_add') && empty($form->getData())) {
+            throw new FormNotReadyForInteraction(
+                'The "collection" form should have the option "allow_add" or have existing entries'
+            );
         }
 
         $this->printHeader($form, $output);
