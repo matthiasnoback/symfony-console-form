@@ -35,6 +35,7 @@
         "symfony/framework-bundle": "~2.8|~3.0",
         "symfony/validator": "~2.8|~3.0",
         "symfony/yaml": "~2.8|~3.0",
-        "phpunit/phpunit": "^4.8"
+        "phpunit/phpunit": "^4.8",
+        "symfony/security": "~2.8|~3.0"
     }
 }
