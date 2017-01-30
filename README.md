@@ -126,9 +126,7 @@ If the submitted data is invalid the command will fail.
 
 - Provide example of stand-alone usage (no need to extend the command)
 - Maybe: provide a way to submit a form at once, possibly using a JSON-encoded array
-- Handle invalid form data (maybe in a loop)
 - Add more functional tests
 - Show form label of root form
 - Show nesting in form hierarchy using breadcrumbs
-- Show counter when looping through a collection form
 - When these things have been provided, release this as a package (or multiple packages for stand-alone use)

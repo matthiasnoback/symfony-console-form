@@ -69,7 +69,7 @@ class CollectionInteractor implements FormInteractor
         };
 
         foreach ((array) $form->getData() as $key => $entryData) {
-            $this->printEntryHeader($key, $output);
+            $this->printEditEntryHeader($key, $output);
             $prototype->setData($entryData);
 
             $submittedEntry = $this->formInteractor->interactWith($prototype, $helperSet, $input, $output);
@@ -79,7 +79,9 @@ class CollectionInteractor implements FormInteractor
         }
 
         if ($form->getConfig()->getOption('allow_add')) {
+            $key = count($submittedData) - 1;
             while ($this->askIfContinueToAdd($helperSet, $input, $output)) {
+                $this->printAddEntryHeader(++$key, $output);
                 $submittedData[] = $this->formInteractor->interactWith($prototype, $helperSet, $input, $output);
             }
         }
@@ -139,11 +141,27 @@ class CollectionInteractor implements FormInteractor
      * @param int             $entryNumber
      * @param OutputInterface $output
      */
-    private function printEntryHeader($entryNumber, OutputInterface $output)
+    private function printEditEntryHeader($entryNumber, OutputInterface $output)
     {
         $output->writeln(
             strtr(
                 '<fieldset>Edit entry {entryNumber}</fieldset>',
+                [
+                    '{entryNumber}' => $entryNumber,
+                ]
+            )
+        );
+    }
+
+    /**
+     * @param int             $entryNumber
+     * @param OutputInterface $output
+     */
+    private function printAddEntryHeader($entryNumber, OutputInterface $output)
+    {
+        $output->writeln(
+            strtr(
+                '<fieldset>Add entry {entryNumber}</fieldset>',
                 [
                     '{entryNumber}' => $entryNumber,
                 ]
