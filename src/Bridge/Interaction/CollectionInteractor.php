@@ -64,6 +64,8 @@ class CollectionInteractor implements FormInteractor
 
         $submittedData = [];
         $prototype = $form->getConfig()->getAttribute('prototype');
+        $originalData = $prototype->getData();
+
         $askIfEntryNeedsToBeSubmitted = function ($entryNumber) use ($helperSet, $input, $output) {
             return $this->askIfExistingEntryShouldBeAdded($helperSet, $input, $output, $entryNumber);
         };
@@ -79,6 +81,8 @@ class CollectionInteractor implements FormInteractor
         }
 
         if ($form->getConfig()->getOption('allow_add')) {
+            // reset the prototype
+            $prototype->setData($originalData);
             $key = count($submittedData) - 1;
             while ($this->askIfContinueToAdd($helperSet, $input, $output)) {
                 $this->printAddEntryHeader(++$key, $output);
