@@ -146,3 +146,18 @@ Feature: It is possible to interactively fill in a form from the CLI
             [fieldName] => empty
         )
       """
+
+  Scenario: Provide no value with no default value, value should be asked again
+    When I run the command "form:name_without_default_value" and I provide as input "[enter]Jelmer[enter]"
+    And the output should contain
+      """
+        Your name: Invalid data provided: name:
+      """
+    And the output should contain
+      """
+        ERROR: This value should not be blank
+      """
+    And the output should contain
+      """
+      [name] => Jelmer
+      """

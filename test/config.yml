@@ -18,6 +18,14 @@ services:
         tags:
             - { name: console.command }
 
+    name_without_default_value_command:
+        class: Matthias\SymfonyConsoleForm\Tests\Command\PrintFormDataCommand
+        arguments:
+            - Matthias\SymfonyConsoleForm\Tests\Form\NameWithoutDefaultValueType
+            - name_without_default_value
+        tags:
+            - { name: console.command }
+
     color_command:
         class: Matthias\SymfonyConsoleForm\Tests\Command\PrintFormDataCommand
         arguments:
