@@ -62,9 +62,24 @@ class CollectionInteractor implements FormInteractor
 
         $submittedData = [];
         $prototype = $form->getConfig()->getAttribute('prototype');
+        $askIfEntryNeedsToBeSubmitted = function ($entryNumber) use ($helperSet, $input, $output) {
+            return $this->askIfExistingEntryShouldBeAdded($helperSet, $input, $output, $entryNumber);
+        };
 
-        while ($this->askIfContinueToAdd($helperSet, $input, $output)) {
-            $submittedData[] = $this->formInteractor->interactWith($prototype, $helperSet, $input, $output);
+        foreach ((array) $form->getData() as $key => $entryData) {
+            $this->printEntryHeader($key, $output);
+            $prototype->setData($entryData);
+
+            $submittedEntry = $this->formInteractor->interactWith($prototype, $helperSet, $input, $output);
+            if (!$form->getConfig()->getOption('allow_delete') || $askIfEntryNeedsToBeSubmitted($key)) {
+                $submittedData[] = $submittedEntry;
+            }
+        }
+
+        if ($form->getConfig()->getOption('allow_add')) {
+            while ($this->askIfContinueToAdd($helperSet, $input, $output)) {
+                $submittedData[] = $this->formInteractor->interactWith($prototype, $helperSet, $input, $output);
+            }
         }
 
         return $submittedData;
@@ -114,6 +129,54 @@ class CollectionInteractor implements FormInteractor
                 [
                     '{label}' => FormUtil::label($form),
                 ]
+            )
+        );
+    }
+
+    /**
+     * @param int             $entryNumber
+     * @param OutputInterface $output
+     */
+    private function printEntryHeader($entryNumber, OutputInterface $output)
+    {
+        $output->writeln(
+            strtr(
+                '<fieldset>Edit entry {entryNumber}</fieldset>',
+                [
+                    '{entryNumber}' => $entryNumber,
+                ]
+            )
+        );
+    }
+
+    /**
+     * @param HelperSet       $helperSet
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     * @param int             $entryNumber
+     *
+     * @return string
+     */
+    private function askIfExistingEntryShouldBeAdded(
+        HelperSet $helperSet,
+        InputInterface $input,
+        OutputInterface $output,
+        $entryNumber
+    ) {
+        return $this->questionHelper($helperSet)->ask(
+            $input,
+            $output,
+            new ConfirmationQuestion(
+                Format::forQuestion(
+                    strtr(
+                        'Add entry {entryNumber} to the submitted entries?',
+                        [
+                            '{entryNumber}' => $entryNumber,
+                        ]
+                    ),
+                    'y'
+                ),
+                true
             )
         );
     }
