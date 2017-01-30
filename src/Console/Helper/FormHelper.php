@@ -39,12 +39,17 @@ class FormHelper extends Helper
      * @param InputInterface                                   $input
      * @param OutputInterface                                  $output
      * @param array                                            $options
+     * @param mixed                                            $data
      *
      * @return mixed
      */
-    public function interactUsingForm($formType, InputInterface $input, OutputInterface $output, array $options = [])
-    {
-        $data = null;
+    public function interactUsingForm(
+        $formType,
+        InputInterface $input,
+        OutputInterface $output,
+        array $options = [],
+        $data = null
+    ) {
         $validFormFields = [];
 
         do {
