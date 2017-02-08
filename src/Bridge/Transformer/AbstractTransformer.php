@@ -11,6 +11,18 @@ use Symfony\Component\Form\FormInterface;
  */
 abstract class AbstractTransformer implements FormToQuestionTransformer
 {
+    /** @var TranslatorInterface */
+    private $translator;
+
+    /**
+     * NumberTransformer constructor.
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     /**
      * @param FormInterface $form
      *
@@ -18,10 +30,11 @@ abstract class AbstractTransformer implements FormToQuestionTransformer
      */
     protected function questionFrom(FormInterface $form)
     {
-        $question = FormUtil::label($form);
+        $question = $this->translator->trans(FormUtil::label($form));
 
         return $this->formattedQuestion($question, $this->defaultValueFrom($form));
     }
+
 
     /**
      * @param FormInterface $form
