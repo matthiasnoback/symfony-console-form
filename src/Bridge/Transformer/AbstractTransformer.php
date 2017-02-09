@@ -17,6 +17,7 @@ abstract class AbstractTransformer implements FormToQuestionTransformer
 
     /**
      * NumberTransformer constructor.
+     *
      * @param TranslatorInterface $translator
      */
     public function __construct(TranslatorInterface $translator)
@@ -35,7 +36,6 @@ abstract class AbstractTransformer implements FormToQuestionTransformer
 
         return $this->formattedQuestion($question, $this->defaultValueFrom($form));
     }
-
 
     /**
      * @param FormInterface $form
