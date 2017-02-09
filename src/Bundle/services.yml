@@ -28,14 +28,20 @@ services:
         arguments:
             - "@form.factory"
 
+    matthias_symfony_console_form.abstract_transformer:
+        abstract:  true
+        arguments: [ "@translator" ]
+
     matthias_symfony_console_form.text_transformer:
         class: Matthias\SymfonyConsoleForm\Bridge\Transformer\TextTransformer
+        parent: matthias_symfony_console_form.abstract_transformer
         public: false
         tags:
             - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\TextType }
 
     matthias_symfony_console_form.date_time_transformer:
         class: Matthias\SymfonyConsoleForm\Bridge\Transformer\DateTimeTransformer
+        parent: matthias_symfony_console_form.abstract_transformer
         public: false
         tags:
             - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\TimeType }
@@ -44,12 +50,14 @@ services:
 
     matthias_symfony_console_form.password_transformer:
         class: Matthias\SymfonyConsoleForm\Bridge\Transformer\PasswordTransformer
+        parent: matthias_symfony_console_form.abstract_transformer
         public: false
         tags:
             - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\PasswordType }
 
     matthias_symfony_console_form.choice_transformer:
         class: Matthias\SymfonyConsoleForm\Bridge\Transformer\ChoiceTransformer
+        parent: matthias_symfony_console_form.abstract_transformer
         public: false
         tags:
             - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\ChoiceType }
