@@ -61,7 +61,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function theOutputShouldBe(PyStringNode $expectedOutput)
     {
-        \PHPUnit_Framework_Assert::assertSame(
+        Assertion::same(
             StringUtil::trimLines((string) $expectedOutput),
             StringUtil::trimLines($this->getOutput())
         );
