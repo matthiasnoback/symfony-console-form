@@ -18,7 +18,6 @@ class ColorType extends AbstractType
                     'Blue' => 'blue',
                     'Yellow' => 'yellow',
                 ],
-                'choices_as_values' => true,
                 'data' => 'red',
             ]);
     }

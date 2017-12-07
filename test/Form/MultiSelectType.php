@@ -19,7 +19,6 @@ class MultiSelectType extends AbstractType
                     'multiple' => true,
                     'required' => true,
                     'choices' => $this->getChoices(),
-                    'choices_as_values' => true,
                     'data' => [1, 2],
                 ]
             )
