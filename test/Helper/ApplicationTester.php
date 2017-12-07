@@ -5,6 +5,7 @@ namespace Matthias\SymfonyConsoleForm\Tests\Helper;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\StreamableInputInterface;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\StreamOutput;
@@ -117,9 +118,14 @@ class ApplicationTester
 
     private function setInputStream($inputStream)
     {
-        $helper = $this->application->getHelperSet()->get('question');
-        /* @var $helper QuestionHelper */
-        $helper->setInputStream($inputStream);
+        if ($this->input instanceof StreamableInputInterface) {
+            $this->input->setStream($inputStream);
+        } else {
+            // Symfony < 4.0
+            $helper = $this->application->getHelperSet()->get('question');
+            /* @var $helper QuestionHelper */
+            $helper->setInputStream($inputStream);
+        }
     }
 
     private function disableStty()
