@@ -1,6 +1,6 @@
 # Changelog
 
-## v2.4.1
+## v2.5.0
 
 - Support for 'translation_domain' option for labels (#27).
 
