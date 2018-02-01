@@ -74,6 +74,14 @@ services:
         tags:
             - { name: console.command }
 
+    translatable_label_command:
+        class: Matthias\SymfonyConsoleForm\Tests\Command\PrintFormDataCommand
+        arguments:
+            - Matthias\SymfonyConsoleForm\Tests\Form\TranslatableLabelType
+            - translatable_label
+        tags:
+            - { name: console.command }
+
 framework:
     form:
         csrf_protection: true
@@ -81,3 +89,6 @@ framework:
     csrf_protection: ~
     session:
         handler_id: ~
+    translator:
+        paths:
+            - "%kernel.root_dir%/translations"
