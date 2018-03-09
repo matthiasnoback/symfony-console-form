@@ -36,7 +36,7 @@ class CachedInputDefinitionFactory implements InputDefinitionFactory
 
     /**
      * @param string|\Symfony\Component\Form\FormTypeInterface $formType
-     * @param array                                            &$resources
+     * @param array                                            $resources
      *
      * @return mixed
      */
@@ -82,7 +82,7 @@ class CachedInputDefinitionFactory implements InputDefinitionFactory
     /**
      * @param string|\Symfony\Component\Form\FormTypeInterface $formType
      * @param ConfigCache                                      $cache
-     * @param array                                            &$resources
+     * @param array                                            $resources
      *
      * @return \Symfony\Component\Console\Input\InputDefinition
      */

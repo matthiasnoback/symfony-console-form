@@ -6,6 +6,7 @@ use Matthias\SymfonyConsoleForm\Bridge\Interaction\Exception\CanNotInteractWithF
 use Matthias\SymfonyConsoleForm\Bridge\Interaction\Exception\FormNotReadyForInteraction;
 use Matthias\SymfonyConsoleForm\Console\Formatter\Format;
 use Matthias\SymfonyConsoleForm\Form\FormUtil;
+use RuntimeException;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
@@ -122,7 +123,13 @@ class CollectionInteractor implements FormInteractor
      */
     private function questionHelper(HelperSet $helperSet)
     {
-        return $helperSet->get('question');
+        $helper = $helperSet->get('question');
+
+        if (!$helper instanceof QuestionHelper) {
+            throw new RuntimeException('HelperSet does not contain valid QuestionHelper');
+        }
+
+        return $helper;
     }
 
     /**

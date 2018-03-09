@@ -71,7 +71,7 @@ class FormHelper extends Helper
             if (!$form->isValid()) {
                 $output->write(sprintf('Invalid data provided: %s', $form->getErrors(true, false)));
                 array_map(
-                    function (FormInterface $formField) use ($form, &$validFormFields) {
+                    function (FormInterface $formField) use (&$validFormFields) {
                         if ($formField->isValid()) {
                             $validFormFields[] = $formField->getName();
                         }

@@ -2,6 +2,7 @@
 
 namespace Matthias\SymfonyConsoleForm\Bridge\FormFactory;
 
+use Matthias\SymfonyConsoleForm\Form\FormUtil;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Csrf\Type\FormTypeCsrfExtension;
@@ -37,13 +38,13 @@ class ConsoleFormWithDefaultValuesAndOptionsFactory implements ConsoleFormFactor
      * @param InputInterface           $input
      * @param array                    $options
      *
-     * @return \Symfony\Component\Form\Form
+     * @return \Symfony\Component\Form\FormInterface
      */
     public function create($formType, InputInterface $input, array $options = [])
     {
         $options = $this->addDefaultOptions($options);
 
-        $formBuilder = $this->formFactory->createBuilder($formType, null, $options);
+        $formBuilder = $this->formFactory->createBuilder(FormUtil::formTypeToString($formType), null, $options);
 
         foreach ($formBuilder as $name => $childBuilder) {
             /* @var FormBuilderInterface $childBuilder */
