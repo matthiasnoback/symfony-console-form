@@ -6,7 +6,7 @@ interface InputDefinitionFactory
 {
     /**
      * @param string|\Symfony\Component\Form\FormTypeInterface $formType
-     * @param array                                            &$resources
+     * @param array                                            $resources
      */
     public function createForFormType($formType, array &$resources = []);
 }

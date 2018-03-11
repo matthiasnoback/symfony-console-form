@@ -3,6 +3,7 @@
 namespace Matthias\SymfonyConsoleForm\Console\EventListener;
 
 use Matthias\SymfonyConsoleForm\Console\Helper\HelperCollection;
+use RuntimeException;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 
 class RegisterHelpersEventListener
@@ -25,7 +26,13 @@ class RegisterHelpersEventListener
      */
     public function onConsoleCommand(ConsoleCommandEvent $event)
     {
-        $helperSet = $event->getCommand()->getHelperSet();
+        $command = $event->getCommand();
+
+        if (null === $command) {
+            throw new RuntimeException('Received ConsoleCommandEvent without Command instance!');
+        }
+
+        $helperSet = $command->getHelperSet();
 
         $this->helperCollection->addTo($helperSet);
     }

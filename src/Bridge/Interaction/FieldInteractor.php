@@ -4,6 +4,7 @@ namespace Matthias\SymfonyConsoleForm\Bridge\Interaction;
 
 use Matthias\SymfonyConsoleForm\Bridge\Interaction\Exception\CanNotInteractWithForm;
 use Matthias\SymfonyConsoleForm\Bridge\Transformer\TransformerResolver;
+use RuntimeException;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
@@ -57,6 +58,12 @@ class FieldInteractor implements FormInteractor
      */
     private function questionHelper(HelperSet $helperSet)
     {
-        return $helperSet->get('question');
+        $helper = $helperSet->get('question');
+
+        if (!$helper instanceof QuestionHelper) {
+            throw new RuntimeException('HelperSet does not contain valid QuestionHelper');
+        }
+
+        return $helper;
     }
 }

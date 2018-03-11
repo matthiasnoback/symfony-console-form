@@ -4,16 +4,16 @@ namespace Matthias\SymfonyConsoleForm\Bridge\Transformer;
 
 use Matthias\SymfonyConsoleForm\Console\Helper\Question\AlwaysReturnKeyOfChoiceQuestion;
 use Symfony\Component\Console\Question\Question;
-use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormInterface;
 
 class ChoiceTransformer extends AbstractTransformer
 {
     /**
-     * @param Form $form
+     * @param FormInterface $form
      *
      * @return Question
      */
-    public function transform(Form $form)
+    public function transform(FormInterface $form)
     {
         $formView = $form->createView();
 

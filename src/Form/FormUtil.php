@@ -2,7 +2,9 @@
 
 namespace Matthias\SymfonyConsoleForm\Form;
 
+use Symfony\Component\Form\Exception\RuntimeException;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Form\ResolvedFormTypeInterface;
 
 class FormUtil
@@ -22,7 +24,7 @@ class FormUtil
 
     /**
      * @param ResolvedFormTypeInterface|null $formType
-     * @param array                          &$types
+     * @param array                          $types
      */
     public static function typeAncestryForType(ResolvedFormTypeInterface $formType = null, array &$types)
     {
@@ -83,9 +85,33 @@ class FormUtil
     }
 
     /**
+     * @param FormTypeInterface|string $formType
+     *
+     * @return string
+     */
+    public static function formTypeToString($formType)
+    {
+        if ($formType instanceof FormTypeInterface) {
+            return get_class($formType);
+        }
+
+        if (is_string($formType)) {
+            return $formType;
+        }
+
+        throw new RuntimeException(
+            sprintf(
+                'Unable to determine form type for %s. Expected string or instance of %s',
+                is_object($formType) ? get_class($formType) : gettype($formType),
+                FormInterface::class
+            )
+        );
+    }
+
+    /**
      * Copied from Symfony\Component\Form method humanize.
      *
-     * @param $text
+     * @param string $text
      *
      * @return string
      */

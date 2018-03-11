@@ -27,7 +27,7 @@ class FormBasedInputDefinitionFactory implements InputDefinitionFactory
 
     /**
      * @param string|\Symfony\Component\Form\FormTypeInterface $formType
-     * @param array                                            &$resources
+     * @param array                                            $resources
      *
      * @return InputDefinition
      */
@@ -35,7 +35,7 @@ class FormBasedInputDefinitionFactory implements InputDefinitionFactory
     {
         $resources[] = new FileResource(__FILE__);
 
-        $form = $this->formFactory->create($formType);
+        $form = $this->formFactory->create(FormUtil::formTypeToString($formType));
 
         $actualFormType = $form->getConfig()->getType()->getInnerType();
         $reflection = new \ReflectionObject($actualFormType);
