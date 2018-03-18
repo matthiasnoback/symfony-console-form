@@ -194,3 +194,16 @@ Feature: It is possible to interactively fill in a form from the CLI
       """
         [street] => third street
       """
+
+  Scenario: Provide a value for a form with a price
+    When I run the command "form:price" and I provide as input
+      """
+      10.95[enter]
+      """
+    Then the output should be
+      """
+      Price: Array
+      (
+          [price] => 10.95
+      )
+      """

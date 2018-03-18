@@ -62,8 +62,8 @@ class FeatureContext implements Context, SnippetAcceptingContext
     public function theOutputShouldBe(PyStringNode $expectedOutput)
     {
         Assertion::same(
-            StringUtil::trimLines((string) $expectedOutput),
-            StringUtil::trimLines($this->getOutput())
+            StringUtil::trimLines($this->getOutput()),
+            StringUtil::trimLines((string) $expectedOutput)
         );
     }
 
