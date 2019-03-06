@@ -25,7 +25,8 @@
     "require": {
         "php": ">=7.0",
         "symfony/form": "~3.0|~4.0",
-        "symfony/console": "~3.0|~4.0"
+        "symfony/console": "~3.0|~4.0",
+        "symfony/translation": "~3.0|~4.0"
     },
     "require-dev": {
         "beberlei/assert": "~2.1",
