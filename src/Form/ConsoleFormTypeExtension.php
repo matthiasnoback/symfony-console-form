@@ -30,7 +30,7 @@ class ConsoleFormTypeExtension extends AbstractTypeExtension
     * @return iterable
     */
     public static function getExtendedTypes(): iterable
-    {		            
+    {
         return [FormType::class];
     }
 }
