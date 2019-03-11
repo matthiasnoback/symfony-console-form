@@ -25,4 +25,12 @@ class ConsoleFormTypeExtension extends AbstractTypeExtension
     {
         return FormType::class;
     }
+
+    /**
+    * @return iterable
+    */
+    public static function getExtendedTypes(): iterable
+    {
+        return [FormType::class];
+    }
 }
