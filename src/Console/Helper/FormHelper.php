@@ -7,6 +7,7 @@ use Matthias\SymfonyConsoleForm\Bridge\Interaction\FormInteractor;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Form\FormErrorIterator;
 use Symfony\Component\Form\FormInterface;
 
 class FormHelper extends Helper
@@ -69,7 +70,11 @@ class FormHelper extends Helper
             $data = $form->getData();
 
             if (!$form->isValid()) {
-                $output->write(sprintf('Invalid data provided: %s', $form->getErrors(true, false)));
+                $formErrors = $form->getErrors(true, false);
+                $output->write(sprintf('Invalid data provided: %s', $formErrors));
+                if ($this->noErrorsCanBeFixed($formErrors)) {
+                    throw new \RuntimeException('Errors out of the form\'s scope - do you have validation constraints on properties not exposed to the form?');
+                }
                 array_map(
                     function (FormInterface $formField) use (&$validFormFields) {
                         if ($formField->isValid()) {
@@ -82,5 +87,18 @@ class FormHelper extends Helper
         } while (!$form->isValid());
 
         return $data;
+    }
+
+    /**
+     * @param FormErrorIterator $errors
+     * @return bool
+     */
+    protected function noErrorsCanBeFixed(FormErrorIterator $errors)
+    {
+        // none of the remaining errors is related to a value of a form field
+        return $errors->count() > 0 &&
+            0 === count(array_filter(iterator_to_array($errors), function ($error) {
+                return $error instanceof FormErrorIterator;
+            }));
     }
 }
