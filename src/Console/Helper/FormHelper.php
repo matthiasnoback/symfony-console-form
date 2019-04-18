@@ -73,7 +73,7 @@ class FormHelper extends Helper
                 $formErrors = $form->getErrors(true, false);
                 $output->write(sprintf('Invalid data provided: %s', $formErrors));
                 if ($this->noErrorsCanBeFixed($formErrors)) {
-                    throw new \RuntimeException('Errors out of the form\'s scope - do you have validation constraints on properties not exposed to the form?');
+                    throw new \RuntimeException('Errors out of the form\'s scope - do you have validation constraints on properties not used in the form?');
                 }
                 array_map(
                     function (FormInterface $formField) use (&$validFormFields) {
