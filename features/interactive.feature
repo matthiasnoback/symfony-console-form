@@ -207,3 +207,19 @@ Feature: It is possible to interactively fill in a form from the CLI
           [price] => 10.95
       )
       """
+
+  Scenario: Secret required field
+    When I run the command "form:secret_required_field" and I provide as input
+      """
+      Jelmer[enter]
+      """
+    Then the command was not successful
+    And the output should contain
+      """
+        Invalid data provided: ERROR: This value should not be blank.
+      """
+    And the output should contain
+      """
+        [RuntimeException]
+        Errors out of the form's scope - do you have validation constraints on properties not used in the form?
+      """
