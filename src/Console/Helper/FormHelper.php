@@ -7,8 +7,10 @@ use Matthias\SymfonyConsoleForm\Bridge\Interaction\FormInteractor;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormErrorIterator;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Validator\ConstraintViolationInterface;
 
 class FormHelper extends Helper
 {
@@ -73,7 +75,12 @@ class FormHelper extends Helper
                 $formErrors = $form->getErrors(true, false);
                 $output->write(sprintf('Invalid data provided: %s', $formErrors));
                 if ($this->noErrorsCanBeFixed($formErrors)) {
-                    throw new \RuntimeException('Errors out of the form\'s scope - do you have validation constraints on properties not used in the form?');
+                    $violationPaths = $this->constraintViolationPaths($formErrors);
+                    $hint = (count($violationPaths) > 0 ? ' (Violations on unused fields: '.implode(', ', $violationPaths).')' : '');
+                    throw new \RuntimeException(
+                        'Errors out of the form\'s scope - do you have validation constraints on properties not used in the form?'
+                        . $hint
+                    );
                 }
                 array_map(
                     function (FormInterface $formField) use (&$validFormFields) {
@@ -100,5 +107,21 @@ class FormHelper extends Helper
             0 === count(array_filter(iterator_to_array($errors), function ($error) {
                 return $error instanceof FormErrorIterator;
             }));
+    }
+
+    protected function constraintViolationPaths(FormErrorIterator $errors)
+    {
+        $paths = [];
+        foreach ($errors as $error) {
+            if (!$error instanceof FormError) {
+                continue;
+            }
+            $cause = $error->getCause();
+            if (!$cause instanceof ConstraintViolationInterface) {
+                continue;
+            }
+            $paths[] = $cause->getPropertyPath();
+        }
+        return $paths;
     }
 }

@@ -221,5 +221,5 @@ Feature: It is possible to interactively fill in a form from the CLI
     And the output should contain
       """
         [RuntimeException]
-        Errors out of the form's scope - do you have validation constraints on properties not used in the form?
+        Errors out of the form's scope - do you have validation constraints on properties not used in the form? (Violations on unused fields: data.fieldNotUsedInTheForm)
       """
