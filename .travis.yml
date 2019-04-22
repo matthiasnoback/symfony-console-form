@@ -3,7 +3,7 @@ language: php
 matrix:
   include:
     - php: 7.0
-      env: SYMFONY_VERSION=3.0.* BEHAT_ARGS='--tags="~symfony3.4"'
+      env: SYMFONY_VERSION=3.0.* BEHAT_ARGS=--tags="~symfony3.4"
     - php: 7.0
       env: SYMFONY_VERSION=3.4.*
     - php: 7.1
