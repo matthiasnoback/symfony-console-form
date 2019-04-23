@@ -18,7 +18,7 @@ class PrintFormDataCommand extends DynamicFormBasedCommand
             }
 
             return $data;
-        }, $formData);
+        }, (array)$formData);
 
         $output->write(print_r($printData, true));
     }
