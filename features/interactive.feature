@@ -223,3 +223,24 @@ Feature: It is possible to interactively fill in a form from the CLI
         [RuntimeException]
         Errors out of the form's scope - do you have validation constraints on properties not used in the form? (Violations on unused fields: data.fieldNotUsedInTheForm)
       """
+
+  Scenario: Choice with options which cannot be converted to string
+    When I run the command "form:unstringable_choices" and I provide as input
+      """
+      1[enter]
+      """
+    Then the command has finished successfully
+    And the output should contain
+      """
+      Select address:
+        [0] 10 Downing Street
+        [1] 1600 Pennsylvania Ave NW
+        [2] 55 Rue du Faubourg Saint-Honoré
+       > Array
+      (
+        [address] => Matthias\SymfonyConsoleForm\Tests\Form\Data\Address Object
+          (
+            [street] => 1600 Pennsylvania Ave NW
+          )
+      )
+      """

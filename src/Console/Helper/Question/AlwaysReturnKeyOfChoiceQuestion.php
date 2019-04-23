@@ -118,7 +118,11 @@ class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
         foreach ($this->choiceViews as $choiceView) {
             $label = $choiceView->label;
             if ($choiceView->data != $choiceView->value) {
-                $label .= ' (<comment>'.$choiceView->data.'</comment>)';
+                try {
+                    $label .= ' (<comment>' . $choiceView->data . '</comment>)';
+                } catch (\ErrorException $exception) {
+                    // data cannot be converted to string - do nothing
+                }
             }
 
             $choices[$choiceView->value] = $label;
@@ -136,7 +140,11 @@ class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
 
         foreach ($this->choiceViews as $choiceView) {
             $autocompleteValues[] = $choiceView->value;
-            $autocompleteValues[] = $choiceView->data;
+            try {
+                $autocompleteValues[] = (string)$choiceView->data;
+            } catch (\ErrorException $exception) {
+                // data cannot be converted to string - do nothing
+            }
             $autocompleteValues[] = $choiceView->label;
         }
 
