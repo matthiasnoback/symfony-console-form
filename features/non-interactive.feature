@@ -28,3 +28,16 @@ Feature: It is possible to interactively fill in a form from the CLI
     Options:
      --password
     """
+
+  Scenario: Provide invalid value
+    When I run the command "form:color --color='invalid color'" non-interactively
+    Then the command was not successful
+    And the output should contain
+    """
+    Invalid data provided: color:
+      ERROR: This value is not valid.
+    """
+    And the output should contain
+    """
+    There were form errors.
+    """
