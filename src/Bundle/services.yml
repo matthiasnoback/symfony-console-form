@@ -70,6 +70,13 @@ services:
             - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\ChoiceType }
             - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\CountryType }
 
+    matthias_symfony_console_form.checkbox_transformer:
+        class: Matthias\SymfonyConsoleForm\Bridge\Transformer\CheckboxTransformer
+        parent: matthias_symfony_console_form.abstract_transformer
+        public: false
+        tags:
+            - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\CheckboxType }
+
     matthias_symfony_console_form.delegating_interactor:
         class: Matthias\SymfonyConsoleForm\Bridge\Interaction\DelegatingInteractor
         public: false

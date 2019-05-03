@@ -223,3 +223,31 @@ Feature: It is possible to interactively fill in a form from the CLI
         [RuntimeException]
         Errors out of the form's scope - do you have validation constraints on properties not used in the form? (Violations on unused fields: data.fieldNotUsedInTheForm)
       """
+
+  Scenario: Checkbox field - answer yes
+    When I run the command "form:coffee" and I provide as input
+    """
+    y[enter]
+    """
+    Then the command has finished successfully
+    And the output should be
+    """
+    Do you want milk in your coffee?: Array
+    (
+        [milk] => 1
+    )
+    """
+
+  Scenario: Checkbox field - answer no
+    When I run the command "form:coffee" and I provide as input
+    """
+    n[enter]
+    """
+    Then the command has finished successfully
+    And the output should be
+    """
+    Do you want milk in your coffee?: Array
+    (
+        [milk] =>
+    )
+    """
