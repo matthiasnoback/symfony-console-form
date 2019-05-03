@@ -117,8 +117,9 @@ class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
         $choices = [];
         foreach ($this->choiceViews as $choiceView) {
             $label = $choiceView->label;
-            if ($choiceView->data != $choiceView->value) {
-                $label .= ' (<comment>'.$choiceView->data.'</comment>)';
+            $data = $choiceView->data;
+            if ($data != $choiceView->value && $this->canBeConvertedToString($data)) {
+                $label .= ' (<comment>' . $data . '</comment>)';
             }
 
             $choices[$choiceView->value] = $label;
@@ -136,7 +137,12 @@ class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
 
         foreach ($this->choiceViews as $choiceView) {
             $autocompleteValues[] = $choiceView->value;
-            $autocompleteValues[] = $choiceView->data;
+
+            $data = $choiceView->data;
+            if ($this->canBeConvertedToString($data)) {
+                $autocompleteValues[] = (string)$data;
+            }
+
             $autocompleteValues[] = $choiceView->label;
         }
 
@@ -155,5 +161,14 @@ class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
                 throw new \InvalidArgumentException('Only a flat choice hierarchy is supported');
             }
         }
+    }
+
+    /**
+     * @param mixed $value
+     * @return bool
+     */
+    private function canBeConvertedToString($value)
+    {
+        return null === $value || is_scalar($value) || (\is_object($value) && method_exists($value, '__toString'));
     }
 }
