@@ -90,6 +90,10 @@ class FormHelper extends Helper
                     },
                     $form->all()
                 );
+
+                if (!$input->isInteractive()) {
+                    throw new \RuntimeException('There were form errors.');
+                }
             }
         } while (!$form->isValid());
 
