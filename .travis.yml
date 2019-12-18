@@ -1,26 +1,47 @@
 language: php
+sudo: false
 
-matrix:
-  include:
-    - php: 7.0
-      env: SYMFONY_VERSION=3.4.*
-    - php: 7.2
-      env: SYMFONY_VERSION=4.0.*
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+php:
+  - 7.1
+  - 7.2
+  - 7.3
+  - 7.4
+
+env:
+  global:
+    - COMPOSER_MEMORY_LIMIT=-1
 
 before_install:
-  - >
-    composer require --dev --no-update symfony/framework-bundle "$SYMFONY_VERSION" &&
-    composer require --dev --no-update symfony/console "$SYMFONY_VERSION" &&
-    composer require --dev --no-update symfony/validator "$SYMFONY_VERSION" &&
-    composer require --dev --no-update symfony/form "$SYMFONY_VERSION" &&
-    composer require --dev --no-update symfony/yaml "$SYMFONY_VERSION" &&
-    composer require --dev --no-update symfony/finder "$SYMFONY_VERSION"
+  - mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || echo "xdebug not available"
+  - composer self-update
 
 install:
-  - composer update --prefer-dist
+  - travis_retry composer update -n --prefer-dist --prefer-stable
 
 script:
   - vendor/bin/php-cs-fixer fix -v --diff --dry-run
   - vendor/bin/behat
 
-sudo: false
+jobs:
+  include:
+    # Tests the lowest set of dependencies
+    - php: 7.1
+      env: LOWEST SYMFONY_DEPRECATIONS_HELPER=weak
+      install:
+        - travis_retry composer update -n --prefer-lowest --prefer-stable --prefer-dist
+
+    # Test against latest Symfony 4.4 stable
+    - php: 7.3
+      env: SYMFONY_REQUIRE="4.4.*"
+      install:
+          - travis_retry composer update -n --prefer-dist --prefer-stable
+
+    # Test against latest Symfony 5.0 stable
+    - php: 7.3
+      env: SYMFONY_REQUIRE="5.0.*"
+      install:
+        - travis_retry composer update -n --prefer-dist --prefer-stable
