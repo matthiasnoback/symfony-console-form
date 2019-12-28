@@ -5,7 +5,7 @@ namespace Matthias\SymfonyConsoleForm\Bridge\Transformer;
 use Matthias\SymfonyConsoleForm\Console\Formatter\Format;
 use Matthias\SymfonyConsoleForm\Form\FormUtil;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Reusable code for FormToQuestionTransformers.
