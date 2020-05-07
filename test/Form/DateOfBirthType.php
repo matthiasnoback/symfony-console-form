@@ -19,6 +19,8 @@ class DateOfBirthType extends AbstractType
                     'label' => 'Your date of birth',
                     'data' => new \DateTime('1987-03-14', new \DateTimeZone('UTC')),
                     'widget' => 'single_text',
+                    'model_timezone' => 'UTC',
+                    'view_timezone' => 'UTC'
                 ]
             )->add(
                 'submit',

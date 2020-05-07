@@ -1,13 +1,14 @@
 <?php
 
-use Assert\Assertion;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
+use Behat\Gherkin\Node\TableNode;
 use Matthias\SymfonyConsoleForm\Tests\AppKernel;
-use Matthias\SymfonyConsoleForm\Tests\Helper\ApplicationTester;
 use Matthias\SymfonyConsoleForm\Tests\Helper\StringUtil;
+use PHPUnit\Framework\Assert;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Tester\ApplicationTester;
 
 /**
  * Defines application features from the specific context.
@@ -37,15 +38,17 @@ class FeatureContext implements Context, SnippetAcceptingContext
 
         $kernel = new AppKernel('test', true);
         $this->application = new Application($kernel);
+        $this->application->setAutoExit(false);
         $this->tester = new ApplicationTester($this->application);
     }
 
     /**
      * @Given /^I run the command "([^"]*)" and I provide as input$/
      */
-    public function iRunTheCommandAndIProvideAsInput($name, PyStringNode $input)
+    public function iRunTheCommandAndIProvideAsInput($name, TableNode $input)
     {
-        $this->runCommandWithInteractiveInput($name, $input);
+        $inputs = array_column($input->getHash(), 'Input');
+        $this->runCommandWithInteractiveInput($name, $inputs);
     }
 
     /**
@@ -61,17 +64,16 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function theOutputShouldBe(PyStringNode $expectedOutput)
     {
-        Assertion::same(
-            StringUtil::trimLines($this->getOutput()),
-            StringUtil::trimLines((string) $expectedOutput)
+        Assert::assertEquals(
+            StringUtil::trimLines((string) $expectedOutput),
+            StringUtil::trimLines($this->getOutput())
         );
     }
 
-    private function runCommandWithInteractiveInput($name, $input)
+    private function runCommandWithInteractiveInput($name, array $inputs)
     {
-        $input = str_replace('[enter]', "\n", $input);
-        $this->tester->putToInputStream($input);
-        $this->tester->run($name, array('interactive' => true, 'decorated' => false));
+        $this->tester->setInputs($inputs);
+        $this->tester->run(['command' => $name], array('interactive' => true, 'decorated' => false));
     }
 
     /**
@@ -79,7 +81,10 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function theOutputShouldContain(PyStringNode $expectedOutput)
     {
-        Assertion::contains(StringUtil::trimLines($this->getOutput()), StringUtil::trimLines((string) $expectedOutput));
+        Assert::assertStringContainsString(
+            StringUtil::trimLines((string) $expectedOutput),
+            StringUtil::trimLines($this->getOutput())
+        );
     }
 
     /**
@@ -87,7 +92,10 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function theOutputShouldNotContain(PyStringNode $expectedOutput)
     {
-        Assertion::false(strpos(StringUtil::trimLines($this->getOutput()), StringUtil::trimLines((string) $expectedOutput)));
+        Assert::assertStringNotContainsString(
+            StringUtil::trimLines($this->getOutput()),
+            StringUtil::trimLines((string) $expectedOutput)
+        );
     }
 
     private function getOutput()
@@ -100,7 +108,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function theCommandHasFinishedSuccessfully()
     {
-        Assertion::same($this->tester->getStatusCode(), 0);
+        Assert::assertEquals(0, $this->tester->getStatusCode());
     }
 
     /**
@@ -108,19 +116,26 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function theCommandWasNotSuccessful()
     {
-        Assertion::notSame($this->tester->getStatusCode(), 0);
+        Assert::assertNotEquals(0, $this->tester->getStatusCode());
     }
 
     /**
-     * @When /^I run the command "([^"]*)" non\-interactively$/
+     * @When /^I run a command non-interactively with parameters$/
      */
-    public function iRunTheCommandNonInteractively($command)
+    public function iRunTheCommandNonInteractively(TableNode $parameters)
     {
-        $this->runCommandWithNonInteractiveInput($command);
+        $parameters = $parameters->getHash();
+
+        $input = array_combine(
+            array_column($parameters, 'Parameter'),
+            array_column($parameters, 'Value')
+        );
+
+        $this->runCommandWithNonInteractiveInput($input);
     }
 
-    private function runCommandWithNonInteractiveInput($name)
+    private function runCommandWithNonInteractiveInput(array $input)
     {
-        $this->tester->run($name, array('interactive' => false, 'decorated' => false));
+        $this->tester->run($input, array('interactive' => false, 'decorated' => false));
     }
 }

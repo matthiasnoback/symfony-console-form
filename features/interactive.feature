@@ -2,9 +2,8 @@ Feature: It is possible to interactively fill in a form from the CLI
 
   Scenario: Provide a value different than the default value
     When I run the command "form:name" and I provide as input
-      """
-      Menno[enter]
-      """
+      | Input |
+      | Menno |
     Then the output should be
       """
       Your name [Matthias]: Array
@@ -14,7 +13,9 @@ Feature: It is possible to interactively fill in a form from the CLI
       """
 
   Scenario: Provide no value, the default value will be used
-    When I run the command "form:name" and I provide as input "[enter]"
+    When I run the command "form:name" and I provide as input
+      | Input |
+      |       |
     Then the command has finished successfully
     And the output should be
       """
@@ -24,23 +25,20 @@ Feature: It is possible to interactively fill in a form from the CLI
       )
       """
 
-
   Scenario: Provide invalid input, the form errors will be printed
     When I run the command "form:name" and I provide as input
+      | Input |
+      | A     |
+      | Alex  |
+    Then the output should contain
       """
-      A[enter]
-      """
-    Then the command was not successful
-    And the output should contain
-      """
-      This value is too short.
+      ERROR: This value is too short. It should have 4 characters or more.
       """
 
   Scenario: Provide a date as text
     When I run the command "form:date_of_birth" and I provide as input
-      """
-      2015-03-04[enter]
-      """
+      | Input      |
+      | 2015-03-04 |
     Then the command has finished successfully
     And the output should be
       """
@@ -52,17 +50,20 @@ Feature: It is possible to interactively fill in a form from the CLI
 
   Scenario: Select a value
     When I run the command "form:color" and I provide as input
-      """
-      blue[enter]
-      """
+      | Input |
+      | blue  |
     Then the command has finished successfully
-    And the output should be
+    And the output should contain
       """
       Select color [red]:
         [red   ] Red
         [blue  ] Blue
         [yellow] Yellow
-      > Array
+      >
+      """
+    And the output should contain
+      """
+      Array
       (
           [color] => blue
       )
@@ -70,17 +71,20 @@ Feature: It is possible to interactively fill in a form from the CLI
 
   Scenario: Select multiple values
     When I run the command "form:multi_select" and I provide as input
-      """
-      1,3[enter]
-      """
+      | Input |
+      | 1,3   |
     Then the command has finished successfully
-    And the output should be
+    And the output should contain
       """
       Select values [1,2]:
         [1] AA
         [2] BB
         [3] CC
-      > Array
+      >
+      """
+    And the output should contain
+      """
+      Array
       (
         [choices] => Array
           (
@@ -92,17 +96,20 @@ Feature: It is possible to interactively fill in a form from the CLI
 
   Scenario: Select one value when multiple values are allowed
     When I run the command "form:multi_select" and I provide as input
-      """
-      2[enter]
-      """
+      | Input |
+      | 2     |
     Then the command has finished successfully
-    And the output should be
+    And the output should contain
       """
       Select values [1,2]:
         [1] AA
         [2] BB
         [3] CC
-      > Array
+      >
+      """
+    And the output should contain
+      """
+      Array
       (
         [choices] => Array
           (
@@ -113,17 +120,20 @@ Feature: It is possible to interactively fill in a form from the CLI
 
   Scenario: Select multiple values with multiple default values
     When I run the command "form:multi_select" and I provide as input
-      """
-      [enter]
-      """
+      | Input |
+      |       |
     Then the command has finished successfully
-    And the output should be
+    And the output should contain
       """
       Select values [1,2]:
         [1] AA
         [2] BB
         [3] CC
-      > Array
+      >
+      """
+    And the output should contain
+      """
+      Array
       (
         [choices] => Array
           (
@@ -135,9 +145,8 @@ Feature: It is possible to interactively fill in a form from the CLI
 
   Scenario: Empty label
     When I run the command "form:empty_label" and I provide as input
-      """
-        empty[enter]
-      """
+      | Input |
+      | empty |
     Then the command has finished successfully
     And the output should be
       """
@@ -149,9 +158,9 @@ Feature: It is possible to interactively fill in a form from the CLI
 
   Scenario: Translatable label
     When I run the command "form:translatable_label" and I provide as input
-      """
-        empty[enter]empty[enter]
-      """
+      | Input |
+      | empty |
+      | empty |
     Then the command has finished successfully
     And the output should be
       """
@@ -163,7 +172,10 @@ Feature: It is possible to interactively fill in a form from the CLI
       """
 
   Scenario: Provide no value with no default value, value should be asked again
-    When I run the command "form:name_without_default_value" and I provide as input "[enter]Jelmer[enter]"
+    When I run the command "form:name_without_default_value" and I provide as input
+      | Input  |
+      |        |
+      | Jelmer |
     And the output should contain
       """
         Your name: Invalid data provided: name:
@@ -179,9 +191,14 @@ Feature: It is possible to interactively fill in a form from the CLI
 
   Scenario: Remove an address from pre filled collection of blocked addresses
     When I run the command "form:blocked_addresses" and I provide as input
-      """
-        [enter][enter][enter][enter][enter]n[enter][enter]
-      """
+      | Input |
+      |       |
+      |       |
+      |       |
+      |       |
+      |       |
+      | n     |
+      |       |
     And the output should contain
       """
         [street] => first street
@@ -197,9 +214,8 @@ Feature: It is possible to interactively fill in a form from the CLI
 
   Scenario: Provide a value for a form with a price
     When I run the command "form:price" and I provide as input
-      """
-      10.95[enter]
-      """
+      | Input |
+      | 10.95 |
     Then the output should be
       """
       Price: Array
@@ -210,9 +226,8 @@ Feature: It is possible to interactively fill in a form from the CLI
 
   Scenario: Secret required field
     When I run the command "form:secret_required_field" and I provide as input
-      """
-      Jelmer[enter]
-      """
+      | Input  |
+      | Jelmer |
     Then the command was not successful
     And the output should contain
       """
@@ -220,15 +235,13 @@ Feature: It is possible to interactively fill in a form from the CLI
       """
     And the output should contain
       """
-        [RuntimeException]
-        Errors out of the form's scope - do you have validation constraints on properties not used in the form? (Violations on unused fields: data.fieldNotUsedInTheForm)
+      Errors out of the form's scope - do you have validation constraints on properties not used in the form? (Violations on unused fields: data.fieldNotUsedInTheForm)
       """
 
   Scenario: Checkbox field - answer yes
     When I run the command "form:coffee" and I provide as input
-    """
-    y[enter]
-    """
+      | Input |
+      | y     |
     Then the command has finished successfully
     And the output should be
     """
@@ -240,9 +253,8 @@ Feature: It is possible to interactively fill in a form from the CLI
 
   Scenario: Checkbox field - answer no
     When I run the command "form:coffee" and I provide as input
-    """
-    n[enter]
-    """
+      | Input |
+      | n     |
     Then the command has finished successfully
     And the output should be
     """
@@ -254,9 +266,8 @@ Feature: It is possible to interactively fill in a form from the CLI
 
   Scenario: Choice with options which cannot be converted to string
     When I run the command "form:unstringable_choices" and I provide as input
-      """
-      1[enter]
-      """
+      | Input                    |
+      | 1600 Pennsylvania Ave NW |
     Then the command has finished successfully
     And the output should contain
       """
@@ -264,7 +275,11 @@ Feature: It is possible to interactively fill in a form from the CLI
         [0] 10 Downing Street
         [1] 1600 Pennsylvania Ave NW
         [2] 55 Rue du Faubourg Saint-Honoré
-       > Array
+       >
+      """
+    And the output should contain
+      """
+      Array
       (
         [address] => Matthias\SymfonyConsoleForm\Tests\Form\Data\Address Object
           (
