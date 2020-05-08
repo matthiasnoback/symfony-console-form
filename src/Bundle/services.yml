@@ -39,6 +39,13 @@ services:
         tags:
             - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\TextType }
 
+    matthias_symfony_console_form.integer_transformer:
+        class: Matthias\SymfonyConsoleForm\Bridge\Transformer\IntegerTransformer
+        parent: matthias_symfony_console_form.abstract_transformer
+        public: false
+        tags:
+            - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\IntegerType }
+
     matthias_symfony_console_form.number_transformer:
         class: Matthias\SymfonyConsoleForm\Bridge\Transformer\NumberTransformer
         parent: matthias_symfony_console_form.abstract_transformer
