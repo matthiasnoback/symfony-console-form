@@ -124,7 +124,6 @@ If the submitted data is invalid the command will fail.
 
 # TODO
 
-- Provide example of stand-alone usage (no need to extend the command)
 - Maybe: provide a way to submit a form at once, possibly using a JSON-encoded array
 - Add more functional tests
 - Show form label of root form
