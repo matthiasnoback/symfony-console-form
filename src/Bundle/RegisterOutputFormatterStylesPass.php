@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-class RegisterOutputFormatterStylesPass implements CompilerPassInterface
+final class RegisterOutputFormatterStylesPass implements CompilerPassInterface
 {
     /**
      * @var string

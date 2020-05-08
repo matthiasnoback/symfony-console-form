@@ -11,7 +11,7 @@ use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 
-class SetInputDefinitionOfFormBasedCommandEventListener
+final class SetInputDefinitionOfFormBasedCommandEventListener
 {
     /**
      * @var InputDefinitionFactory

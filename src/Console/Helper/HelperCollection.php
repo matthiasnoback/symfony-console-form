@@ -5,7 +5,7 @@ namespace Matthias\SymfonyConsoleForm\Console\Helper;
 use Symfony\Component\Console\Helper\HelperInterface;
 use Symfony\Component\Console\Helper\HelperSet;
 
-class HelperCollection
+final class HelperCollection
 {
     /**
      * @var array & HelperInterface[]

@@ -6,7 +6,7 @@ use Matthias\SymfonyConsoleForm\Bridge\Transformer\Exception\CouldNotResolveTran
 use Matthias\SymfonyConsoleForm\Form\FormUtil;
 use Symfony\Component\Form\FormInterface;
 
-class TypeAncestryBasedTransformerResolver implements TransformerResolver
+final class TypeAncestryBasedTransformerResolver implements TransformerResolver
 {
     /**
      * @var FormToQuestionTransformer[]

@@ -4,6 +4,6 @@ namespace Matthias\SymfonyConsoleForm\Bridge\Interaction\Exception;
 
 use LogicException;
 
-class CanNotInteractWithForm extends LogicException
+final class CanNotInteractWithForm extends LogicException
 {
 }

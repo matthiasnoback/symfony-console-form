@@ -8,7 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Form\FormInterface;
 
-class DelegatingInteractor implements FormInteractor
+final class DelegatingInteractor implements FormInteractor
 {
     /**
      * @var FormInteractor[]

@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\FormInterface;
 
-class FieldWithNoInteractionInteractor implements FormInteractor
+final class FieldWithNoInteractionInteractor implements FormInteractor
 {
     /**
      * @throws NoNeedToInteractWithForm

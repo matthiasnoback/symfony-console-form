@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
-class SymfonyConsoleFormExtension extends Extension
+final class SymfonyConsoleFormExtension extends Extension
 {
     public function load(array $config, ContainerBuilder $container): void
     {

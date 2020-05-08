@@ -5,7 +5,7 @@ namespace Matthias\SymfonyConsoleForm\Console\Formatter;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class Format
+final class Format
 {
     /**
      * @param mixed $defaultValue

@@ -11,7 +11,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Form\FormInterface;
 
-class FieldInteractor implements FormInteractor
+final class FieldInteractor implements FormInteractor
 {
     /**
      * @var TransformerResolver

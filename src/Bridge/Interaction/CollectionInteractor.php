@@ -15,7 +15,7 @@ use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormInterface;
 
-class CollectionInteractor implements FormInteractor
+final class CollectionInteractor implements FormInteractor
 {
     /**
      * @var FormInteractor

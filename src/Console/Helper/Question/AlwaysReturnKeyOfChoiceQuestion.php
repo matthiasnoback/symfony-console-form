@@ -6,7 +6,7 @@ use InvalidArgumentException;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Form\ChoiceList\View\ChoiceView;
 
-class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
+final class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
 {
     /**
      * @var ChoiceView[]

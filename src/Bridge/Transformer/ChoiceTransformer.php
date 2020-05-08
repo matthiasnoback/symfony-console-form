@@ -6,7 +6,7 @@ use Matthias\SymfonyConsoleForm\Console\Helper\Question\AlwaysReturnKeyOfChoiceQ
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Form\FormInterface;
 
-class ChoiceTransformer extends AbstractTransformer
+final class ChoiceTransformer extends AbstractTransformer
 {
     public function transform(FormInterface $form): Question
     {

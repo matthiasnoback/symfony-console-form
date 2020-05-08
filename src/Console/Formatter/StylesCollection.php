@@ -5,7 +5,7 @@ namespace Matthias\SymfonyConsoleForm\Console\Formatter;
 use Symfony\Component\Console\Formatter\OutputFormatterInterface;
 use Symfony\Component\Console\Formatter\OutputFormatterStyleInterface;
 
-class StylesCollection
+final class StylesCollection
 {
     /**
      * @var OutputFormatterStyleInterface[]

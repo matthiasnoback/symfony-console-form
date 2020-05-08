@@ -6,7 +6,7 @@ use Matthias\SymfonyConsoleForm\Console\Helper\HelperCollection;
 use RuntimeException;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 
-class RegisterHelpersEventListener
+final class RegisterHelpersEventListener
 {
     /**
      * @var HelperCollection

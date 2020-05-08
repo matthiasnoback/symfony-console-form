@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormRegistryInterface;
 use Symfony\Component\Form\Test\FormBuilderInterface;
 
-class ConsoleFormWithDefaultValuesAndOptionsFactory implements ConsoleFormFactory
+final class ConsoleFormWithDefaultValuesAndOptionsFactory implements ConsoleFormFactory
 {
     /**
      * @var FormFactoryInterface

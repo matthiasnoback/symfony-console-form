@@ -9,7 +9,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormInterface;
 
-class NonInteractiveRootInteractor implements FormInteractor
+final class NonInteractiveRootInteractor implements FormInteractor
 {
     /**
      * @throws CanNotInteractWithForm If isn't a root form or is the input is interactive

@@ -13,7 +13,7 @@ use Symfony\Component\Form\FormErrorIterator;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 
-class FormHelper extends Helper
+final class FormHelper extends Helper
 {
     private $formFactory;
     private $formInteractor;

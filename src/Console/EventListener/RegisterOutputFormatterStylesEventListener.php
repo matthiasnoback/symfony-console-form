@@ -5,7 +5,7 @@ namespace Matthias\SymfonyConsoleForm\Console\EventListener;
 use Matthias\SymfonyConsoleForm\Console\Formatter\StylesCollection;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 
-class RegisterOutputFormatterStylesEventListener
+final class RegisterOutputFormatterStylesEventListener
 {
     /**
      * @var StylesCollection

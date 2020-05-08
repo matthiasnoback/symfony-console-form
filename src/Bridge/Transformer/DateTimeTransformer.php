@@ -4,7 +4,7 @@ namespace Matthias\SymfonyConsoleForm\Bridge\Transformer;
 
 use Symfony\Component\Form\FormInterface;
 
-class DateTimeTransformer extends TextTransformer
+final class DateTimeTransformer extends AbstractTextInputBasedTransformer
 {
     protected function defaultValueFrom(FormInterface $form)
     {

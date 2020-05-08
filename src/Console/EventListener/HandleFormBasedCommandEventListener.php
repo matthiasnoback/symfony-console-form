@@ -6,7 +6,7 @@ use Matthias\SymfonyConsoleForm\Console\Command\FormBasedCommand;
 use Matthias\SymfonyConsoleForm\Console\Helper\FormHelper;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 
-class HandleFormBasedCommandEventListener
+final class HandleFormBasedCommandEventListener
 {
     /**
      * @var FormHelper
