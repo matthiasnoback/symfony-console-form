@@ -9,26 +9,16 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class ConsoleFormTypeExtension extends AbstractTypeExtension
 {
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addEventSubscriber(new UseInputOptionsAsEventDataEventSubscriber());
     }
 
-    /**
-     * @return string
-     */
-    public function getExtendedType()
+    public function getExtendedType(): string
     {
         return FormType::class;
     }
 
-    /**
-    * @return iterable
-    */
     public static function getExtendedTypes(): iterable
     {
         return [FormType::class];

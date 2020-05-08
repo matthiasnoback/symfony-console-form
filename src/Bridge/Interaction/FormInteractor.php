@@ -10,10 +10,7 @@ use Symfony\Component\Form\FormInterface;
 interface FormInteractor
 {
     /**
-     * @param FormInterface   $form
-     * @param HelperSet       $helperSet
-     * @param InputInterface  $input
-     * @param OutputInterface $output
+     * @return mixed
      */
     public function interactWith(
         FormInterface $form,

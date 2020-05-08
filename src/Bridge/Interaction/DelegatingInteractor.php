@@ -15,21 +15,15 @@ class DelegatingInteractor implements FormInteractor
      */
     private $delegates = [];
 
-    /**
-     * @param FormInteractor $interactor
-     */
-    public function addInteractor(FormInteractor $interactor)
+    public function addInteractor(FormInteractor $interactor): void
     {
         $this->delegates[] = $interactor;
     }
 
     /**
-     * @param FormInterface   $form
-     * @param HelperSet       $helperSet
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     *
      * @throws CanNotInteractWithForm If no delegate was able to interact with this form
+     *
+     * @return mixed
      */
     public function interactWith(
         FormInterface $form,

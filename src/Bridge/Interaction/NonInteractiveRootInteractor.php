@@ -12,11 +12,6 @@ use Symfony\Component\Form\FormInterface;
 class NonInteractiveRootInteractor implements FormInteractor
 {
     /**
-     * @param FormInterface   $form
-     * @param HelperSet       $helperSet
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     *
      * @throws CanNotInteractWithForm If isn't a root form or is the input is interactive
      *
      * @return InputInterface

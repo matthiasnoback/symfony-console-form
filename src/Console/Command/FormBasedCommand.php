@@ -4,10 +4,7 @@ namespace Matthias\SymfonyConsoleForm\Console\Command;
 
 interface FormBasedCommand
 {
-    /**
-     * @return mixed
-     */
-    public function formType();
+    public function formType(): string;
 
     /**
      * @param mixed $data

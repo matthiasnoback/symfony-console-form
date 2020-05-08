@@ -2,6 +2,7 @@
 
 namespace Matthias\SymfonyConsoleForm\Bundle;
 
+use LogicException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -18,25 +19,19 @@ class RegisterHelpersPass implements CompilerPassInterface
      */
     private $tagName;
 
-    /**
-     * @param string $helperCollectionId
-     * @param string $tagName
-     */
-    public function __construct($helperCollectionId, $tagName)
+    public function __construct(string $helperCollectionId, string $tagName)
     {
         $this->helperCollectionId = $helperCollectionId;
         $this->tagName = $tagName;
     }
 
     /**
-     * @param ContainerBuilder $container
-     *
-     * @throws \LogicException
+     * @throws LogicException
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has($this->helperCollectionId)) {
-            throw new \LogicException(
+            throw new LogicException(
                 sprintf(
                     'Helper collection service "%s" is not defined',
                     $this->helperCollectionId

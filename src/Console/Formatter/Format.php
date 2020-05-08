@@ -8,31 +8,25 @@ use Symfony\Component\Console\Output\OutputInterface;
 class Format
 {
     /**
-     * @param string $question
-     * @param string $defaultValue
-     *
-     * @return string
+     * @param mixed $defaultValue
      */
-    public static function forQuestion($question, $defaultValue)
+    public static function forQuestion(string $question, $defaultValue): string
     {
         $default = $defaultValue ? strtr(
             ' [<default>{defaultValue}</default>]',
-            ['{defaultValue}' => $defaultValue]
+            ['{defaultValue}' => (string)$defaultValue]
         ) : '';
 
         return strtr(
             '<question>{question}</question>{default}: ',
             [
                 '{question}' => $question,
-                '{default}' => $default,
+                '{default}' => (string)$default,
             ]
         );
     }
 
-    /**
-     * @param OutputInterface $output
-     */
-    public static function registerStyles(OutputInterface $output)
+    public static function registerStyles(OutputInterface $output): void
     {
         $formatter = $output->getFormatter();
 

@@ -8,11 +8,7 @@ use Symfony\Component\Form\FormInterface;
 interface TransformerResolver
 {
     /**
-     * @param FormInterface $form
-     *
      * @throws CouldNotResolveTransformer
-     *
-     * @return FormToQuestionTransformer
      */
-    public function resolve(FormInterface $form);
+    public function resolve(FormInterface $form): FormToQuestionTransformer;
 }

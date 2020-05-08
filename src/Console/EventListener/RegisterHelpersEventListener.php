@@ -13,18 +13,12 @@ class RegisterHelpersEventListener
      */
     private $helperCollection;
 
-    /**
-     * @param HelperCollection $helperCollection
-     */
     public function __construct(HelperCollection $helperCollection)
     {
         $this->helperCollection = $helperCollection;
     }
 
-    /**
-     * @param ConsoleCommandEvent $event
-     */
-    public function onConsoleCommand(ConsoleCommandEvent $event)
+    public function onConsoleCommand(ConsoleCommandEvent $event): void
     {
         $command = $event->getCommand();
 

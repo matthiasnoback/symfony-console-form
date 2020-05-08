@@ -10,10 +10,5 @@ use Symfony\Component\Form\FormInterface;
  */
 interface FormToQuestionTransformer
 {
-    /**
-     * @param FormInterface $form
-     *
-     * @return Question
-     */
-    public function transform(FormInterface $form);
+    public function transform(FormInterface $form): Question;
 }

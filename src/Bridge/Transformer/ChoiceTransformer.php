@@ -8,12 +8,7 @@ use Symfony\Component\Form\FormInterface;
 
 class ChoiceTransformer extends AbstractTransformer
 {
-    /**
-     * @param FormInterface $form
-     *
-     * @return Question
-     */
-    public function transform(FormInterface $form)
+    public function transform(FormInterface $form): Question
     {
         $formView = $form->createView();
 

@@ -2,6 +2,8 @@
 
 namespace Matthias\SymfonyConsoleForm\Bridge\Transformer\Exception;
 
-class CouldNotResolveTransformer extends \LogicException
+use LogicException;
+
+class CouldNotResolveTransformer extends LogicException
 {
 }

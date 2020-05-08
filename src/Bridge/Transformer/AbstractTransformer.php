@@ -12,25 +12,17 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 abstract class AbstractTransformer implements FormToQuestionTransformer
 {
-    /** @var TranslatorInterface */
+    /**
+     * @var TranslatorInterface
+     */
     private $translator;
 
-    /**
-     * NumberTransformer constructor.
-     *
-     * @param TranslatorInterface $translator
-     */
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
     }
 
-    /**
-     * @param FormInterface $form
-     *
-     * @return string
-     */
-    protected function questionFrom(FormInterface $form)
+    protected function questionFrom(FormInterface $form): string
     {
         $question = $this->translator->trans(FormUtil::label($form), [], $this->translationDomainFrom($form));
 
@@ -38,8 +30,6 @@ abstract class AbstractTransformer implements FormToQuestionTransformer
     }
 
     /**
-     * @param FormInterface $form
-     *
      * @return mixed
      */
     protected function defaultValueFrom(FormInterface $form)
@@ -52,12 +42,7 @@ abstract class AbstractTransformer implements FormToQuestionTransformer
         return $defaultValue;
     }
 
-    /**
-     * @param FormInterface $form
-     *
-     * @return string|null
-     */
-    protected function translationDomainFrom(FormInterface $form)
+    protected function translationDomainFrom(FormInterface $form): ?string
     {
         while ((null === $domain = $form->getConfig()->getOption('translation_domain')) && $form->getParent()) {
             $form = $form->getParent();
@@ -67,12 +52,10 @@ abstract class AbstractTransformer implements FormToQuestionTransformer
     }
 
     /**
-     * @param string $question
-     * @param string $defaultValue
-     *
+     * @param mixed $defaultValue
      * @return string
      */
-    protected function formattedQuestion($question, $defaultValue)
+    protected function formattedQuestion(string $question, $defaultValue): string
     {
         return Format::forQuestion($question, $defaultValue);
     }

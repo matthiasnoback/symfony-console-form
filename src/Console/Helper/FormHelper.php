@@ -4,6 +4,7 @@ namespace Matthias\SymfonyConsoleForm\Console\Helper;
 
 use Matthias\SymfonyConsoleForm\Bridge\FormFactory\ConsoleFormFactory;
 use Matthias\SymfonyConsoleForm\Bridge\Interaction\FormInteractor;
+use RuntimeException;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -17,18 +18,11 @@ class FormHelper extends Helper
     private $formFactory;
     private $formInteractor;
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'form';
     }
 
-    /**
-     * @param ConsoleFormFactory $formFactory
-     * @param FormInteractor     $formInteractor
-     */
     public function __construct(
         ConsoleFormFactory $formFactory,
         FormInteractor $formInteractor
@@ -38,16 +32,12 @@ class FormHelper extends Helper
     }
 
     /**
-     * @param string|\Symfony\Component\Form\FormTypeInterface $formType
-     * @param InputInterface                                   $input
-     * @param OutputInterface                                  $output
-     * @param array                                            $options
-     * @param mixed                                            $data
+     * @param mixed $data
      *
      * @return mixed
      */
     public function interactUsingForm(
-        $formType,
+        string $formType,
         InputInterface $input,
         OutputInterface $output,
         array $options = [],
@@ -77,7 +67,7 @@ class FormHelper extends Helper
                 if ($this->noErrorsCanBeFixed($formErrors)) {
                     $violationPaths = $this->constraintViolationPaths($formErrors);
                     $hint = (count($violationPaths) > 0 ? ' (Violations on unused fields: '.implode(', ', $violationPaths).')' : '');
-                    throw new \RuntimeException(
+                    throw new RuntimeException(
                         'Errors out of the form\'s scope - do you have validation constraints on properties not used in the form?'
                         . $hint
                     );
@@ -92,7 +82,7 @@ class FormHelper extends Helper
                 );
 
                 if (!$input->isInteractive()) {
-                    throw new \RuntimeException('There were form errors.');
+                    throw new RuntimeException('There were form errors.');
                 }
             }
         } while (!$form->isValid());
@@ -100,11 +90,7 @@ class FormHelper extends Helper
         return $data;
     }
 
-    /**
-     * @param FormErrorIterator $errors
-     * @return bool
-     */
-    protected function noErrorsCanBeFixed(FormErrorIterator $errors)
+    protected function noErrorsCanBeFixed(FormErrorIterator $errors): bool
     {
         // none of the remaining errors is related to a value of a form field
         return $errors->count() > 0 &&
@@ -113,7 +99,7 @@ class FormHelper extends Helper
             }));
     }
 
-    protected function constraintViolationPaths(FormErrorIterator $errors)
+    protected function constraintViolationPaths(FormErrorIterator $errors): array
     {
         $paths = [];
         foreach ($errors as $error) {
@@ -126,6 +112,7 @@ class FormHelper extends Helper
             }
             $paths[] = $cause->getPropertyPath();
         }
+
         return $paths;
     }
 }

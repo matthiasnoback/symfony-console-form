@@ -8,22 +8,16 @@ use Symfony\Component\Console\Helper\HelperSet;
 class HelperCollection
 {
     /**
-     * @var array
+     * @var array & HelperInterface[]
      */
     private $helpers = [];
 
-    /**
-     * @param HelperInterface $helper
-     */
-    public function set(HelperInterface $helper)
+    public function set(HelperInterface $helper): void
     {
         $this->helpers[] = $helper;
     }
 
-    /**
-     * @param HelperSet $helperSet
-     */
-    public function addTo(HelperSet $helperSet)
+    public function addTo(HelperSet $helperSet): void
     {
         foreach ($this->helpers as $helper) {
             $helperSet->set($helper);

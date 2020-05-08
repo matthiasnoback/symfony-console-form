@@ -12,18 +12,12 @@ class RegisterOutputFormatterStylesEventListener
      */
     private $styles;
 
-    /**
-     * @param StylesCollection $styles
-     */
     public function __construct(StylesCollection $styles)
     {
         $this->styles = $styles;
     }
 
-    /**
-     * @param ConsoleCommandEvent $event
-     */
-    public function onConsoleCommand(ConsoleCommandEvent $event)
+    public function onConsoleCommand(ConsoleCommandEvent $event): void
     {
         $outputFormatter = $event->getOutput()->getFormatter();
 

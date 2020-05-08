@@ -14,11 +14,7 @@ abstract class DynamicFormBasedCommand extends InteractiveFormCommand implements
      */
     private $commandName;
 
-    /**
-     * @param string $formType
-     * @param string $commandName
-     */
-    public function __construct($formType, $commandName)
+    public function __construct(string $formType, string $commandName)
     {
         $this->formType = $formType;
         $this->commandName = $commandName;
@@ -26,18 +22,12 @@ abstract class DynamicFormBasedCommand extends InteractiveFormCommand implements
         parent::__construct();
     }
 
-    /**
-     * @return string
-     */
-    public function formType()
+    public function formType(): string
     {
         return $this->formType;
     }
 
-    /**
-     * @return string
-     */
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('form:'.$this->commandName);
     }

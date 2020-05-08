@@ -7,12 +7,7 @@ use Symfony\Component\Form\FormInterface;
 
 class TextTransformer extends AbstractTransformer
 {
-    /**
-     * @param FormInterface $form
-     *
-     * @return Question
-     */
-    public function transform(FormInterface $form)
+    public function transform(FormInterface $form): Question
     {
         return new Question($this->questionFrom($form), $this->defaultValueFrom($form));
     }

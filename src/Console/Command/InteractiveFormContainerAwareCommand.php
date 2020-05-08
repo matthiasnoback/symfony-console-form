@@ -2,9 +2,11 @@
 
 namespace Matthias\SymfonyConsoleForm\Console\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
-abstract class InteractiveFormContainerAwareCommand extends ContainerAwareCommand implements FormBasedCommand
+abstract class InteractiveFormContainerAwareCommand extends Command implements FormBasedCommand
 {
+    use ContainerAwareTrait;
     use FormBasedCommandCapabilities;
 }

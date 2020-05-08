@@ -27,14 +27,9 @@ class FieldInteractor implements FormInteractor
     }
 
     /**
-     * @param FormInterface   $form
-     * @param HelperSet       $helperSet
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     *
      * @throws CanNotInteractWithForm The input isn't interactive
      *
-     * @return string
+     * @return mixed
      */
     public function interactWith(
         FormInterface $form,
@@ -51,12 +46,7 @@ class FieldInteractor implements FormInteractor
         return $this->questionHelper($helperSet)->ask($input, $output, $question);
     }
 
-    /**
-     * @param HelperSet $helperSet
-     *
-     * @return QuestionHelper
-     */
-    private function questionHelper(HelperSet $helperSet)
+    private function questionHelper(HelperSet $helperSet): QuestionHelper
     {
         $helper = $helperSet->get('question');
 

@@ -7,18 +7,12 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class SymfonyConsoleFormBundle extends Bundle
 {
-    /**
-     * @return SymfonyConsoleFormExtension
-     */
     public function getContainerExtension()
     {
         return new SymfonyConsoleFormExtension();
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
-    public function build(ContainerBuilder $container)
+    public function build(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new RegisterTransformersPass());
 

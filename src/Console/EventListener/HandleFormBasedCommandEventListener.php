@@ -13,18 +13,12 @@ class HandleFormBasedCommandEventListener
      */
     private $formQuestionHelper;
 
-    /**
-     * @param FormHelper $formQuestionHelper
-     */
     public function __construct(FormHelper $formQuestionHelper)
     {
         $this->formQuestionHelper = $formQuestionHelper;
     }
 
-    /**
-     * @param ConsoleCommandEvent $event
-     */
-    public function onConsoleCommand(ConsoleCommandEvent $event)
+    public function onConsoleCommand(ConsoleCommandEvent $event): void
     {
         $command = $event->getCommand();
         if (!($command instanceof FormBasedCommand)) {

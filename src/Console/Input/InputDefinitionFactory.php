@@ -2,11 +2,9 @@
 
 namespace Matthias\SymfonyConsoleForm\Console\Input;
 
+use Symfony\Component\Console\Input\InputDefinition;
+
 interface InputDefinitionFactory
 {
-    /**
-     * @param string|\Symfony\Component\Form\FormTypeInterface $formType
-     * @param array                                            $resources
-     */
-    public function createForFormType($formType, array &$resources = []);
+    public function createForFormType(string $formType, array &$resources = []): InputDefinition;
 }

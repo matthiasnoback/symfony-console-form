@@ -13,23 +13,15 @@ class TypeAncestryBasedTransformerResolver implements TransformerResolver
      */
     private $transformers = [];
 
-    /**
-     * @param string                    $formType
-     * @param FormToQuestionTransformer $transformer
-     */
-    public function addTransformer($formType, FormToQuestionTransformer $transformer)
+    public function addTransformer(string $formType, FormToQuestionTransformer $transformer): void
     {
         $this->transformers[$formType] = $transformer;
     }
 
     /**
-     * @param FormInterface $form
-     *
      * @throws CouldNotResolveTransformer
-     *
-     * @return FormToQuestionTransformer
      */
-    public function resolve(FormInterface $form)
+    public function resolve(FormInterface $form): FormToQuestionTransformer
     {
         $types = FormUtil::typeAncestry($form);
 

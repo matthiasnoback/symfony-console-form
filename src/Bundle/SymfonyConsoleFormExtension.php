@@ -9,11 +9,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 class SymfonyConsoleFormExtension extends Extension
 {
-    /**
-     * @param array            $config
-     * @param ContainerBuilder $container
-     */
-    public function load(array $config, ContainerBuilder $container)
+    public function load(array $config, ContainerBuilder $container): void
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__));
         $loader->load('services.yml');
@@ -21,10 +17,7 @@ class SymfonyConsoleFormExtension extends Extension
         $loader->load('helpers.yml');
     }
 
-    /**
-     * @return string
-     */
-    public function getAlias()
+    public function getAlias(): string
     {
         return 'symfony_console_form';
     }

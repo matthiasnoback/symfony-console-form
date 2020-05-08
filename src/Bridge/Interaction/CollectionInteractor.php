@@ -31,11 +31,6 @@ class CollectionInteractor implements FormInteractor
     }
 
     /**
-     * @param FormInterface   $form
-     * @param HelperSet       $helperSet
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     *
      * @throws CanNotInteractWithForm     If the input isn't interactive
      * @throws FormNotReadyForInteraction If the "collection" form hasn't the option "allow_add"
      *
@@ -94,18 +89,11 @@ class CollectionInteractor implements FormInteractor
         return $submittedData;
     }
 
-    /**
-     * @param HelperSet       $helperSet
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     *
-     * @return string
-     */
     private function askIfContinueToAdd(
         HelperSet $helperSet,
         InputInterface $input,
         OutputInterface $output
-    ) {
+    ): string {
         return $this->questionHelper($helperSet)->ask(
             $input,
             $output,
@@ -116,12 +104,7 @@ class CollectionInteractor implements FormInteractor
         );
     }
 
-    /**
-     * @param HelperSet $helperSet
-     *
-     * @return QuestionHelper
-     */
-    private function questionHelper(HelperSet $helperSet)
+    private function questionHelper(HelperSet $helperSet): QuestionHelper
     {
         $helper = $helperSet->get('question');
 
@@ -132,11 +115,7 @@ class CollectionInteractor implements FormInteractor
         return $helper;
     }
 
-    /**
-     * @param FormInterface   $form
-     * @param OutputInterface $output
-     */
-    private function printHeader(FormInterface $form, OutputInterface $output)
+    private function printHeader(FormInterface $form, OutputInterface $output): void
     {
         $output->writeln(
             strtr(
@@ -148,11 +127,7 @@ class CollectionInteractor implements FormInteractor
         );
     }
 
-    /**
-     * @param int             $entryNumber
-     * @param OutputInterface $output
-     */
-    private function printEditEntryHeader($entryNumber, OutputInterface $output)
+    private function printEditEntryHeader(int $entryNumber, OutputInterface $output): void
     {
         $output->writeln(
             strtr(
@@ -164,11 +139,7 @@ class CollectionInteractor implements FormInteractor
         );
     }
 
-    /**
-     * @param int             $entryNumber
-     * @param OutputInterface $output
-     */
-    private function printAddEntryHeader($entryNumber, OutputInterface $output)
+    private function printAddEntryHeader(int $entryNumber, OutputInterface $output): void
     {
         $output->writeln(
             strtr(
@@ -180,20 +151,12 @@ class CollectionInteractor implements FormInteractor
         );
     }
 
-    /**
-     * @param HelperSet       $helperSet
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     * @param int             $entryNumber
-     *
-     * @return string
-     */
     private function askIfExistingEntryShouldBeAdded(
         HelperSet $helperSet,
         InputInterface $input,
         OutputInterface $output,
-        $entryNumber
-    ) {
+        int $entryNumber
+    ): string {
         return $this->questionHelper($helperSet)->ask(
             $input,
             $output,

@@ -106,7 +106,7 @@ class TestCommand extends Command
         $formHelper = $this->getHelper('form');
         /** @var FormHelper $formHelper */
 
-        $formData = $formHelper->interactUsingForm(new DemoType(), $input, $output);
+        $formData = $formHelper->interactUsingForm(DemoType::class, $input, $output);
 
         // $formData is the valid and populated form data object/array
         ...

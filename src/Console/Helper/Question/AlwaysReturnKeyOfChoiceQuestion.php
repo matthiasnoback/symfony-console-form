@@ -2,6 +2,7 @@
 
 namespace Matthias\SymfonyConsoleForm\Console\Helper\Question;
 
+use InvalidArgumentException;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Form\ChoiceList\View\ChoiceView;
 
@@ -70,7 +71,7 @@ class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
             if ($this->_multiselect) {
                 // Check for a separated comma values
                 if (!preg_match('/^[a-zA-Z0-9_-]+(?:,[a-zA-Z0-9_-]+)*$/', $selectedChoices)) {
-                    throw new \InvalidArgumentException(sprintf($this->_errorMessage, $selected));
+                    throw new InvalidArgumentException(sprintf($this->_errorMessage, $selected));
                 }
                 $selectedChoices = explode(',', $selectedChoices);
             } else {
@@ -94,7 +95,7 @@ class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
     /**
      * @param string $selectedValue The selected value
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return string The corresponding value of the ChoiceView
      */
@@ -106,7 +107,7 @@ class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
             }
         }
 
-        throw new \InvalidArgumentException(sprintf($this->_errorMessage, $selectedValue));
+        throw new InvalidArgumentException(sprintf($this->_errorMessage, $selectedValue));
     }
 
     /**
@@ -152,13 +153,13 @@ class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
     /**
      * @param array $choiceViews
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     private function assertFlatChoiceViewsArray(array $choiceViews)
     {
         foreach ($choiceViews as $choiceView) {
             if (!$choiceView instanceof ChoiceView) {
-                throw new \InvalidArgumentException('Only a flat choice hierarchy is supported');
+                throw new InvalidArgumentException('Only a flat choice hierarchy is supported');
             }
         }
     }

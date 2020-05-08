@@ -2,6 +2,8 @@
 
 namespace Matthias\SymfonyConsoleForm\Console\Command;
 
+use LogicException;
+
 trait FormBasedCommandCapabilities
 {
     /**
@@ -16,12 +18,12 @@ trait FormBasedCommandCapabilities
     {
         if ($this->formData === null) {
             if (!($this instanceof FormBasedCommand)) {
-                throw new \LogicException(
+                throw new LogicException(
                     'Your command should be an instance of FormBasedCommand'
                 );
             }
 
-            throw new \LogicException('For some reason, no form data was set');
+            throw new LogicException('For some reason, no form data was set');
         }
 
         return $this->formData;
@@ -30,7 +32,7 @@ trait FormBasedCommandCapabilities
     /**
      * @param mixed $data
      */
-    public function setFormData($data)
+    public function setFormData($data): void
     {
         $this->formData = $data;
     }

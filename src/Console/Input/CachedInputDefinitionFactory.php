@@ -2,8 +2,9 @@
 
 namespace Matthias\SymfonyConsoleForm\Console\Input;
 
+use RuntimeException;
 use Symfony\Component\Config\ConfigCache;
-use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\Console\Input\InputDefinition;
 
 class CachedInputDefinitionFactory implements InputDefinitionFactory
 {
@@ -22,25 +23,14 @@ class CachedInputDefinitionFactory implements InputDefinitionFactory
      */
     private $debug;
 
-    /**
-     * @param InputDefinitionFactory $inputDefinitionFactory
-     * @param string                 $cacheDirectory
-     * @param bool                   $debug
-     */
-    public function __construct(InputDefinitionFactory $inputDefinitionFactory, $cacheDirectory, $debug)
+    public function __construct(InputDefinitionFactory $inputDefinitionFactory, string $cacheDirectory, bool $debug)
     {
         $this->inputDefinitionFactory = $inputDefinitionFactory;
         $this->cacheDirectory = $cacheDirectory;
         $this->debug = $debug;
     }
 
-    /**
-     * @param string|\Symfony\Component\Form\FormTypeInterface $formType
-     * @param array                                            $resources
-     *
-     * @return mixed
-     */
-    public function createForFormType($formType, array &$resources = [])
+    public function createForFormType(string $formType, array &$resources = []): InputDefinition
     {
         $cache = $this->configCacheFor($formType);
 
@@ -51,42 +41,26 @@ class CachedInputDefinitionFactory implements InputDefinitionFactory
         return $this->freshInputDefinition($formType, $cache, $resources);
     }
 
-    /**
-     * @param string|\Symfony\Component\Form\FormTypeInterface $formType
-     *
-     * @return ConfigCache
-     */
-    protected function configCacheFor($formType)
+    protected function configCacheFor(string $formType): ConfigCache
     {
-        if ($formType instanceof FormTypeInterface) {
-            $filename = get_class($formType);
-        } elseif (is_string($formType)) {
-            $filename = $formType;
-        } else {
-            throw new \LogicException('Unexpected type');
+        return new ConfigCache($this->cacheDirectory.'/'.$formType, $this->debug);
+    }
+
+    /**
+     * @param string $cacheFile
+     */
+    private function inputDefinitionFromCache(string $cacheFile): InputDefinition
+    {
+        $unserialized = unserialize(file_get_contents($cacheFile));
+
+        if (!$unserialized instanceof InputDefinition) {
+            throw new RuntimeException('Expected to get an object of type InputDefinition from the cache');
         }
 
-        return new ConfigCache($this->cacheDirectory.'/'.$filename, $this->debug);
+        return $unserialized;
     }
 
-    /**
-     * @param string $cache
-     *
-     * @return mixed
-     */
-    private function inputDefinitionFromCache($cache)
-    {
-        return unserialize(file_get_contents($cache));
-    }
-
-    /**
-     * @param string|\Symfony\Component\Form\FormTypeInterface $formType
-     * @param ConfigCache                                      $cache
-     * @param array                                            $resources
-     *
-     * @return \Symfony\Component\Console\Input\InputDefinition
-     */
-    private function freshInputDefinition($formType, ConfigCache $cache, array &$resources)
+    private function freshInputDefinition(string $formType, ConfigCache $cache, array &$resources): InputDefinition
     {
         $inputDefinition = $this->inputDefinitionFactory->createForFormType($formType, $resources);
         $cache->write(serialize($inputDefinition), $resources);
