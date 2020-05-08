@@ -8,7 +8,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class PrintFormDataCommand extends DynamicFormBasedCommand
 {
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $formData = $this->formData();
 
@@ -21,5 +21,7 @@ class PrintFormDataCommand extends DynamicFormBasedCommand
         }, (array)$formData);
 
         $output->write(print_r($printData, true));
+
+        return 0;
     }
 }

@@ -123,4 +123,4 @@ framework:
         handler_id: ~
     translator:
         paths:
-            - "%kernel.root_dir%/translations"
+            - "%kernel.project_dir%/translations"

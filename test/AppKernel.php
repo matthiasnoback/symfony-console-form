@@ -22,6 +22,11 @@ class AppKernel extends Kernel
         $loader->load(__DIR__.'/config.yml');
     }
 
+    public function getProjectDir()
+    {
+        return __DIR__;
+    }
+
     public function getCacheDir()
     {
         return __DIR__.'/temp/cache';

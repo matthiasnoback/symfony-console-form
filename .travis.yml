@@ -3,24 +3,9 @@ language: php
 matrix:
   include:
     - php: 7.2
-      env: SYMFONY_VERSION=3.4.*
-    - php: 7.2
-      env: SYMFONY_VERSION=4.0.*
-    - php: 7.4
-      env: SYMFONY_VERSION=5.0.*
-
-before_install:
-  - >
-    composer require --dev --no-update symfony/framework-bundle "$SYMFONY_VERSION" &&
-    composer require --dev --no-update symfony/console "$SYMFONY_VERSION" &&
-    composer require --dev --no-update symfony/validator "$SYMFONY_VERSION" &&
-    composer require --dev --no-update symfony/form "$SYMFONY_VERSION" &&
-    composer require --dev --no-update symfony/yaml "$SYMFONY_VERSION" &&
-    composer require --dev --no-update symfony/finder "$SYMFONY_VERSION" &&
-    composer require --dev --no-update symfony/translation "$SYMFONY_VERSION"
 
 install:
-  - composer update --prefer-dist
+  - composer install --prefer-dist
 
 script:
   - vendor/bin/php-cs-fixer fix -v --diff --dry-run
