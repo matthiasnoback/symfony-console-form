@@ -48,6 +48,19 @@ Feature: It is possible to interactively fill in a form from the CLI
       )
       """
 
+  Scenario: Provide an integer
+    When I run the command "form:age" and I provide as input
+      | Input      |
+      | 10 |
+    Then the command has finished successfully
+    And the output should be
+      """
+      Your age: Array
+      (
+          [age] => 10
+      )
+      """
+
   Scenario: Select a value
     When I run the command "form:color" and I provide as input
       | Input |

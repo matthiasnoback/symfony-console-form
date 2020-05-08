@@ -108,7 +108,11 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function theCommandHasFinishedSuccessfully()
     {
-        Assert::assertEquals(0, $this->tester->getStatusCode());
+        if ($this->tester->getStatusCode() !== 0) {
+            throw new RuntimeException(
+                "Expected the command to succeed. Command output:\n" . $this->getOutput()
+            );
+        }
     }
 
     /**
