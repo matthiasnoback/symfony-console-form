@@ -50,9 +50,16 @@ final class CollectionInteractor implements FormInteractor
             throw new CanNotInteractWithForm('Expected a "collection" form');
         }
 
-        if (!$form->getConfig()->getOption('allow_add') && empty($form->getData())) {
+        $data = $form->getData();
+        if (!$form->getConfig()->getOption('allow_add') && empty($data)) {
             throw new FormNotReadyForInteraction(
                 'The "collection" form should have the option "allow_add" or have existing entries'
+            );
+        }
+
+        if (!is_iterable($data)) {
+            throw new FormNotReadyForInteraction(
+                'The "collection" form must be iterable'
             );
         }
 
@@ -66,7 +73,7 @@ final class CollectionInteractor implements FormInteractor
             return $this->askIfExistingEntryShouldBeAdded($helperSet, $input, $output, $entryNumber);
         };
 
-        foreach ((array) $form->getData() as $key => $entryData) {
+        foreach ($data as $key => $entryData) {
             $this->printEditEntryHeader($key, $output);
             $prototype->setData($entryData);
 
