@@ -50,8 +50,10 @@ final class CollectionInteractor implements FormInteractor
             throw new CanNotInteractWithForm('Expected a "collection" form');
         }
 
-        $data = $form->getData();
-        if (!$form->getConfig()->getOption('allow_add') && empty($data)) {
+        $config = $form->getConfig();
+        $data = $form->getData() ?: $config->getEmptyData();
+
+        if (!$config->getOption('allow_add') && empty($data)) {
             throw new FormNotReadyForInteraction(
                 'The "collection" form should have the option "allow_add" or have existing entries'
             );
@@ -66,7 +68,7 @@ final class CollectionInteractor implements FormInteractor
         $this->printHeader($form, $output);
 
         $submittedData = [];
-        $prototype = $form->getConfig()->getAttribute('prototype');
+        $prototype = $config->getAttribute('prototype');
         $originalData = $prototype->getData();
 
         $askIfEntryNeedsToBeSubmitted = function ($entryNumber) use ($helperSet, $input, $output) {
@@ -78,12 +80,12 @@ final class CollectionInteractor implements FormInteractor
             $prototype->setData($entryData);
 
             $submittedEntry = $this->formInteractor->interactWith($prototype, $helperSet, $input, $output);
-            if (!$form->getConfig()->getOption('allow_delete') || $askIfEntryNeedsToBeSubmitted($key)) {
+            if (!$config->getOption('allow_delete') || $askIfEntryNeedsToBeSubmitted($key)) {
                 $submittedData[] = $submittedEntry;
             }
         }
 
-        if ($form->getConfig()->getOption('allow_add')) {
+        if ($config->getOption('allow_add')) {
             // reset the prototype
             $prototype->setData($originalData);
             $key = count($submittedData) - 1;

@@ -202,6 +202,35 @@ Feature: It is possible to interactively fill in a form from the CLI
       [name] => Jelmer
       """
 
+  Scenario: Form Type with ArrayCollection
+    When I run the command "form:array_collection_form_addresses" and I provide as input
+    | Input |
+    | y     |
+    | foo   |
+    | y     |
+    | bar   |
+    | n     |
+    And the output should contain
+      """
+        Matthias\SymfonyConsoleForm\Tests\Model\Addresses Object
+        (
+            [addresses] => Doctrine\Common\Collections\ArrayCollection Object
+            (
+                [elements:Doctrine\Common\Collections\ArrayCollection:private] => Array
+                (
+                    [0] => Matthias\SymfonyConsoleForm\Tests\Form\Data\Address Object
+                    (
+                        [street] => foo
+                    )
+                    [1] => Matthias\SymfonyConsoleForm\Tests\Form\Data\Address Object
+                    (
+                        [street] => bar
+                    )
+                )
+            )
+        )
+      """
+
   Scenario: Remove an address from pre filled collection of blocked addresses
     When I run the command "form:blocked_addresses" and I provide as input
       | Input |

@@ -12,13 +12,17 @@ class PrintFormDataCommand extends DynamicFormBasedCommand
     {
         $formData = $this->formData();
 
-        $printData = array_map(function ($data) {
-            if ($data instanceof \DateTime) {
-                return $data->format(\DateTime::ISO8601);
-            }
+        if (is_iterable($formData)) {
+            $printData = array_map(function ($data) {
+                if ($data instanceof \DateTime) {
+                    return $data->format(\DateTime::ISO8601);
+                }
 
-            return $data;
-        }, (array)$formData);
+                return $data;
+            }, (array)$formData);
+        } else {
+            $printData = $formData;
+        }
 
         $output->write(print_r($printData, true));
 
