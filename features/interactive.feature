@@ -300,3 +300,19 @@ Feature: It is possible to interactively fill in a form from the CLI
           )
       )
       """
+
+  Scenario: Command with default form data
+    When I run the command "form:default_value_command" and I provide as input
+      | Input |
+      | foo   |
+    And the output should contain
+      """
+        Street [already save address]:
+      """
+    And the output should contain
+      """
+        Array
+        (
+            [street] => foo
+        )
+      """

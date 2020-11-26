@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Matthias\SymfonyConsoleForm\Tests\Form\Data\Address;
 
 class AddressType extends AbstractType
 {
@@ -25,7 +26,7 @@ class AddressType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => 'Matthias\SymfonyConsoleForm\Tests\Form\Data\Address',
+                'data_class' => Address::class,
             ]
         );
     }
