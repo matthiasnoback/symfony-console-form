@@ -4,7 +4,7 @@ require __DIR__.'/../vendor/autoload.php';
 
 use Matthias\SymfonyConsoleForm\Tests\AppKernel;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Component\Debug\Debug;
+use Symfony\Component\ErrorHandler\Debug;
 
 Debug::enable();
 

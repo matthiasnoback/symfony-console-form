@@ -3,6 +3,7 @@
 namespace Matthias\SymfonyConsoleForm\Console\EventListener;
 
 use Matthias\SymfonyConsoleForm\Console\Command\FormBasedCommand;
+use Matthias\SymfonyConsoleForm\Console\Command\FormBasedCommandWithDefault;
 use Matthias\SymfonyConsoleForm\Console\Helper\FormHelper;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 
@@ -27,8 +28,18 @@ final class HandleFormBasedCommandEventListener
 
         $input = $event->getInput();
         $output = $event->getOutput();
+        $defaultData = null;
+        if ($command instanceof FormBasedCommandWithDefault) {
+            $defaultData = $command->getFormDefault();
+        }
 
-        $formData = $this->formQuestionHelper->interactUsingForm($command->formType(), $input, $output);
+        $formData = $this->formQuestionHelper->interactUsingForm(
+            $command->formType(),
+            $input,
+            $output,
+            [],
+            $defaultData
+        );
 
         $command->setFormData($formData);
     }

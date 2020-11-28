@@ -26,6 +26,14 @@ services:
         tags:
             - { name: console.command }
 
+    default_value_command:
+        class: Matthias\SymfonyConsoleForm\Tests\Command\DefaultFormDataCommand
+        arguments:
+            - Matthias\SymfonyConsoleForm\Tests\Form\AddressType
+            - default_value_command
+        tags:
+            - { name: console.command }
+
     blocked_addresses_command:
         class: Matthias\SymfonyConsoleForm\Tests\Command\PrintFormDataCommand
         arguments:
