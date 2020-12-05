@@ -28,6 +28,9 @@ class AddressType extends AbstractType
         $resolver->setDefaults(
             [
                 'data_class' => Address::class,
+                'empty_data' => function () {
+                    return new Address('');
+                }
             ]
         );
     }
