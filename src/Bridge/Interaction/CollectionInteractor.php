@@ -50,33 +50,42 @@ final class CollectionInteractor implements FormInteractor
             throw new CanNotInteractWithForm('Expected a "collection" form');
         }
 
-        if (!$form->getConfig()->getOption('allow_add') && empty($form->getData())) {
+        $config = $form->getConfig();
+        $data = $form->getData() ?: $config->getEmptyData();
+
+        if (!$config->getOption('allow_add') && empty($data)) {
             throw new FormNotReadyForInteraction(
                 'The "collection" form should have the option "allow_add" or have existing entries'
+            );
+        }
+
+        if (!is_iterable($data)) {
+            throw new FormNotReadyForInteraction(
+                'The "collection" form must be iterable'
             );
         }
 
         $this->printHeader($form, $output);
 
         $submittedData = [];
-        $prototype = $form->getConfig()->getAttribute('prototype');
+        $prototype = $config->getAttribute('prototype');
         $originalData = $prototype->getData();
 
         $askIfEntryNeedsToBeSubmitted = function ($entryNumber) use ($helperSet, $input, $output) {
             return $this->askIfExistingEntryShouldBeAdded($helperSet, $input, $output, $entryNumber);
         };
 
-        foreach ((array) $form->getData() as $key => $entryData) {
+        foreach ($data as $key => $entryData) {
             $this->printEditEntryHeader($key, $output);
             $prototype->setData($entryData);
 
             $submittedEntry = $this->formInteractor->interactWith($prototype, $helperSet, $input, $output);
-            if (!$form->getConfig()->getOption('allow_delete') || $askIfEntryNeedsToBeSubmitted($key)) {
+            if (!$config->getOption('allow_delete') || $askIfEntryNeedsToBeSubmitted($key)) {
                 $submittedData[] = $submittedEntry;
             }
         }
 
-        if ($form->getConfig()->getOption('allow_add')) {
+        if ($config->getOption('allow_add')) {
             // reset the prototype
             $prototype->setData($originalData);
             $key = count($submittedData) - 1;

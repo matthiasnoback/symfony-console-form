@@ -34,6 +34,14 @@ services:
         tags:
             - { name: console.command }
 
+    array_collection_form_addresses:
+        class: Matthias\SymfonyConsoleForm\Tests\Command\PrintFormDataCommand
+        arguments:
+            - Matthias\SymfonyConsoleForm\Tests\Form\AddressesType
+            - array_collection_form_addresses
+        tags:
+            - { name: console.command }
+
     blocked_addresses_command:
         class: Matthias\SymfonyConsoleForm\Tests\Command\PrintFormDataCommand
         arguments:
