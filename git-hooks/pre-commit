@@ -4,16 +4,11 @@
 exec 1>&2
 
 ROOT="$PWD"
-PHP_CS_FIXER="${ROOT}/vendor/bin/php-cs-fixer"
+PHP_CS_FIXER="${ROOT}/bin/php vendor/bin/php-cs-fixer"
 PHP_CS_CONFIG="${ROOT}/.php_cs"
 
 if [ ! -f "$PHP_CS_CONFIG" ]; then
     echo "Please run 'git commit' from the root directory of the project"
-    exit 1
-fi
-
-if [ ! -x "$PHP_CS_FIXER" ]; then
-    echo "Please run 'composer install' first"
     exit 1
 fi
 
