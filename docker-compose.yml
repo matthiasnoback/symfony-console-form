@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  composer:
+    image: composer:latest
+    working_dir: /app
+    volumes:
+      - ./:/app
+    env_file:
+      - .env
+    user: ${HOST_UID}:${HOST_GID}
+
+  php:
+    image: php:7.4-cli-alpine
+    working_dir: /app
+    volumes:
+      - ./:/app
+    env_file:
+      - .env
+    user: ${HOST_UID}:${HOST_GID}
