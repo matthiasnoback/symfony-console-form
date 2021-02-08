@@ -9,6 +9,7 @@ services:
     env_file:
       - .env
     user: ${HOST_UID}:${HOST_GID}
+    init: true
 
   php:
     image: php:7.4-cli-alpine
@@ -18,3 +19,4 @@ services:
     env_file:
       - .env
     user: ${HOST_UID}:${HOST_GID}
+    init: true
