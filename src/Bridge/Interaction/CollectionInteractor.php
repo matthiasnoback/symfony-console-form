@@ -119,7 +119,7 @@ final class CollectionInteractor implements FormInteractor
     {
         $output->writeln(
             strtr(
-                '<fieldset>{label}</fieldset>',
+                '<comment>{label}</comment>',
                 [
                     '{label}' => FormUtil::label($form),
                 ]
@@ -131,7 +131,7 @@ final class CollectionInteractor implements FormInteractor
     {
         $output->writeln(
             strtr(
-                '<fieldset>Edit entry {entryNumber}</fieldset>',
+                '<comment>Edit entry {entryNumber}</comment>',
                 [
                     '{entryNumber}' => $entryNumber,
                 ]
@@ -143,7 +143,7 @@ final class CollectionInteractor implements FormInteractor
     {
         $output->writeln(
             strtr(
-                '<fieldset>Add entry {entryNumber}</fieldset>',
+                '<comment>Add entry {entryNumber}</comment>',
                 [
                     '{entryNumber}' => $entryNumber,
                 ]

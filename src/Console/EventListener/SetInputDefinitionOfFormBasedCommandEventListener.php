@@ -8,6 +8,7 @@ use ReflectionObject;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Command\HelpCommand;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 
@@ -42,7 +43,7 @@ final class SetInputDefinitionOfFormBasedCommandEventListener
     {
         $command->setDefinition($inputDefinition);
         $command->mergeApplicationDefinition();
-        $input->bind($inputDefinition);
+        $input->bind($command->getDefinition());
     }
 
     private function getCommandFromHelpCommand(HelpCommand $helpCommand): ?Command

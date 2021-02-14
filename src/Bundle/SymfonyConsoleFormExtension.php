@@ -13,7 +13,6 @@ final class SymfonyConsoleFormExtension extends Extension
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__));
         $loader->load('services.yml');
-        $loader->load('style.yml');
         $loader->load('helpers.yml');
     }
 
