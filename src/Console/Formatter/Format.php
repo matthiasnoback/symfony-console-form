@@ -13,7 +13,7 @@ final class Format
     public static function forQuestion(string $question, $defaultValue): string
     {
         $default = $defaultValue ? strtr(
-            ' [<default>{defaultValue}</default>]',
+            ' [{defaultValue}]',
             ['{defaultValue}' => (string)$defaultValue]
         ) : '';
 
