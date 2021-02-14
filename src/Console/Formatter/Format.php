@@ -2,9 +2,6 @@
 
 namespace Matthias\SymfonyConsoleForm\Console\Formatter;
 
-use Symfony\Component\Console\Formatter\OutputFormatterStyle;
-use Symfony\Component\Console\Output\OutputInterface;
-
 final class Format
 {
     /**
@@ -24,14 +21,5 @@ final class Format
                 '{default}' => (string)$default,
             ]
         );
-    }
-
-    public static function registerStyles(OutputInterface $output): void
-    {
-        $formatter = $output->getFormatter();
-
-        $formatter->setStyle('fieldset', new OutputFormatterStyle('yellow', null, ['bold']));
-        $formatter->setStyle('default', new OutputFormatterStyle('green'));
-        $formatter->setStyle('question', new OutputFormatterStyle('black', 'cyan'));
     }
 }
