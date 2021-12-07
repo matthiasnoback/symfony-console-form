@@ -18,7 +18,7 @@ jobs:
                     -
                         name: "Code style"
                         run: vendor/bin/ecs check --ansi
-
+                dependencies: ["lowest", "highest"]
         name: ${{ matrix.actions.name }}
         runs-on: ubuntu-latest
 
@@ -33,5 +33,7 @@ jobs:
 
             # composer install cache - https://github.com/ramsey/composer-install
             -   uses: "ramsey/composer-install@v1"
+                with:
+                    dependency-versions: "${{ matrix.dependencies }}"
 
             -   run: ${{ matrix.actions.run }}

@@ -46,7 +46,7 @@ Feature: It is possible to interactively fill in a form from the CLI
     And the output should contain
     """
     Invalid data provided: color:
-      ERROR: This value is not valid.
+      ERROR:
     """
     And the output should contain
     """
