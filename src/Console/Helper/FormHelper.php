@@ -18,17 +18,17 @@ final class FormHelper extends Helper
     private $formFactory;
     private $formInteractor;
 
-    public function getName(): string
-    {
-        return 'form';
-    }
-
     public function __construct(
         ConsoleFormFactory $formFactory,
         FormInteractor $formInteractor
     ) {
         $this->formFactory = $formFactory;
         $this->formInteractor = $formInteractor;
+    }
+
+    public function getName(): string
+    {
+        return 'form';
     }
 
     /**
@@ -66,7 +66,7 @@ final class FormHelper extends Helper
                 $output->write(sprintf('Invalid data provided: %s', $formErrors));
                 if ($this->noErrorsCanBeFixed($formErrors)) {
                     $violationPaths = $this->constraintViolationPaths($formErrors);
-                    $hint = (count($violationPaths) > 0 ? ' (Violations on unused fields: '.implode(', ', $violationPaths).')' : '');
+                    $hint = (count($violationPaths) > 0 ? ' (Violations on unused fields: ' . implode(', ', $violationPaths) . ')' : '');
                     throw new RuntimeException(
                         'Errors out of the form\'s scope - do you have validation constraints on properties not used in the form?'
                         . $hint
@@ -94,9 +94,9 @@ final class FormHelper extends Helper
     {
         // none of the remaining errors is related to a value of a form field
         return $errors->count() > 0 &&
-            0 === count(array_filter(iterator_to_array($errors), function ($error) {
+            count(array_filter(iterator_to_array($errors), function ($error) {
                 return $error instanceof FormErrorIterator;
-            }));
+            })) === 0;
     }
 
     protected function constraintViolationPaths(FormErrorIterator $errors): array

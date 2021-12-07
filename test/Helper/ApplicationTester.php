@@ -97,23 +97,23 @@ class ApplicationTester
     }
 
     /**
-     * @return resource
-     */
-    private function getInputStream()
-    {
-        if (null === $this->inputStream) {
-            $this->inputStream = fopen('php://memory', 'r+', false);
-        }
-
-        return $this->inputStream;
-    }
-
-    /**
      * @return int
      */
     public function getStatusCode()
     {
         return $this->statusCode;
+    }
+
+    /**
+     * @return resource
+     */
+    private function getInputStream()
+    {
+        if ($this->inputStream === null) {
+            $this->inputStream = fopen('php://memory', 'r+', false);
+        }
+
+        return $this->inputStream;
     }
 
     private function setInputStream($inputStream)

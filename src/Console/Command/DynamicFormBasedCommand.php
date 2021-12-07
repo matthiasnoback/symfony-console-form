@@ -29,6 +29,6 @@ abstract class DynamicFormBasedCommand extends InteractiveFormCommand implements
 
     protected function configure(): void
     {
-        $this->setName('form:'.$this->commandName);
+        $this->setName('form:' . $this->commandName);
     }
 }

@@ -43,7 +43,7 @@ class CachedInputDefinitionFactory implements InputDefinitionFactory
 
     protected function configCacheFor(string $formType): ConfigCache
     {
-        return new ConfigCache($this->cacheDirectory.'/'.$formType, $this->debug);
+        return new ConfigCache($this->cacheDirectory . '/' . $formType, $this->debug);
     }
 
     /**

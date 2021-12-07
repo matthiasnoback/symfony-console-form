@@ -27,6 +27,4 @@ return static function (
 
     $containerConfigurator->import(SetList::CONTROL_STRUCTURES);
     $containerConfigurator->import(SetList::PSR_12);
-    $containerConfigurator->import(SetList::COMMON);
-    $containerConfigurator->import(SetList::SYMPLIFY);
 };
