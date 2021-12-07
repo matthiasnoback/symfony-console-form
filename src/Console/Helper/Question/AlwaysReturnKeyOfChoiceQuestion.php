@@ -170,6 +170,6 @@ final class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
      */
     private function canBeConvertedToString($value)
     {
-        return null === $value || is_scalar($value) || (\is_object($value) && method_exists($value, '__toString'));
+        return $value === null || is_scalar($value) || (\is_object($value) && method_exists($value, '__toString'));
     }
 }

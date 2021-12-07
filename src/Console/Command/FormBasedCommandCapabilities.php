@@ -12,6 +12,14 @@ trait FormBasedCommandCapabilities
     private $formData;
 
     /**
+     * @param mixed $data
+     */
+    public function setFormData($data): void
+    {
+        $this->formData = $data;
+    }
+
+    /**
      * @return mixed
      */
     protected function formData()
@@ -27,13 +35,5 @@ trait FormBasedCommandCapabilities
         }
 
         return $this->formData;
-    }
-
-    /**
-     * @param mixed $data
-     */
-    public function setFormData($data): void
-    {
-        $this->formData = $data;
     }
 }

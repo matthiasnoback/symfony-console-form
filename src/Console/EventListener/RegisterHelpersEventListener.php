@@ -22,7 +22,7 @@ final class RegisterHelpersEventListener
     {
         $command = $event->getCommand();
 
-        if (null === $command) {
+        if ($command === null) {
             throw new RuntimeException('Received ConsoleCommandEvent without Command instance!');
         }
 

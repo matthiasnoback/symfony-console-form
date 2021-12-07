@@ -7,7 +7,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 final class SymfonyConsoleFormBundle extends Bundle
 {
-    public function getContainerExtension()
+    public function getContainerExtension(): SymfonyConsoleFormExtension
     {
         return new SymfonyConsoleFormExtension();
     }

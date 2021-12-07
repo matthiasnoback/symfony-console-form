@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Kernel;
 
 class AppKernel extends Kernel
 {
-    public function registerBundles()
+    public function registerBundles(): array
     {
         return [
             new FrameworkBundle(),
@@ -17,23 +17,23 @@ class AppKernel extends Kernel
         ];
     }
 
-    public function registerContainerConfiguration(LoaderInterface $loader)
+    public function registerContainerConfiguration(LoaderInterface $loader): void
     {
-        $loader->load(__DIR__.'/config.yml');
+        $loader->load(__DIR__ . '/config.yml');
     }
 
-    public function getProjectDir()
+    public function getProjectDir(): string
     {
         return __DIR__;
     }
 
-    public function getCacheDir()
+    public function getCacheDir(): string
     {
-        return __DIR__.'/temp/cache';
+        return __DIR__ . '/temp/cache';
     }
 
-    public function getLogDir()
+    public function getLogDir(): string
     {
-        return __DIR__.'/temp/logs';
+        return __DIR__ . '/temp/logs';
     }
 }

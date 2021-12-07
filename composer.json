@@ -23,20 +23,21 @@
         }
     },
     "require": {
-        "php": ">=7.4",
-        "symfony/form": "~5.0",
-        "symfony/console": "~5.0",
-        "symfony/translation": "~5.0"
+        "php": ">=8.0",
+        "symfony/form": "~5.0 || ~6.0",
+        "symfony/console": "~5.0 || ~6.0",
+        "symfony/translation": "~5.0 || ~6.0"
     },
     "require-dev": {
         "beberlei/assert": "~2.1",
         "behat/behat": "^3.6",
-        "friendsofphp/php-cs-fixer": "^2.2",
-        "symfony/finder": "~5.0",
-        "symfony/framework-bundle": "~5.0",
-        "symfony/validator": "~5.0",
-        "symfony/yaml": "~5.0",
-        "symfony/security-csrf": "~5.0",
-        "phpunit/phpunit": "^9.5"
+        "symfony/finder": "~5 || ~6.0.0",
+        "symfony/framework-bundle": "~5.0 || ~6.0",
+        "symfony/validator": "~5.0 || ~6.0",
+        "symfony/yaml": "~5.0 || ~6.0",
+        "symfony/security-csrf": "~5.0 || ~6.0",
+        "phpunit/phpunit": "^9.5",
+        "symplify/easy-coding-standard": "^9.4",
+        "symplify/coding-standard": "^9.4"
     }
 }

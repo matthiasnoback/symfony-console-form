@@ -1,0 +1,10 @@
+.github/ export-ignore
+bin/ export-ignore
+doc/ export-ignore
+features/ export-ignore
+test/ export-ignore
+.gitattributes export-ignore
+.gitignore export-ignore
+CONTRIBUTING.md export-ignore
+docker-compose.yml export-ignore
+ecs.php export-ignore

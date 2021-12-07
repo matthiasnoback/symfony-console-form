@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -eu
+
+echo "Creating .env file"
+printf "HOST_UID=%s\nHOST_GID=%s\n" "$(id -u)" "$(id -g)" > .env
+
+echo "Pulling Docker images"
+docker-compose pull
+
+echo "Installing Composer dependencies"
+docker-compose run --rm composer install --ignore-platform-reqs --prefer-dist
+
+echo ""
+echo "Done"
+echo ""
