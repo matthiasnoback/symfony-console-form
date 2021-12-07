@@ -14,7 +14,7 @@ jobs:
         actions:
           -
             name: "Code style"
-            run: vendor/bin/php-cs-fixer fix -v --diff --dry-run
+            run: vendor/bin/ecs check --ansi
         php-versions: ['7.4']
 
     name: ${{ matrix.actions.name }}

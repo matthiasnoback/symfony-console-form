@@ -11,7 +11,7 @@ services:
     user: ${HOST_UID}:${HOST_GID}
 
   php:
-    image: php:7.4-cli-alpine
+    image: php:8.0-cli-alpine
     working_dir: /app
     volumes:
       - ./:/app
