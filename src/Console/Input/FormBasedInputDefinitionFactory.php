@@ -63,7 +63,7 @@ class FormBasedInputDefinitionFactory implements InputDefinitionFactory
         return true;
     }
 
-    private function resolveDefaultValue(FormInterface $field): string|bool|int|float|array|null
+    private function resolveDefaultValue(FormInterface $field): string | bool | int | float | array | null
     {
         $default = $field->getConfig()->getOption('data', null);
 
