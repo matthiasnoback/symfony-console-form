@@ -2,7 +2,4 @@
 
 set -eu
 
-# Copy user and group ID into .env file
-printf "HOST_UID=%s\nHOST_GID=%s\n" "$(id -u)" "$(id -g)" > .env
-
-docker-compose run --rm composer --ignore-platform-reqs "$@"
+docker-compose run --rm composer "$@"
