@@ -9,7 +9,7 @@ echo "Pulling Docker images"
 docker-compose pull
 
 echo "Installing Composer dependencies"
-docker-compose run --rm composer install --ignore-platform-reqs --prefer-dist
+docker-compose run --rm composer update --prefer-dist
 
 echo ""
 echo "Done"
