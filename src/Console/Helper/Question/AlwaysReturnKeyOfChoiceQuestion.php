@@ -42,7 +42,7 @@ final class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
     /**
      * @param bool $multiselect
      */
-    public function setMultiselect($multiselect)
+    public function setMultiselect(bool $multiselect): static
     {
         $this->_multiselect = $multiselect;
 
@@ -52,7 +52,7 @@ final class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
     /**
      * @param string $errorMessage
      */
-    public function setErrorMessage($errorMessage)
+    public function setErrorMessage(string $errorMessage): static
     {
         $this->_errorMessage = $errorMessage;
 
@@ -60,9 +60,9 @@ final class AlwaysReturnKeyOfChoiceQuestion extends ChoiceQuestion
     }
 
     /**
-     * @return callable
+     * @return callable|null
      */
-    public function getValidator()
+    public function getValidator(): ?callable
     {
         return function ($selected) {
             // Collapse all spaces.
