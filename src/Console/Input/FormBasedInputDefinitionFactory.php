@@ -41,7 +41,7 @@ class FormBasedInputDefinitionFactory implements InputDefinitionFactory
             }
 
             $type = InputOption::VALUE_REQUIRED;
-            $default = $field->getConfig()->getOption('data', null);
+            $default = $this->resolveDefaultValue($field);
             $description = FormUtil::label($field);
 
             $inputDefinition->addOption(new InputOption($name, null, $type, $description, $default));
@@ -61,5 +61,16 @@ class FormBasedInputDefinitionFactory implements InputDefinitionFactory
         }
 
         return true;
+    }
+
+    private function resolveDefaultValue(FormInterface $field): string|bool|int|float|array|null
+    {
+        $default = $field->getConfig()->getOption('data', null);
+
+        if (is_scalar($default) || is_null($default)) {
+            return $default;
+        }
+
+        return null;
     }
 }
