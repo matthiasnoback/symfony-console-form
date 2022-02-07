@@ -50,8 +50,8 @@ Feature: It is possible to interactively fill in a form from the CLI
 
   Scenario: Provide an integer
     When I run the command "form:age" and I provide as input
-      | Input      |
-      | 10 |
+      | Input |
+      | 10    |
     Then the command has finished successfully
     And the output should be
       """
@@ -297,6 +297,30 @@ Feature: It is possible to interactively fill in a form from the CLI
         [address] => Matthias\SymfonyConsoleForm\Tests\Form\Data\Address Object
           (
             [street] => 1600 Pennsylvania Ave NW
+          )
+      )
+      """
+
+  Scenario: Choice with default value which cannot be converted to string
+    When I run the command "form:unstringable_choices" and I provide as input
+      | Input |
+      |       |
+    Then the command has finished successfully
+    And the output should contain
+      """
+      Select address:
+        [0] 10 Downing Street
+        [1] 1600 Pennsylvania Ave NW
+        [2] 55 Rue du Faubourg Saint-Honoré
+       >
+      """
+    And the output should contain
+      """
+      Array
+      (
+        [address] => Matthias\SymfonyConsoleForm\Tests\Form\Data\Address Object
+          (
+            [street] => 10 Downing Street
           )
       )
       """

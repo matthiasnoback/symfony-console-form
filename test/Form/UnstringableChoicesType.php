@@ -25,6 +25,7 @@ class UnstringableChoicesType extends AbstractType
                 'choice_label' => function (Address $address) {
                     return $address->street;
                 },
+                'data' => new Address('10 Downing Street')
             ]);
     }
 }

@@ -26,16 +26,19 @@ final class ChoiceTransformer extends AbstractTransformer
     {
         $defaultValue = parent::defaultValueFrom($form);
 
-        // $defaultValue could be an object
-        // Let's find out what form computed to be its view representation
+        /*
+         * $defaultValue can be anything, since it's the form's (default) data. For the ChoiceType form type the default
+         * value may be derived from the choice_label option, which transforms the data to a string. We look for the
+         * choice matching the default data and return its calculated value.
+         */
         $formView = $form->createView();
-        $defaultValueFromChoiceView = \array_reduce(
-            $formView->vars['choices'],
-            static fn (
-                ?string $carry,
-                ChoiceView $choiceView
-            ): ?string => ($carry === null && $choiceView->data === $defaultValue) ? $choiceView->value : $carry
-        );
-        return $defaultValueFromChoiceView ?? $defaultValue;
+        foreach ($formView->vars['choices'] as $choiceView) {
+            /** @var ChoiceView $choiceView */
+            if ($choiceView->data == $defaultValue) {
+                return $choiceView->value;
+            }
+        }
+
+        return $defaultValue;
     }
 }
