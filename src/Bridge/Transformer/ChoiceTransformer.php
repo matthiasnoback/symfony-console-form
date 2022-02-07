@@ -31,10 +31,10 @@ final class ChoiceTransformer extends AbstractTransformer
         $formView = $form->createView();
         $defaultValueFromChoiceView = \array_reduce(
             $formView->vars['choices'],
-            static fn(
+            static fn (
                 ?string $carry,
                 ChoiceView $choiceView
-            ): ?string => (null === $carry && $choiceView->data === $defaultValue) ? $choiceView->value : $carry
+            ): ?string => ($carry === null && $choiceView->data === $defaultValue) ? $choiceView->value : $carry
         );
         return $defaultValueFromChoiceView ?? $defaultValue;
     }
