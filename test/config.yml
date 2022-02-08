@@ -90,6 +90,14 @@ services:
         tags:
             - { name: console.command }
 
+    help_message_command:
+        class: Matthias\SymfonyConsoleForm\Tests\Command\PrintFormDataCommand
+        arguments:
+            - Matthias\SymfonyConsoleForm\Tests\Form\HelpMessageType
+            - help_message
+        tags:
+            - { name: console.command }
+
     translatable_label_command:
         class: Matthias\SymfonyConsoleForm\Tests\Command\PrintFormDataCommand
         arguments:

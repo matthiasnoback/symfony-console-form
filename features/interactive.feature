@@ -169,6 +169,20 @@ Feature: It is possible to interactively fill in a form from the CLI
         )
       """
 
+  Scenario: Help message
+    When I run the command "form:help_message" and I provide as input
+      | Input |
+      | empty |
+    Then the command has finished successfully
+    And the output should be
+      """
+        Restricted to be ACME Inc.
+        Company: Array
+        (
+            [fieldCompany] => empty
+        )
+      """
+
   Scenario: Translatable label
     When I run the command "form:translatable_label" and I provide as input
       | Input |

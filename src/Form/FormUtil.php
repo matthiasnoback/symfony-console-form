@@ -47,6 +47,16 @@ class FormUtil
         return $label;
     }
 
+    public static function help(FormInterface $form): ?string
+    {
+        return $form->getConfig()->getOption('help');
+    }
+
+    public static function helpTranslationParameters(FormInterface $form): array
+    {
+        return $form->getConfig()->getOption('help_translation_parameters');
+    }
+
     public static function isCompound(FormInterface $form): bool
     {
         return $form->getConfig()->getCompound();
