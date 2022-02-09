@@ -325,6 +325,30 @@ Feature: It is possible to interactively fill in a form from the CLI
       )
       """
 
+  Scenario: Choice with object options in interactive mode
+    Given I run the command "form:unstringable_choices_with_values" and I provide as input "55-rue-du-faubourg-saint-honoré" with parameters
+      | Parameter   | Value                    |
+      | --address   | 1600-pennsylvania-ave-nw |
+    Then the command has finished successfully
+    And the output should contain
+      """
+      Select address [1600-pennsylvania-ave-nw]:
+        [10-downing-street              ] 10 Downing Street
+        [1600-pennsylvania-ave-nw       ] 1600 Pennsylvania Ave NW
+        [55-rue-du-faubourg-saint-honoré] 55 Rue du Faubourg Saint-Honoré
+       >
+      """
+    And the output should contain
+      """
+      Array
+      (
+        [address] => Matthias\SymfonyConsoleForm\Tests\Form\Data\Address Object
+          (
+            [street] => 55 Rue du Faubourg Saint-Honoré
+          )
+      )
+      """
+
   Scenario: Command with default form data
     When I run the command "form:default_value_command" and I provide as input
       | Input |

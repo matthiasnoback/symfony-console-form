@@ -52,6 +52,21 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
+     * @Given /^I run the command "([^"]*)" and I provide as input "([^"]*)" with parameters$/
+     * @Given /^parameters"$/
+     */
+    public function iRunTheCommandAndIProvideAsInputAndParameters($name, $input, TableNode $parameters)
+    {
+        $parameters = $parameters->getHash();
+        $parameters = array_combine(
+            array_column($parameters, 'Parameter'),
+            array_column($parameters, 'Value')
+        );
+
+        $this->runCommandWithInteractiveInputAndParameters($name, [$input], $parameters);
+    }
+
+    /**
      * @Given /^I run the command "([^"]*)" and I provide as input "([^"]*)"$/
      */
     public function iRunTheCommandAndIProvideAsInputOneLine($name, $input)
@@ -68,6 +83,12 @@ class FeatureContext implements Context, SnippetAcceptingContext
             StringUtil::trimLines((string) $expectedOutput),
             StringUtil::trimLines($this->getOutput())
         );
+    }
+
+    private function runCommandWithInteractiveInputAndParameters($name, array $inputs, array $parameters)
+    {
+        $this->tester->setInputs($inputs);
+        $this->tester->run(\array_merge(['command' => $name], $parameters), array('interactive' => true, 'decorated' => false));
     }
 
     private function runCommandWithInteractiveInput($name, array $inputs)
