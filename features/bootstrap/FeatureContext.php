@@ -53,7 +53,6 @@ class FeatureContext implements Context, SnippetAcceptingContext
 
     /**
      * @Given /^I run the command "([^"]*)" and I provide as input "([^"]*)" with parameters$/
-     * @Given /^parameters"$/
      */
     public function iRunTheCommandAndIProvideAsInputAndParameters($name, $input, TableNode $parameters)
     {

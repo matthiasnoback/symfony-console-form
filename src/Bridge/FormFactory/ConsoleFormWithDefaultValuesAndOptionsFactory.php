@@ -3,6 +3,7 @@
 namespace Matthias\SymfonyConsoleForm\Bridge\FormFactory;
 
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Csrf\Type\FormTypeCsrfExtension;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -45,7 +46,19 @@ final class ConsoleFormWithDefaultValuesAndOptionsFactory implements ConsoleForm
                 continue;
             }
 
-            $childBuilder->setData($providedValue);
+            $value = $providedValue;
+
+            try {
+                foreach ($childBuilder->getViewTransformers() as $viewTransformer) {
+                    $value = $viewTransformer->reverseTransform($value);
+                }
+                foreach ($childBuilder->getModelTransformers() as $modelTransformer) {
+                    $value = $modelTransformer->reverseTransform($value);
+                }
+            } catch (TransformationFailedException) {
+            }
+
+            $childBuilder->setData($value);
         }
 
         return $formBuilder->getForm();
