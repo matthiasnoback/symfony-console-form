@@ -24,9 +24,14 @@ abstract class AbstractTransformer implements FormToQuestionTransformer
 
     protected function questionFrom(FormInterface $form): string
     {
-        $question = $this->translator->trans(FormUtil::label($form), [], $this->translationDomainFrom($form));
+        $translationDomain = $this->translationDomainFrom($form);
+        $question = $this->translator->trans(FormUtil::label($form), [], $translationDomain);
+        $help = FormUtil::help($form);
+        if ($help !== null) {
+            $help = $this->translator->trans($help, FormUtil::helpTranslationParameters($form), $translationDomain);
+        }
 
-        return $this->formattedQuestion($question, $this->defaultValueFrom($form));
+        return $this->formattedQuestion($question, $this->defaultValueFrom($form), $help);
     }
 
     /**
@@ -55,8 +60,8 @@ abstract class AbstractTransformer implements FormToQuestionTransformer
      * @param mixed $defaultValue
      * @return string
      */
-    protected function formattedQuestion(string $question, $defaultValue): string
+    protected function formattedQuestion(string $question, $defaultValue, ?string $help = null): string
     {
-        return Format::forQuestion($question, $defaultValue);
+        return Format::forQuestion($question, $defaultValue, $help);
     }
 }
