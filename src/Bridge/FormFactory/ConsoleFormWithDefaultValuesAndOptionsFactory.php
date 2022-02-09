@@ -6,10 +6,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Csrf\Type\FormTypeCsrfExtension;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormRegistryInterface;
-use Symfony\Component\Form\Test\FormBuilderInterface;
 
 final class ConsoleFormWithDefaultValuesAndOptionsFactory implements ConsoleFormFactory
 {
@@ -29,39 +29,72 @@ final class ConsoleFormWithDefaultValuesAndOptionsFactory implements ConsoleForm
         $this->formRegistry = $formRegistry;
     }
 
+    public function createNamed(
+        string $name,
+        string $formType,
+        InputInterface $input,
+        array $options = []
+    ): FormInterface {
+        $options = $this->addDefaultOptions($options);
+
+        $formBuilder = $this->formFactory->createNamedBuilder($name, $formType, null, $options);
+
+        $this->createChild($formBuilder, $input, $options);
+
+        return $formBuilder->getForm();
+    }
+
     public function create(string $formType, InputInterface $input, array $options = []): FormInterface
     {
         $options = $this->addDefaultOptions($options);
 
         $formBuilder = $this->formFactory->createBuilder($formType, null, $options);
 
-        foreach ($formBuilder as $name => $childBuilder) {
+        $this->createChild($formBuilder, $input, $options);
+
+        return $formBuilder->getForm();
+    }
+
+    protected function createChild(
+        FormBuilderInterface $formBuilder,
+        InputInterface $input,
+        array $options,
+        ?string $name = null
+    ): void {
+        if ($formBuilder->getCompound()) {
             /** @var FormBuilderInterface $childBuilder */
+            foreach ($formBuilder as $childName => $childBuilder) {
+                $this->createChild(
+                    $childBuilder,
+                    $input,
+                    $options,
+                    $name === null ? $childName : $name . '[' . $childName . ']'
+                );
+            }
+        } else {
+            $name = $name ?? $formBuilder->getName();
             if (!$input->hasOption($name)) {
-                continue;
+                return;
             }
 
             $providedValue = $input->getOption($name);
             if ($providedValue === null) {
-                continue;
+                return;
             }
 
             $value = $providedValue;
-
             try {
-                foreach ($childBuilder->getViewTransformers() as $viewTransformer) {
+                foreach ($formBuilder->getViewTransformers() as $viewTransformer) {
                     $value = $viewTransformer->reverseTransform($value);
                 }
-                foreach ($childBuilder->getModelTransformers() as $modelTransformer) {
+                foreach ($formBuilder->getModelTransformers() as $modelTransformer) {
                     $value = $modelTransformer->reverseTransform($value);
                 }
             } catch (TransformationFailedException) {
             }
 
-            $childBuilder->setData($value);
+            $formBuilder->setData($value);
         }
-
-        return $formBuilder->getForm();
     }
 
     private function addDefaultOptions(array $options): array
