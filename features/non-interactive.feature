@@ -69,3 +69,17 @@ Feature: It is possible to interactively fill in a form from the CLI
           )
       )
       """
+
+  Scenario: Non-compound form type in non-interactive mode
+    When I run a command non-interactively with parameters
+      | Parameter   | Value                   |
+      | command     | form:non_compound_color |
+      | --color     | blue                    |
+    Then the command has finished successfully
+    And the output should contain
+      """
+      Array
+      (
+          [0] => blue
+      )
+      """

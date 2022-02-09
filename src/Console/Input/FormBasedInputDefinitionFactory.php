@@ -35,19 +35,28 @@ class FormBasedInputDefinitionFactory implements InputDefinitionFactory
 
         $inputDefinition = new InputDefinition();
 
+        if (!$form->getConfig()->getCompound()) {
+            $this->addFormToInputDefinition($form->getName(), $form, $inputDefinition);
+        }
+
         foreach ($form->all() as $name => $field) {
-            if (!$this->isFormFieldSupported($field)) {
-                continue;
-            }
-
-            $type = InputOption::VALUE_REQUIRED;
-            $default = $this->resolveDefaultValue($field);
-            $description = FormUtil::label($field);
-
-            $inputDefinition->addOption(new InputOption($name, null, $type, $description, $default));
+            $this->addFormToInputDefinition($name, $field, $inputDefinition);
         }
 
         return $inputDefinition;
+    }
+
+    private function addFormToInputDefinition(string $name, FormInterface $form, InputDefinition $inputDefinition): void
+    {
+        if (!$this->isFormFieldSupported($form)) {
+            return;
+        }
+
+        $type = InputOption::VALUE_REQUIRED;
+        $default = $this->resolveDefaultValue($form);
+        $description = FormUtil::label($form);
+
+        $inputDefinition->addOption(new InputOption($name, null, $type, $description, $default));
     }
 
     private function isFormFieldSupported(FormInterface $field): bool
