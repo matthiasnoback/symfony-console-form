@@ -52,3 +52,20 @@ Feature: It is possible to interactively fill in a form from the CLI
     """
     There were form errors.
     """
+
+  Scenario: Choice with object options in non-interactive mode
+    When I run a command non-interactively with parameters
+      | Parameter   | Value                                 |
+      | command     | form:unstringable_choices_with_values |
+      | --address   | 1600-pennsylvania-ave-nw              |
+    Then the command has finished successfully
+    And the output should contain
+      """
+      Array
+      (
+        [address] => Matthias\SymfonyConsoleForm\Tests\Form\Data\Address Object
+          (
+            [street] => 1600 Pennsylvania Ave NW
+          )
+      )
+      """
