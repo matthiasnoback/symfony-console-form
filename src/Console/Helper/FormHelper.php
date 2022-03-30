@@ -36,7 +36,8 @@ final class FormHelper extends Helper
      *
      * @return mixed
      */
-    public function interactUsingForm(
+    public function interactUsingNamedForm(
+        ?string $name,
         string $formType,
         InputInterface $input,
         OutputInterface $output,
@@ -46,8 +47,14 @@ final class FormHelper extends Helper
         $validFormFields = [];
 
         do {
-            $form = $this->formFactory->create($formType, $input, $options);
-            $form->setData($data);
+            if ($name === null) {
+                $form = $this->formFactory->create($formType, $input, $options);
+            } else {
+                $form = $this->formFactory->createNamed($name, $formType, $input, $options);
+            }
+            if ($data !== null) {
+                $form->setData($data);
+            }
 
             // if we are rerunning the form for invalid data we don't need the fields that are already valid.
             foreach ($validFormFields as $validFormField) {
@@ -88,6 +95,21 @@ final class FormHelper extends Helper
         } while (!$form->isValid());
 
         return $data;
+    }
+
+    /**
+     * @param mixed $data
+     *
+     * @return mixed
+     */
+    public function interactUsingForm(
+        string $formType,
+        InputInterface $input,
+        OutputInterface $output,
+        array $options = [],
+        $data = null
+    ) {
+        return $this->interactUsingNamedForm(null, $formType, $input, $output, $options, $data);
     }
 
     protected function noErrorsCanBeFixed(FormErrorIterator $errors): bool

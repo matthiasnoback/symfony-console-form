@@ -35,32 +35,27 @@ class FormBasedInputDefinitionFactory implements InputDefinitionFactory
 
         $inputDefinition = new InputDefinition();
 
-        foreach ($form->all() as $name => $field) {
-            if (!$this->isFormFieldSupported($field)) {
-                continue;
-            }
-
-            $type = InputOption::VALUE_REQUIRED;
-            $default = $this->resolveDefaultValue($field);
-            $description = FormUtil::label($field);
-
-            $inputDefinition->addOption(new InputOption($name, null, $type, $description, $default));
-        }
+        $this->addFormToInputDefinition($inputDefinition, $form);
 
         return $inputDefinition;
     }
 
-    private function isFormFieldSupported(FormInterface $field): bool
+    private function addFormToInputDefinition(InputDefinition $inputDefinition, FormInterface $form, ?string $name = null): void
     {
-        if ($field->getConfig()->getCompound()) {
-            if ($field->getConfig()->getType()->getInnerType() instanceof RepeatedType) {
-                return true;
+        $repeatedField = $form->getConfig()->getType()->getInnerType() instanceof RepeatedType;
+        if (!$repeatedField && $form->getConfig()->getCompound()) {
+            foreach ($form->all() as $childName => $field) {
+                $subName = $name === null ? $childName : $name . '[' . $childName . ']';
+                $this->addFormToInputDefinition($inputDefinition, $field, $subName);
             }
+        } else {
+            $name = $name ?? $form->getName();
+            $type = InputOption::VALUE_REQUIRED;
+            $default = $this->resolveDefaultValue($form);
+            $description = FormUtil::label($form);
 
-            return false;
+            $inputDefinition->addOption(new InputOption($name, null, $type, $description, $default));
         }
-
-        return true;
     }
 
     private function resolveDefaultValue(FormInterface $field): string | bool | int | float | array | null

@@ -378,3 +378,24 @@ Feature: It is possible to interactively fill in a form from the CLI
             [street] => foo
         )
       """
+
+  Scenario: Non-compound form type in interactive mode
+    When I run the command "form:non_compound_color" and I provide as input "blue" with parameters
+      | Parameter | Value  |
+      | --color   | yellow |
+    Then the command has finished successfully
+    And the output should contain
+      """
+      Select color [yellow]:
+        [red   ] Red
+        [blue  ] Blue
+        [yellow] Yellow
+      >
+      """
+    And the output should contain
+      """
+      Array
+      (
+          [0] => blue
+      )
+      """

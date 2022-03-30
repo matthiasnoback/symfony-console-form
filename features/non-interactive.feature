@@ -69,3 +69,49 @@ Feature: It is possible to interactively fill in a form from the CLI
           )
       )
       """
+
+  Scenario: Non-compound form type in non-interactive mode
+    When I run a command non-interactively with parameters
+      | Parameter   | Value                   |
+      | command     | form:non_compound_color |
+      | --color     | blue                    |
+    Then the command has finished successfully
+    And the output should contain
+      """
+      Array
+      (
+          [0] => blue
+      )
+      """
+
+  Scenario: Nested form type in non-interactive mode
+    When I run a command non-interactively with parameters
+      | Parameter               | Value                    |
+      | command                 | form:nested              |
+      | --user[name]            | mario                    |
+      | --user[lastname]        | rossi                    |
+      | --user[password]        | test                     |
+      | --anotherUser[name]     | luigi                    |
+      | --anotherUser[lastname] | verdi                    |
+      | --anotherUser[password] | test2                    |
+      | --color                 | blue                     |
+    Then the command has finished successfully
+    And the output should contain
+      """
+      Array
+      (
+          [user] => Array
+          (
+              [name] => mario
+              [lastname] => rossi
+              [password] => test
+          )
+          [anotherUser] => Array
+          (
+              [name] => luigi
+              [lastname] => verdi
+              [password] => test2
+          )
+          [color] => blue
+      )
+      """
