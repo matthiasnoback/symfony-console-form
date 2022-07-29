@@ -399,3 +399,23 @@ Feature: It is possible to interactively fill in a form from the CLI
           [0] => blue
       )
       """
+
+  Scenario: Default value with transformers
+    Given I run the command "form:default_value_with_data_transformers" and I provide as input "Rue du Faubourg Saint-Honoré" with parameters
+      | Parameter   | Value                    |
+      | --street   | pennsylvania-ave-nw |
+    Then the command has finished successfully
+    And the output should contain
+      """
+      Street [pennsylvania-ave-nw]:
+      """
+    And the output should contain
+      """
+      Array
+      (
+        [street] => Matthias\SymfonyConsoleForm\Tests\Form\Data\Street Object
+          (
+            [value] => Rue du Faubourg Saint-Honoré
+          )
+      )
+      """

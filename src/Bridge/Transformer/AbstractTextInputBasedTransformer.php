@@ -13,4 +13,9 @@ abstract class AbstractTextInputBasedTransformer extends AbstractTransformer
     {
         return new Question($this->questionFrom($form), $this->defaultValueFrom($form));
     }
+
+    protected function defaultValueFrom(FormInterface $form)
+    {
+        return $form->getViewData();
+    }
 }

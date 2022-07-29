@@ -6,7 +6,7 @@ use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Form\FormInterface;
 
-final class CheckboxTransformer extends AbstractTransformer
+final class CheckboxTransformer extends AbstractChoiceTransformer
 {
     public function transform(FormInterface $form): Question
     {

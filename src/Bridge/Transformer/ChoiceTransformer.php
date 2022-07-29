@@ -7,7 +7,7 @@ use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Form\ChoiceList\View\ChoiceView;
 use Symfony\Component\Form\FormInterface;
 
-final class ChoiceTransformer extends AbstractTransformer
+final class ChoiceTransformer extends AbstractChoiceTransformer
 {
     public function transform(FormInterface $form): Question
     {
