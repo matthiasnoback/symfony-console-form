@@ -63,7 +63,7 @@ final class FormHelper extends Helper
 
             $submittedData = $this->formInteractor->interactWith($form, $this->getHelperSet(), $input, $output);
 
-            $form->submit($submittedData);
+            $form->submit($submittedData, false);
 
             // save the current data
             $data = $form->getData();

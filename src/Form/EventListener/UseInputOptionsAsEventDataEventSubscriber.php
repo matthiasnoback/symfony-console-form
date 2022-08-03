@@ -39,8 +39,14 @@ class UseInputOptionsAsEventDataEventSubscriber implements EventSubscriberInterf
                     $submittedData = $this->convertInputToSubmittedData($input, $field, $name ?? $form->getName());
                 } else {
                     $subName = $name === null ? $childName : $name . '[' . $childName . ']';
-                    $submittedData[$childName] = $this->convertInputToSubmittedData($input, $field, $subName);
+                    $subValue = $this->convertInputToSubmittedData($input, $field, $subName);
+                    if ($subValue !== null) {
+                        $submittedData[$childName] = $subValue;
+                    }
                 }
+            }
+            if (empty($submittedData)) {
+                $submittedData = null;
             }
         } else {
             $name = $name ?? $form->getName();
