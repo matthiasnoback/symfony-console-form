@@ -170,6 +170,14 @@ services:
         tags:
             - { name: console.command }
 
+    edit_user_command:
+        class: Matthias\SymfonyConsoleForm\Tests\Command\EditUserCommand
+        arguments:
+            - Matthias\SymfonyConsoleForm\Tests\Form\EditUserType
+            - edit_user
+        tags:
+            - { name: console.command }
+
 framework:
     form:
         csrf_protection: true
