@@ -16,14 +16,14 @@ class PrintFormDataCommand extends DynamicFormBasedCommand
             $printData = $formData->__toString();
         } else {
             $printData = print_r(
-                    array_map(function ($data) {
+                array_map(function ($data) {
                     if ($data instanceof \DateTime) {
                         return $data->format(\DateTime::ISO8601);
                     }
 
                     return $data;
                 }, (array)$formData),
-            true
+                true
             );
         }
 
