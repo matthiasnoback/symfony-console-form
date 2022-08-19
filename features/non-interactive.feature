@@ -84,6 +84,21 @@ Feature: It is possible to interactively fill in a form from the CLI
       )
       """
 
+  Scenario: A form field is optional and no option has been provided for it
+
+    The default form data for this command (EditUserCommand) has name Mario, lastName Rossi. When running the command,
+    only --lastName is provided. Instead of setting name to null, the existing name should not be modified.
+
+    When I run a command non-interactively with parameters
+      | Parameter  | Value          |
+      | command    | form:edit_user |
+      | --lastName | Verdi          |
+    Then the command has finished successfully
+    And the output should contain
+      """
+      name: Mario, lastName: Verdi
+      """
+
   Scenario: Nested form type in non-interactive mode
     When I run a command non-interactively with parameters
       | Parameter               | Value                    |
