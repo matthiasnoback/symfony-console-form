@@ -9,7 +9,7 @@ class Address
     /**
      * @param $street
      */
-    public function __construct($street)
+    public function __construct(?string $street = null)
     {
         $this->street = $street;
     }
