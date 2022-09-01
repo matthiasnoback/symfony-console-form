@@ -38,6 +38,7 @@
         "symfony/security-csrf": "~5.0 || ~6.0",
         "phpunit/phpunit": "^9.5",
         "symplify/easy-coding-standard": "^9.4",
-        "symplify/coding-standard": "^9.4"
+        "symplify/coding-standard": "^9.4",
+        "symfony/intl": "^5"
     }
 }

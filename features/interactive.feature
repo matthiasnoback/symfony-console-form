@@ -379,6 +379,34 @@ Feature: It is possible to interactively fill in a form from the CLI
         )
       """
 
+  Scenario: The demo form
+    When I run the command "form:demo" and I provide as input
+      | Input            |
+      | Menno            |
+      | y                |
+      | Main street      |
+      | n                |
+      | test@example.com |
+      | NL               |
+      | 2001-04-01       |
+    And the output should contain
+      """
+      Array
+      (
+        [name] => Menno
+        [email] => test@example.com
+        [country] => NL
+        [addresses] => Array
+        (
+          [0] => Matthias\SymfonyConsoleForm\Tests\Form\Data\Address Object
+            (
+            [street] => Main street
+            )
+        )
+        [dateOfBirth] => 2001-04-01T00:00:00+0000
+      )
+      """
+
   Scenario: Non-compound form type in interactive mode
     When I run the command "form:non_compound_color" and I provide as input "blue" with parameters
       | Parameter | Value  |
