@@ -39,6 +39,6 @@
         "phpunit/phpunit": "^9.5",
         "symplify/easy-coding-standard": "^9.4",
         "symplify/coding-standard": "^9.4",
-        "symfony/intl": "^6.1"
+        "symfony/intl": "^5"
     }
 }
