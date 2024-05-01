@@ -9,10 +9,12 @@ class SecretRequiredField
     /**
      * @Assert\NotBlank()
      */
+    #[Assert\NotBlank]
     public $name;
 
     /**
      * @Assert\NotBlank()
      */
+    #[Assert\NotBlank]
     public $fieldNotUsedInTheForm;
 }
