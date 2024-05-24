@@ -23,12 +23,12 @@ class StreetType extends AbstractType implements DataTransformerInterface
         return TextType::class;
     }
 
-    public function transform(mixed $value)
+    public function transform(mixed $value): mixed
     {
         return (string)$value;
     }
 
-    public function reverseTransform(mixed $value)
+    public function reverseTransform(mixed $value): mixed
     {
         return new Street((string)$value);
     }
