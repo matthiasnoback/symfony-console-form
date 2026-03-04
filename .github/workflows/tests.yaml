@@ -24,7 +24,7 @@ jobs:
                         name: "Code style"
                         run: vendor/bin/ecs check --ansi
                 dependencies: ["lowest", "highest"]
-        name: ${{ matrix.actions.name }}
+        name: ${{ matrix.actions.name }} - PHP ${{ matrix.php }} - Dependencies ${{ matrix.dependencies }}
         runs-on: ubuntu-latest
 
         steps:
