@@ -13,12 +13,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class StreetType extends AbstractType implements DataTransformerInterface
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addModelTransformer($this);
     }
 
-    public function getParent()
+    public function getParent(): ?string
     {
         return TextType::class;
     }

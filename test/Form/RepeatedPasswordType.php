@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class RepeatedPasswordType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('password', RepeatedType::class, [
             'type' => PasswordType::class,

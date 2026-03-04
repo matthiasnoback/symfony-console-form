@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class DefaultValueWithDataTransformersType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('street', StreetType::class, [

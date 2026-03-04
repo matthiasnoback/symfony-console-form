@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 final class AgeType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('age', IntegerType::class, ['label' => 'Your age']);
     }

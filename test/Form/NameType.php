@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints\Length;
 
 class NameType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
             'name',
@@ -19,7 +19,7 @@ class NameType extends AbstractType
                 'label' => 'Your name',
                 'data' => 'Matthias',
                 'constraints' => [
-                    new Length(['min' => 4]),
+                    new Length(min: 4),
                 ],
             ]
         )->add(
