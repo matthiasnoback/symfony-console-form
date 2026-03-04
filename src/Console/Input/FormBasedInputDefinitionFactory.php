@@ -62,7 +62,7 @@ class FormBasedInputDefinitionFactory implements InputDefinitionFactory
     {
         $default = $field->getConfig()->getOption('data', null);
 
-        if (is_scalar($default) || is_null($default)) {
+        if (is_scalar($default) || $default === null) {
             return $default;
         }
 
