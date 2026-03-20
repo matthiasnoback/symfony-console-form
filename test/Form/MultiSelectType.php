@@ -8,7 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class MultiSelectType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(

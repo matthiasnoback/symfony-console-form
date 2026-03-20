@@ -23,22 +23,22 @@
         }
     },
     "require": {
-        "php": ">=8.0",
-        "symfony/form": "~5.4 || ~6.0 || ~7.0",
-        "symfony/console": "~5.4 || ~6.0 || ~7.0",
-        "symfony/translation": "~5.4 || ~6.0 || ~7.0"
+        "php": ">=8.1",
+        "symfony/form": "~6.4 || ~7.4 || ~8.0",
+        "symfony/console": "~6.4 || ~7.4 || ~8.0",
+        "symfony/translation": "~6.4 || ~7.4 || ~8.0"
     },
     "require-dev": {
         "beberlei/assert": "~2.1",
         "behat/behat": "^3.6",
-        "symfony/finder": "~5.4 || ~6.0 || ~7.0",
-        "symfony/framework-bundle": "~5.4 || ~6.0 || ~7.0",
-        "symfony/validator": "~5.4 || ~6.0 || ~7.0",
-        "symfony/yaml": "~5.4 || ~6.0 || ~7.0",
-        "symfony/security-csrf": "~5.4 || ~6.0 || ~7.0",
+        "symfony/finder": "~6.4 || ~7.4 || ~8.0",
+        "symfony/framework-bundle": "~6.4 || ~7.4 || ~8.0",
+        "symfony/validator": "~6.4 || ~7.4 || ~8.0",
+        "symfony/yaml": "~6.4 || ~7.4 || ~8.0",
+        "symfony/security-csrf": "~6.4 || ~7.4 || ~8.0",
         "phpunit/phpunit": "^9.5",
-        "symplify/easy-coding-standard": "^9.4",
-        "symplify/coding-standard": "^9.4",
-        "symfony/intl": "~5.4 || ~6.0 || ~7.0"
+        "symplify/easy-coding-standard": "^12.0",
+        "symplify/coding-standard": "^12.0",
+        "symfony/intl": "~6.4 || ~7.4 || ~8.0"
     }
 }
