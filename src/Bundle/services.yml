@@ -84,6 +84,13 @@ services:
         tags:
             - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\CheckboxType }
 
+    matthias_symfony_console_form.file_transformer:
+        class: Matthias\SymfonyConsoleForm\Bridge\Transformer\FileFormTransformer
+        parent: matthias_symfony_console_form.abstract_transformer
+        public: false
+        tags:
+            - { name: form_to_question_transformer, form_type: Symfony\Component\Form\Extension\Core\Type\FileType }
+
     matthias_symfony_console_form.delegating_interactor:
         class: Matthias\SymfonyConsoleForm\Bridge\Interaction\DelegatingInteractor
         public: false
